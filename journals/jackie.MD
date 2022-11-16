@@ -1,3 +1,3 @@
 ## November 15, 2022
 
-Started journal
+Today, I started the journal
