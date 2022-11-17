@@ -1,29 +1,38 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-import os
+async def migrate():
+    from . import down, up, LATEST, ZERO
+    import os
+    import sys
 
-app = FastAPI()
+    db_url = os.environ["DATABASE_URL"]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        os.environ.get("CORS_HOST", "http://localhost:3000")
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    if len(sys.argv) < 2:
+        print("Command: up|down [amount]")
+        exit(1)
+    direction = sys.argv[1]
+    amount = sys.argv[2] if len(sys.argv) > 2 else None
+    if direction == "up":
+        if amount is None:
+            amount = LATEST
+        else:
+            try:
+                amount = int(amount)
+            except ValueError:
+                print(f"Unknown amount {amount}")
+        await up(db_url, to=amount)
+    elif direction == "down":
+        if amount is None:
+            amount = 1
+        elif amount == "zero":
+            amount = ZERO
+        else:
+            try:
+                amount = int(amount)
+            except ValueError:
+                print(f"Unknown amount {amount}")
+        await down(db_url, to=amount)
 
 
-@app.get("/api/launch-details")
-def launch_details():
-    return {
-        "launch_details": {
-            "year": 2022,
-            "month": 12,
-            "day": "9",
-            "hour": 19,
-            "min": 0,
-            "tz:": "PST"
-        }
-    }
+if __name__ == "__main__":
+    from asyncio import run
+
+    run(migrate())

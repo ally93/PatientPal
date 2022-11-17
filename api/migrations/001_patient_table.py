@@ -8,7 +8,7 @@ steps= [
             birth_date DATE NOT NULL,
             email VARCHAR(1000) NOT NULL,
             address TEXT,
-            gender VARCHAR(50) NOT NULL,
+            gender VARCHAR(50) NOT NULL
         );
         """,
 

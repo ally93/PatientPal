@@ -55,7 +55,7 @@ class PatientRepository:
                         for record in db
                     ]
         except Exception as e:
-            print(e)
+            print("failed to get list of patients", e)
             return {"message": "Could not get all patients!"}
 
 
@@ -84,9 +84,9 @@ class PatientRepository:
                         ]
                     )
                     id = result.fetchone()[0]
-                    return self.vacation_in_to_out(id, patient)
+                    return self.patient_in_to_out(id, patient)
         except Exception as e:
-            print(e)
+            print("failed to create patient", e)
             return {"message": "Could not create patient"}
                 
 

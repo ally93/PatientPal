@@ -104,6 +104,7 @@ async def up(db_url, to=LATEST, dir=os.path.dirname(__file__)):
         async with await AsyncConnection.connect(db_url) as conn:
             async with conn.cursor() as db:
                 for step in migration.steps:
+                    print("step: ", step)
                     await db.execute(step.up)
                 await db.execute(
                     """
