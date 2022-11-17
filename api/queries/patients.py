@@ -27,6 +27,35 @@ class PatientOut(BaseModel):
 
 
 class PatientRepository:
+    def get_one(self, patient_id: int) -> Optional[PatientOut]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id
+                             , name
+                             , birth_date
+                             , email
+                             , address
+                             , gender
+                        FROM patients
+                        WHERE id = %s
+                        """,
+                        [patient_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_patient_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get patient details"}
+
+
     def delete(self, patient_id: int) -> bool:
         try:
             # connect the database

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response
-from typing import Union, List
+from typing import Union, List, Optional
 from queries.patients import (
     Error,
     PatientIn,
@@ -27,6 +27,7 @@ def get_all(
 ):
     return repo.get_all()
 
+
 @router.put("/patients/{patient_id}", response_model=Union[PatientOut, Error])
 def update_patient(
     patient_id: int,
@@ -35,9 +36,22 @@ def update_patient(
 ) -> Union[PatientOut, Error]:
     return repo.update(patient_id, patient)
 
+
 @router.delete("/patients/{patient_id}", response_model=bool)
 def delete_patient(
     patient_id: int,
     repo: PatientRepository = Depends(),
 ) -> bool:
     return repo.delete(patient_id)
+
+
+@router.get("/patients/{patient_id}", response_model=Optional[PatientOut])
+def get_one_patient(
+    patient_id: int,
+    response: Response,
+    repo: PatientRepository = Depends(),
+) -> PatientOut:
+    patient = repo.get_one(patient_id)
+    if patient is None:
+        response.status_code = 404
+    return patient
