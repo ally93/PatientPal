@@ -26,3 +26,11 @@ def get_all(
 
 ):
     return repo.get_all()
+
+@router.put("/patients/{patient_id}", response_model=Union[PatientOut, Error])
+def update_patient(
+    patient_id: int,
+    patient: PatientIn,
+    repo: PatientRepository = Depends(),
+) -> Union[PatientOut, Error]:
+    return repo.update(patient_id, patient)

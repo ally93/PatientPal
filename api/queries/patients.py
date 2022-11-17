@@ -27,6 +27,36 @@ class PatientOut(BaseModel):
 
 
 class PatientRepository:
+    def update(self, patient_id: int, patient: PatientIn) -> Union[PatientOut, Error]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor(something to run SQL with)
+                with conn.cursor() as db:
+                    # run our SELECT statement
+                    db.execute(
+                        """
+                        UPDATE patients
+                        SET name = %s
+                            , birth_date = %s
+                            , email = %s
+                            , address = %s
+                            , gender = %s
+                        Where id = %s
+                        """,
+                        [
+                            patient.name,
+                            patient.birth_date,
+                            patient.email,
+                            patient.address,
+                            patient.gender,
+                            patient_id
+                        ]
+                    )
+                    return self.patient_in_to_out(patient_id, patient)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update patient details!"}
 
     def get_all(self) -> Union[Error,List[PatientOut]]:
         try:
