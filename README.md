@@ -1,13 +1,20 @@
 # Module3 Project Gamma
 
-## Getting started
+## Team - Heaven Seven 
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+* Sophie
+* Ally
+* Tanner
+* Jackie
 
-## Install Extensions
+<p>&nbsp;</p>
+
+## Design 
+This project consists of 2 microservices (API and User_API) operating within their own bounded context
+
+<p>&nbsp;</p>
+
+## Some Important Install Extensions
 
 * Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
 * Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
@@ -21,7 +28,7 @@ tasks for this week.
 * [ ] Journals
 
 ## Project layout
-
+DONE
 The layout of the project is just like all of the projects
 you did with `docker-compose` in module #2. You will create
 a directory in the root of the repository for each service
@@ -29,18 +36,18 @@ that you add to your project just like those previous
 projects were setup.
 
 ### Directories
-
+DONE
 Several directories have been added to your project. The
 directories `docs` and `journals` are places for you and
 your team-mates to, respectively, put any documentation
 about your project that you create and to put your
 project-journal entries. See the _README.md_ file in each
 directory for more info.
-
+DONE
 The other directories, `ghi` and `sample_service`, are
 sample services, that you can start building off of or use
 as a reference point.
-
+(?)
 Inside of `ghi` is a minimal React app that has an "under
 construction" page. It is setup similarly to all of the
 other React projects that you have worked on.

@@ -34,3 +34,10 @@ def update_patient(
     repo: PatientRepository = Depends(),
 ) -> Union[PatientOut, Error]:
     return repo.update(patient_id, patient)
+
+@router.delete("/patients/{patient_id}", response_model=bool)
+def delete_patient(
+    patient_id: int,
+    repo: PatientRepository = Depends(),
+) -> bool:
+    return repo.delete(patient_id)
