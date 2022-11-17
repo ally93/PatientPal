@@ -27,38 +27,6 @@ class PatientOut(BaseModel):
 
 
 class PatientRepository:
-    # def update(self, vacation_id: int, vacation: VacationIn) -> Union[VacationOut, Error]:
-    #     try:
-    #         # connect the database
-    #         with pool.connection() as conn:
-    #             # get a cursor(something to run SQL with)
-    #             with conn.cursor() as db:
-    #                 # run our SELECT statement
-    #                 db.execute(
-    #                     """
-    #                     UPDATE vacations
-    #                     SET name = %s
-    #                         , from_date = %s
-    #                         , to_date = %s
-    #                         , thoughts = %s
-    #                     Where id = %s
-    #                     """,
-    #                     [
-    #                         vacation.name,
-    #                         vacation.from_date,
-    #                         vacation.to_date,
-    #                         vacation.thoughts,
-    #                         vacation_id
-    #                     ]
-    #                 )
-    #                 # old_data = vacation.dict()
-    #                 # return VacationOut(id=vacation_id, **old_data)
-    #                 return self.vacation_in_to_out(vacation_id, vacation)
-    #     except Exception as e:
-    #         print(e)
-    #         return {"message": "Could not update vacation!"}
-
-
 
     def get_all(self) -> Union[Error,List[PatientOut]]:
         try:
