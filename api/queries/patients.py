@@ -184,7 +184,7 @@ class PatientRepository:
 
     def patient_in_to_out(self, id: int, patient: PatientIn):
         old_data = patient.dict()
-        if old_data['id']:
+        if 'id' in old_data :
             return PatientOut(**old_data)
         else: 
             return PatientOut(id=id, **old_data)
