@@ -3,6 +3,7 @@ from typing import Union, List, Optional
 from queries.patients import (
     Error,
     PatientIn,
+    PatientUpdateIn,
     PatientRepository,
     PatientOut,
 )
@@ -31,7 +32,7 @@ def get_all(
 @router.put("/patients/{patient_id}", response_model=Union[PatientOut, Error])
 def update_patient(
     patient_id: int,
-    patient: PatientIn,
+    patient: PatientUpdateIn,
     repo: PatientRepository = Depends(),
 ) -> Union[PatientOut, Error]:
     return repo.update(patient_id, patient)
