@@ -82,9 +82,9 @@ class PatientRepository:
 
 
     def update(self, patient_id: int, patient: PatientUpdateIn) -> Union[PatientOut, Error]:
-        # get original patient info
+        # get original patient details
         original = self.get_one(patient_id)
-        # get patient fields to update and remove unset fields
+        # get patient fields to update and remove unset fields (if null remove key)
         patient_data = patient.dict(exclude_unset=True)
         # create new patient details with the updated fields
         patient_detail = original.copy(update=patient_data)
