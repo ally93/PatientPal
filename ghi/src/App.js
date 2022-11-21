@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
+// import { useEffect, useState } from "react";
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import PatientsList from "./PatientsList.js";
-import MainPage from "./MainPage";
-import Nav from "./Nav";
+// import MainPage from "./MainPage";
+// import Nav from "./Nav";
 
 
 function App() {
