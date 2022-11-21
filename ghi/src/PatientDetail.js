@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function PatientDetail(props) {
   const [patient, setPatient] = useState({});
-  const params = useParams();
+  const { patient_id } = useParams();
 
   useEffect(() => {
     async function fetchPatient() {
-      const url = "http://localhost:8000/api/patients/" + params.patient_id;
+      const url = "http://localhost:8000/api/patients/" + patient_id;
       const response = await fetch(url);
 
       if (response.ok) {
@@ -17,7 +17,7 @@ function PatientDetail(props) {
     }
 
     fetchPatient();
-  }, []);
+  }, [patient_id]);
 
   return (
     <div className="container">

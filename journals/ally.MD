@@ -1,3 +1,11 @@
+## Nov 20, 2022
+Today I learnt that we could pass parameters from the url into the react class directly to use it to identify the data. For eg:
+  const { patient_id } = useParams();
+So by doing this, we get the patient_id field directly and can use it in our code like pk in django. 
+
+I had several pipeline errors, and one of the important errors led me to the revelation above and it said I was using the patient_id without setting it in the state and asked me to either set it to state or remove it all together. 
+
+
 ## Nov 18, 2022
 Today we learnt about:
 
