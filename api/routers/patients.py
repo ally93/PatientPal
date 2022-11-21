@@ -18,7 +18,7 @@ def create_patient(
 ):
     # response.status_code = 400
     return repo.create(patient)
-    
+
 
 
 @router.get("/patients", response_model=Union[Error,List[PatientOut]])
