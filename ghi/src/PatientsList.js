@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function PatientsList(props) {
     const [patients, setPatients] = useState([]);
@@ -41,7 +41,9 @@ function PatientsList(props) {
             {patients.map((patient) => {
             return (
               <tr key={patient.id}>
-                <td>{patient.id}</td>
+                <td>
+                  <Link to={`/patient/${patient.id}`}>{patient.id}</Link>
+                </td>
                 <td>{patient.name}</td>
                 <td>{patient.birth_date}</td>
               </tr>
