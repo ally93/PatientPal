@@ -10,7 +10,7 @@ steps= [
             weight SMALLINT,
             blood_pressure VARCHAR(50),
             date DATE,
-            patient_id INTEGER NOT NULL
+            patient_id INTEGER NOT NULL REFERENCES patients(id)
 
         );
         """,
