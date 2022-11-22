@@ -11,20 +11,22 @@ class Error(BaseModel):
 
 class Account(BaseModel):
     id: int
+    name: str
     email: str
     hashed_password: str
-    name: str
     pid: int
 
 class AccountIn(BaseModel):
+    name: str
     email: str
     password: str
-    name: str
+    pid: int
 
 class AccountOut(BaseModel):
     id: int
-    email: str
     name: str
+    email: str
+    pid: int
 
 class AccountRepo:
     def get(self, email: str) -> Optional[Account]:
@@ -39,6 +41,7 @@ class AccountRepo:
                             , email
                             , hashed_password
                             , name
+                            , pid
                     FROM accounts
                     WHERE email = %s
                     """,
@@ -52,7 +55,8 @@ class AccountRepo:
                     id=record[0],
                     email=record[1],
                     hashed_password=record[2],
-                    name=record[3]
+                    name=record[3],
+                    pid=record[4]
                 )
 
     def create(self, account: AccountIn, hashed_password: str) -> Account:
@@ -64,23 +68,25 @@ class AccountRepo:
                 result = db.execute(
                     """
                     INSERT INTO accounts
-                        (email, hashed_password, name)
+                        (email, hashed_password, name, pid)
                     VALUES
-                        (%s, %s, %s)
+                        (%s, %s, %s, %s)
                     RETURNING id;
                     """,
                     [
                         account.email,
                         hashed_password,
-                        account.full_name,
+                        account.name,
+                        account.pid
                     ]
                 )
                 id = result.fetchone()[0]
                 return Account(
                     id=id,
                     email=account.email,
-                    name=account.full_name,
-                    hashed_password=hashed_password
+                    name=account.name,
+                    hashed_password=hashed_password,
+                    pid=account.pid
                 )
 
 
