@@ -6,45 +6,10 @@ from queries.questionnaires import (
     QuestionnaireUpdateIn,
     QuestionnaireRepository,
     QuestionnaireOut,
+    EntireQuestionnaireOut
 )
 
 router = APIRouter()
-
-@router.post("/questionnaire", response_model=Union[QuestionnaireOut, Error])
-def create_questionnaire(
-    questionnaire: QuestionnaireIn,
-    response: Response,
-    repo: QuestionnaireRepository = Depends()
-):
-    # response.status_code = 400
-    return repo.create(questionnaire)
-
-
-
-@router.get("/questionnaire", response_model=Union[Error,List[QuestionnaireOut]])
-def get_all(
-    repo: QuestionnaireRepository = Depends()
-
-):
-    return repo.get_all()
-
-
-@router.put("/questionnaire/{questionnaire_id}", response_model=Union[QuestionnaireOut, Error])
-def update_questionnaire(
-    questionnaire_id: int,
-    questionnaire: QuestionnaireUpdateIn,
-    repo: QuestionnaireRepository = Depends(),
-) -> Union[QuestionnaireOut, Error]:
-    return repo.update(questionnaire_id, questionnaire)
-
-
-@router.delete("/questionnaire/{questionnaire_id}", response_model=bool)
-def delete_patient(
-    questionnaire_id: int,
-    repo: QuestionnaireRepository = Depends(),
-) -> bool:
-    return repo.delete(questionnaire_id)
-
 
 @router.get("/questionnaire/{questionnaire_id}", response_model=Optional[QuestionnaireOut])
 def get_one_questionnaire(
@@ -56,3 +21,42 @@ def get_one_questionnaire(
     if questionnaire is None:
         response.status_code = 404
     return questionnaire
+
+@router.get("/questionnaire", response_model=Union[Error,List[EntireQuestionnaireOut]])
+def get_all_questionnaires(
+    repo: QuestionnaireRepository = Depends()
+):
+    return repo.get_all_questionnaires()
+
+@router.get("/api/patients/{patient_id}/questionnaires", response_model=Union[Error,List[QuestionnaireOut]])
+def get_all_by_patient(
+    patient_id:int,
+    repo: QuestionnaireRepository = Depends()
+):
+    return repo.get_all_by_patient(patient_id)
+
+@router.post("/api/patients/{patient_id}/questionnaire/create", response_model=Union[QuestionnaireOut, Error])
+def create_questionnaire(
+    patient_id:int,
+    questionnaire: QuestionnaireIn,
+    response: Response,
+    repo: QuestionnaireRepository = Depends()
+):
+    # response.status_code = 400
+    return repo.create(patient_id,questionnaire)
+
+@router.put("/api/patients/{patient_id}/questionnaire/{questionnaire_id}", response_model=Union[QuestionnaireOut, Error])
+def update_questionnaire(
+    patient_id:int,
+    questionnaire_id: int,
+    questionnaire: QuestionnaireUpdateIn,
+    repo: QuestionnaireRepository = Depends(),
+) -> Union[QuestionnaireOut, Error]:
+    return repo.update(patient_id, questionnaire_id, questionnaire)
+
+@router.delete("/questionnaire/{questionnaire_id}", response_model=bool)
+def delete_questionnaire(
+    questionnaire_id: int,
+    repo: QuestionnaireRepository = Depends(),
+) -> bool:
+    return repo.delete(questionnaire_id)
