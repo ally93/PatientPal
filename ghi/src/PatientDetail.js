@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 
 function PatientDetail(props) {
   const [patient, setPatient] = useState({});
@@ -21,6 +21,11 @@ function PatientDetail(props) {
 
   return (
     <div className="container">
+      <button type="button" className="btn btn-outline-light">
+        <NavLink className="nav-link" aria-current="page" to="/patients">
+          All Patients
+        </NavLink>
+      </button>
       <h3 className="display-6 fw-bold">Patient Detail</h3>
       <table className="table table-striped">
         <tbody>

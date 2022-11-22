@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function BootstrapInput(props){
@@ -19,9 +20,10 @@ function PatientForm(props) {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
 
+  const navigate = useNavigate();
+
   const submitNewPatient = async (event) => {
     event.preventDefault();
-
     const data = {
       "name": name,
       "birth_date": birth_date,
@@ -41,7 +43,8 @@ function PatientForm(props) {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      await response.json();
+      const newPatient = await response.json();
+      navigate('/patient/' + newPatient.id);
     }
   };
 
