@@ -36,6 +36,15 @@ class QuestionnaireOut(BaseModel):
     date: date
     # patient_id: int
 
+class EntireQuestionnaireOut(BaseModel):
+    id: int
+    medications: str
+    surgeries : str
+    concerns : str
+    weight: int
+    blood_pressure: str
+    date: date
+    patient_id: int
 
 class QuestionnaireRepository:
     def get_one(self, questionnaire_id: int) -> Optional[QuestionnaireOut]:
@@ -68,69 +77,7 @@ class QuestionnaireRepository:
             print(e)
             return {"message": "Could not get questionnaire details"}
 
-
-    def delete(self, questionnaire_id: int) -> bool:
-        try:
-            # connect the database
-            with pool.connection() as conn:
-                # get a cursor (something to run SQL with)
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        DELETE FROM questionnaires
-                        WHERE id = %s
-                        """,
-                        [questionnaire_id]
-                    )
-                    return True
-        except Exception as e:
-            print(e)
-            return False
-
-
-    def update(self, patient_id:int, questionnaire_id: int, questionnaire: QuestionnaireUpdateIn) -> Union[QuestionnaireOut, Error]:
-        # get original questionnaire details
-        original = self.get_one(questionnaire_id)
-        # get questionnaire fields to update and remove unset fields (if null remove key)
-        questionnaire_data = questionnaire.dict(exclude_unset=True)
-        # create new questionnaire details with the updated fields
-        questionnaire_detail = original.copy(update=questionnaire_data)
-
-        # update questionnaire fields
-        try:
-            # connect the database
-            with pool.connection() as conn:
-                # get a cursor(something to run SQL with)
-                with conn.cursor() as db:
-                    # run our SELECT statement
-                    db.execute(
-                        """
-                        UPDATE questionnaires
-                        SET medications = %s
-                            , surgeries = %s
-                            , concerns = %s
-                            , weight = %s
-                            , blood_pressure = %s
-                            , date = %s
-                        Where patient_id = %s and id = %s
-                        """,
-                        [
-                            questionnaire_detail.medications,
-                            questionnaire_detail.surgeries,
-                            questionnaire_detail.concerns,
-                            questionnaire_detail.weight,
-                            questionnaire_detail.blood_pressure,
-                            questionnaire_detail.date,
-                            patient_id,
-                            questionnaire_id
-                        ]
-                    )
-                    return self.questionnaire_in_to_out(questionnaire_id, questionnaire_detail)
-        except Exception as e:
-            print(e)
-            return {"message": "Could not update questionnaire details!"}
-
-    def get_all(self, patient_id:int) -> Union[Error,List[QuestionnaireOut]]:
+    def get_all_by_patient(self, patient_id:int) -> Union[Error,List[QuestionnaireOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -164,7 +111,37 @@ class QuestionnaireRepository:
             print("failed to get list of questionnaires", e)
             return {"message": "Could not get all questionnaires!"}
 
+    def get_all_questionnaires(self) -> Union[Error,List[EntireQuestionnaireOut]]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor(something to run SQL with)
+                with conn.cursor() as db:
+                    # run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
+                        From questionnaires
+                        ORDER BY date;
+                        """
+                    )
 
+                    return [
+                        EntireQuestionnaireOut(
+                            id=record[0],
+                            medications=record[1],
+                            surgeries=record[2],
+                            concerns=record[3],
+                            weight=record[4],
+                            blood_pressure=record[5],
+                            date =record[6],
+                            patient_id=record[7]
+                        )
+                        for record in db
+                    ]
+        except Exception as e:
+            print("failed to get list of questionnaires", e)
+            return {"message": "Could not get all questionnaires!"}
 
     def create(self, patient_id:int, questionnaire: QuestionnaireIn) -> QuestionnaireOut:
         try:
@@ -197,6 +174,57 @@ class QuestionnaireRepository:
             print("failed to create questionnaire", e)
             return {"message": "Could not create questionnaire"}
 
+    def update(self, patient_id:int, questionnaire_id: int, questionnaire: QuestionnaireUpdateIn) -> Union[QuestionnaireOut, Error]:
+        original = self.get_one(questionnaire_id)
+        questionnaire_data = questionnaire.dict(exclude_unset=True)
+        questionnaire_detail = original.copy(update=questionnaire_data)
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE questionnaires
+                        SET medications = %s
+                            , surgeries = %s
+                            , concerns = %s
+                            , weight = %s
+                            , blood_pressure = %s
+                            , date = %s
+                        Where patient_id = %s and id = %s
+                        """,
+                        [
+                            questionnaire_detail.medications,
+                            questionnaire_detail.surgeries,
+                            questionnaire_detail.concerns,
+                            questionnaire_detail.weight,
+                            questionnaire_detail.blood_pressure,
+                            questionnaire_detail.date,
+                            patient_id,
+                            questionnaire_id
+                        ]
+                    )
+                    return self.questionnaire_in_to_out(questionnaire_id, questionnaire_detail)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update questionnaire details!"}
+
+    def delete(self, questionnaire_id: int) -> bool:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM questionnaires
+                        WHERE id = %s
+                        """,
+                        [questionnaire_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
 
     def questionnaire_in_to_out(self, id: int, questionnaire: QuestionnaireIn):
         old_data = questionnaire.dict()
@@ -204,7 +232,6 @@ class QuestionnaireRepository:
             return QuestionnaireOut(**old_data)
         else:
             return QuestionnaireOut(id=id, **old_data)
-
 
     def record_to_questionnaire_out(self, record):
         return QuestionnaireOut(
