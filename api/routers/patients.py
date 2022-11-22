@@ -3,13 +3,14 @@ from typing import Union, List, Optional
 from queries.patients import (
     Error,
     PatientIn,
+    PatientUpdateIn,
     PatientRepository,
     PatientOut,
 )
 
 router = APIRouter()
 
-@router.post("/patients", response_model=Union[PatientOut, Error])
+@router.post("/api/patients", response_model=Union[PatientOut, Error])
 def create_patient(
     patient: PatientIn,
     response: Response,
@@ -17,10 +18,10 @@ def create_patient(
 ):
     # response.status_code = 400
     return repo.create(patient)
-    
 
 
-@router.get("/patients", response_model=Union[Error,List[PatientOut]])
+
+@router.get("/api/patients", response_model=Union[Error,List[PatientOut]])
 def get_all(
     repo: PatientRepository = Depends()
 
@@ -28,16 +29,16 @@ def get_all(
     return repo.get_all()
 
 
-@router.put("/patients/{patient_id}", response_model=Union[PatientOut, Error])
+@router.put("/api/patients/{patient_id}", response_model=Union[PatientOut, Error])
 def update_patient(
     patient_id: int,
-    patient: PatientIn,
+    patient: PatientUpdateIn,
     repo: PatientRepository = Depends(),
 ) -> Union[PatientOut, Error]:
     return repo.update(patient_id, patient)
 
 
-@router.delete("/patients/{patient_id}", response_model=bool)
+@router.delete("/api/patients/{patient_id}", response_model=bool)
 def delete_patient(
     patient_id: int,
     repo: PatientRepository = Depends(),
@@ -45,7 +46,7 @@ def delete_patient(
     return repo.delete(patient_id)
 
 
-@router.get("/patients/{patient_id}", response_model=Optional[PatientOut])
+@router.get("/api/patients/{patient_id}", response_model=Optional[PatientOut])
 def get_one_patient(
     patient_id: int,
     response: Response,

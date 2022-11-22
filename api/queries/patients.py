@@ -16,6 +16,12 @@ class PatientIn(BaseModel):
     address: Optional[str]
     gender: str
 
+class PatientUpdateIn(BaseModel):
+    name: Optional[str]
+    birth_date: Optional[date]
+    email: Optional[str]
+    address: Optional[str]
+    gender: Optional[str]
 
 class PatientOut(BaseModel):
     id: int
@@ -75,7 +81,15 @@ class PatientRepository:
             return False
 
 
-    def update(self, patient_id: int, patient: PatientIn) -> Union[PatientOut, Error]:
+    def update(self, patient_id: int, patient: PatientUpdateIn) -> Union[PatientOut, Error]:
+        # get original patient details
+        original = self.get_one(patient_id)
+        # get patient fields to update and remove unset fields (if null remove key)
+        patient_data = patient.dict(exclude_unset=True)
+        # create new patient details with the updated fields
+        patient_detail = original.copy(update=patient_data)
+
+        # update patient fields
         try:
             # connect the database
             with pool.connection() as conn:
@@ -93,15 +107,15 @@ class PatientRepository:
                         Where id = %s
                         """,
                         [
-                            patient.name,
-                            patient.birth_date,
-                            patient.email,
-                            patient.address,
-                            patient.gender,
+                            patient_detail.name,
+                            patient_detail.birth_date,
+                            patient_detail.email,
+                            patient_detail.address,
+                            patient_detail.gender,
                             patient_id
                         ]
                     )
-                    return self.patient_in_to_out(patient_id, patient)
+                    return self.patient_in_to_out(patient_id, patient_detail)
         except Exception as e:
             print(e)
             return {"message": "Could not update patient details!"}
@@ -170,7 +184,10 @@ class PatientRepository:
 
     def patient_in_to_out(self, id: int, patient: PatientIn):
         old_data = patient.dict()
-        return PatientOut(id=id, **old_data)
+        if 'id' in old_data :
+            return PatientOut(**old_data)
+        else: 
+            return PatientOut(id=id, **old_data)
 
     
     def record_to_patient_out(self, record):
