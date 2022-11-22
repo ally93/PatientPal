@@ -19,6 +19,7 @@ function PatientForm(props) {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
+  const [doctor_id, setDoctor] = useState("");
 
   const navigate = useNavigate();
 
@@ -29,7 +30,8 @@ function PatientForm(props) {
       "birth_date": birth_date,
       "email": email,
       "address": address,
-      "gender": gender
+      "gender": gender,
+      "doctor_id": doctor_id
     };
 
     const url = "http://localhost:8000/api/patients/";
@@ -82,12 +84,25 @@ function PatientForm(props) {
         onChange={(e) => setAddress(e.target.value)}
         type="text"
       />
+      <BootstrapInput
+        id="doctor_id"
+        placeholder="Doctor ID"
+        labelText="Doctor ID"
+        value={doctor_id}
+        onChange={(e) => setDoctor(e.target.value)}
+        type="text"
+      />
       <div className="mb-4">
         {" "}
         <label htmlFor="gender" className="form-label">
           Gender
         </label>
-        <select className="form-select" id="gender" aria-label="Gender" onChange={(e) => setGender(e.target.value)}>
+        <select
+          className="form-select"
+          id="gender"
+          aria-label="Gender"
+          onChange={(e) => setGender(e.target.value)}
+        >
           <option>Select option</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
@@ -96,7 +111,9 @@ function PatientForm(props) {
           <option value="n/a">Prefer not to answer</option>
         </select>
       </div>
-      <button type='submit' className="btn btn-primary">Create</button>
+      <button type="submit" className="btn btn-primary">
+        Create
+      </button>
     </form>
   );
 }

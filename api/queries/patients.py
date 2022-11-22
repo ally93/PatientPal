@@ -15,6 +15,7 @@ class PatientIn(BaseModel):
     email:str
     address: Optional[str]
     gender: str
+    doctor_id: int
 
 class PatientUpdateIn(BaseModel):
     name: Optional[str]
@@ -22,6 +23,7 @@ class PatientUpdateIn(BaseModel):
     email: Optional[str]
     address: Optional[str]
     gender: Optional[str]
+    doctor_id: Optional[int]
 
 class PatientOut(BaseModel):
     id: int
@@ -30,6 +32,8 @@ class PatientOut(BaseModel):
     email:str
     address: Optional[str]
     gender: str
+    doctor_id: int
+
 
 
 class PatientRepository:
@@ -48,6 +52,7 @@ class PatientRepository:
                              , email
                              , address
                              , gender
+                             , doctor_id
                         FROM patients
                         WHERE id = %s
                         """,
@@ -104,6 +109,7 @@ class PatientRepository:
                             , email = %s
                             , address = %s
                             , gender = %s
+                            , doctor_id = %s
                         Where id = %s
                         """,
                         [
@@ -112,6 +118,7 @@ class PatientRepository:
                             patient_detail.email,
                             patient_detail.address,
                             patient_detail.gender,
+                            patient_detail.doctor_id,
                             patient_id
                         ]
                     )
@@ -129,7 +136,7 @@ class PatientRepository:
                     # run our SELECT statement
                     result = db.execute(
                         """
-                        SELECT id, name, birth_date, email, address, gender
+                        SELECT id, name, birth_date, email, address, gender, doctor_id
                         From patients
                         ORDER BY name;
                         """
@@ -142,7 +149,8 @@ class PatientRepository:
                             birth_date=record[2],
                             email=record[3],
                             address=record[4],
-                            gender=record[5]
+                            gender=record[5],
+                            doctor_id=record[6]
                         )
                         for record in db
                     ]
@@ -162,9 +170,9 @@ class PatientRepository:
                     result = db.execute(
                         """
                         INSERT INTO patients
-                            (name, birth_date, email, address, gender)
+                            (name, birth_date, email, address, gender, doctor_id)
                         VALUES
-                            (%s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
@@ -172,7 +180,8 @@ class PatientRepository:
                             patient.birth_date,
                             patient.email,
                             patient.address,
-                            patient.gender
+                            patient.gender,
+                            patient.doctor_id
                         ]
                     )
                     id = result.fetchone()[0]
@@ -198,4 +207,5 @@ class PatientRepository:
             email=record[3],
             address=record[4],
             gender=record[5],
+            doctor_id=record[6]
         )
