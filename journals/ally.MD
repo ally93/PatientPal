@@ -1,3 +1,25 @@
+## Nov 20, 2022
+Today I learnt that we could pass parameters from the url into the react class directly to use it to identify the data. For eg:
+  const { patient_id } = useParams();
+So by doing this, we get the patient_id field directly and can use it in our code like pk in django. 
+
+I had several pipeline errors, and one of the important errors led me to the revelation above and it said I was using the patient_id without setting it in the state and asked me to either set it to state or remove it all together. 
+
+
+## Nov 18, 2022
+Today we learnt about:
+
+Authentication
+
+
+
+## Nov 17, 2022
+Today I worked on:
+
+* updating a patient detail and also deleting patient
+
+I continued to chip away at the code and wrap up the lose ends by writing the update and delete part for the patients model. Before merging it to main, I sent in a merge request and asked my team-mates on their input on it. One of my team-mate Jackie inquired if the put request has to be updated entirely or could there be partial updates, and I quickly realized I have coded it in such a way that if you partially update a patient you get an error saying some required fields are missing. I created another class with all the inputs being entirely optional and included it in my put request to eliminate that error. I am grateful for my team-mates hawk-like eyes, to notice something that had completely slipped mine. 
+
 ## Nov 16, 2022
 Today, I worked on:
 
@@ -11,4 +33,4 @@ I also had to run <export DOCKER_DEFAULT_PLATFORM="linux/amd64"> initially when 
 ## Nov 15, 2022
 * A new start
 
-Today marks the start of my journal for this project gamma .
+Today marks the start of my journal for this project gamma . Cheers!
