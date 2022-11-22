@@ -25,7 +25,7 @@ function PatientsList(props) {
     <div className="container">
         <h3 className="display-6 fw-bold">Patients List</h3>
         <button type="button" className="btn btn-outline-light">
-        <NavLink className="nav-link" aria-current="page" to="/create-patient">
+        <NavLink className="nav-link" aria-current="page" to="/patient/create">
             Create a new patient
         </NavLink>
         </button>

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { useEffect, useState } from "react";
 import "./App.css";
 import PatientDetail from "./PatientDetail";
+import PatientForm from "./PatientForm";
 import PatientsList from "./PatientsList.js";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
@@ -17,6 +18,7 @@ function App() {
           {/* <Route path="/" element={<MainPage />} /> */}
           <Route path="patients" element={<PatientsList />} />
           <Route path="patient/:patient_id" element={<PatientDetail />} />
+          <Route path="patient/create" element={<PatientForm />} />
         </Routes>
       </div>
     </BrowserRouter>
