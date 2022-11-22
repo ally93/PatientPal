@@ -24,7 +24,7 @@ class QuestionnaireUpdateIn(BaseModel):
     weight: Optional[int]
     blood_pressure: Optional[str]
     date: Optional[date]
-    patient_id: Optional[int]
+    # patient_id: Optional[int]
 
 class QuestionnaireOut(BaseModel):
     id: int
@@ -88,7 +88,7 @@ class QuestionnaireRepository:
             return False
 
 
-    def update(self, questionnaire_id: int, questionnaire: QuestionnaireUpdateIn) -> Union[QuestionnaireOut, Error]:
+    def update(self, patient_id:int, questionnaire_id: int, questionnaire: QuestionnaireUpdateIn) -> Union[QuestionnaireOut, Error]:
         # get original questionnaire details
         original = self.get_one(questionnaire_id)
         # get questionnaire fields to update and remove unset fields (if null remove key)
@@ -112,8 +112,7 @@ class QuestionnaireRepository:
                             , weight = %s
                             , blood_pressure = %s
                             , date = %s
-                            , patient_id = %s
-                        Where id = %s
+                        Where patient_id = %s and id = %s
                         """,
                         [
                             questionnaire_detail.medications,
@@ -122,7 +121,7 @@ class QuestionnaireRepository:
                             questionnaire_detail.weight,
                             questionnaire_detail.blood_pressure,
                             questionnaire_detail.date,
-                            questionnaire_detail.patient_id,
+                            patient_id,
                             questionnaire_id
                         ]
                     )

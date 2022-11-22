@@ -31,13 +31,14 @@ def get_all(
     return repo.get_all(patient_id)
 
 
-@router.put("/questionnaire/{questionnaire_id}", response_model=Union[QuestionnaireOut, Error])
+@router.put("/api/patients/{patient_id}/questionnaire/{questionnaire_id}", response_model=Union[QuestionnaireOut, Error])
 def update_questionnaire(
+    patient_id:int,
     questionnaire_id: int,
     questionnaire: QuestionnaireUpdateIn,
     repo: QuestionnaireRepository = Depends(),
 ) -> Union[QuestionnaireOut, Error]:
-    return repo.update(questionnaire_id, questionnaire)
+    return repo.update(patient_id, questionnaire_id, questionnaire)
 
 
 @router.delete("/questionnaire/{questionnaire_id}", response_model=bool)
