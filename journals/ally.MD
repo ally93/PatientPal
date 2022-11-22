@@ -9,7 +9,9 @@ I had several pipeline errors, and one of the important errors led me to the rev
 ## Nov 18, 2022
 Today we learnt about:
 
-Authentication
+Authentication.
+
+Tanner and Jackie paired up together to work on authentication-part for our group and explained how they were gonna go about it in our stand up. We had issues setting up the migration/database table for accounts. We kept getting an error that says 'Incompatible migration history at 001_account_migration', we assumed we had to delete our docker containers but turns out(thank you help me understand and all the seirs) we also had to delete our volume to make space for the new migration. We resolved it by deleting and recreating our volume. Overall it was a great team effort and I am sure I'll never forget this error again.
 
 
 
