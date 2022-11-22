@@ -131,7 +131,7 @@ class QuestionnaireRepository:
             print(e)
             return {"message": "Could not update questionnaire details!"}
 
-    def get_all(self) -> Union[Error,List[QuestionnaireOut]]:
+    def get_all(self, patient_id:int) -> Union[Error,List[QuestionnaireOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -142,8 +142,10 @@ class QuestionnaireRepository:
                         """
                         SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
                         From questionnaires
+                        WHERE patient_id= %s
                         ORDER BY date;
-                        """
+                        """,
+                        [patient_id]
                     )
 
                     return [

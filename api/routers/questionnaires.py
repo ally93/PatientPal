@@ -21,12 +21,13 @@ def create_questionnaire(
 
 
 
-@router.get("/questionnaire", response_model=Union[Error,List[QuestionnaireOut]])
+@router.get("/api/patients/{patient_id}/questionnaires", response_model=Union[Error,List[QuestionnaireOut]])
 def get_all(
+    patient_id:int,
     repo: QuestionnaireRepository = Depends()
 
 ):
-    return repo.get_all()
+    return repo.get_all(patient_id)
 
 
 @router.put("/questionnaire/{questionnaire_id}", response_model=Union[QuestionnaireOut, Error])
