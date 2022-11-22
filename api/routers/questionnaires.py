@@ -10,14 +10,15 @@ from queries.questionnaires import (
 
 router = APIRouter()
 
-@router.post("/questionnaire", response_model=Union[QuestionnaireOut, Error])
+@router.post("/api/patients/{patient_id}/questionnaire/create", response_model=Union[QuestionnaireOut, Error])
 def create_questionnaire(
+    patient_id:int,
     questionnaire: QuestionnaireIn,
     response: Response,
     repo: QuestionnaireRepository = Depends()
 ):
     # response.status_code = 400
-    return repo.create(questionnaire)
+    return repo.create(patient_id,questionnaire)
 
 
 

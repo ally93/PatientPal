@@ -15,7 +15,7 @@ class QuestionnaireIn(BaseModel):
     weight: int
     blood_pressure: str
     date: date
-    patient_id: int
+    # patient_id: int
 
 class QuestionnaireUpdateIn(BaseModel):
     medications: Optional[str]
@@ -34,7 +34,7 @@ class QuestionnaireOut(BaseModel):
     weight: int
     blood_pressure: str
     date: date
-    patient_id: int
+    # patient_id: int
 
 
 class QuestionnaireRepository:
@@ -167,7 +167,7 @@ class QuestionnaireRepository:
 
 
 
-    def create(self, questionnaire: QuestionnaireIn) -> QuestionnaireOut:
+    def create(self, patient_id:int, questionnaire: QuestionnaireIn) -> QuestionnaireOut:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -189,8 +189,8 @@ class QuestionnaireRepository:
                             questionnaire.weight,
                             questionnaire.blood_pressure,
                             questionnaire.date,
-                            questionnaire.patient_id
-                        ]
+                            patient_id
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.questionnaire_in_to_out(id, questionnaire)
