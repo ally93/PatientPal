@@ -2,56 +2,58 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
 function PatientsList(props) {
-    const [patients, setPatients] = useState([]);
-    const navigate = useNavigate();
+  const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    async function fetchPatients() {
+      const url = "http://localhost:8000/api/patients";
 
-    useEffect(() => {
-      async function fetchPatients() {
-        const url = "http://localhost:8000/api/patients";
+      const response = await fetch(url);
 
-        const response = await fetch(url);
-
-        if (response.ok) {
-          const data = await response.json();
-          setPatients(data);
-        }
+      if (response.ok) {
+        const data = await response.json();
+        setPatients(data);
       }
+    }
 
-      fetchPatients();
-    }, []);
+    fetchPatients();
+  }, []);
 
-     const deletePatient = async (patient_id) => {
-       const url = `http://localhost:8000/api/patients/${patient_id}`;
-       console.log("url:::", url);
-       const fetchConfig = {
-         method: "DELETE",
-       };
-       const response = await fetch(url, fetchConfig);
-       if (response.ok) {
-         await response.json();
-         window.location.reload(false);
-       }
-     };
+  const deletePatient = async (patient_id) => {
+    const url = `http://localhost:8000/api/patients/${patient_id}`;
+    const fetchConfig = {
+      method: "DELETE",
+    };
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      await response.json();
+      window.location.reload(false);
+    }
+  };
 
-    return (
+  const redirect = (patient_id) => {
+    navigate(`/patient/${patient_id}/update`);
+  };
+
+  return (
     <div className="container">
-        <h3 className="display-6 fw-bold">Patients List</h3>
-        <button type="button" className="btn btn-outline-light">
+      <h3 className="display-6 fw-bold">Patients List</h3>
+      <button type="button" className="btn btn-outline-light">
         <NavLink className="nav-link" aria-current="page" to="/patient/create">
-            Create a new patient
+          Create a new patient
         </NavLink>
-        </button>
-        <table className="table table-striped">
+      </button>
+      <table className="table table-striped">
         <thead>
-            <tr>
+          <tr>
             <th>Patient Id </th>
             <th>Name</th>
             <th>Date Of Birth</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
-            {patients.map((patient) => {
+          {patients.map((patient) => {
             return (
               <tr key={patient.id}>
                 <td>
@@ -60,19 +62,29 @@ function PatientsList(props) {
                 <td>{patient.name}</td>
                 <td>{patient.birth_date}</td>
                 <td>
-                  <button type="button"
+                  <button
+                    type="button"
                     className="btn btn-danger"
                     onClick={() => deletePatient(patient.id)}
                   >
                     Delete
                   </button>
                 </td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => redirect(patient.id)}
+                  >
+                    Edit
+                  </button>
+                </td>
               </tr>
             );
-            })}
+          })}
         </tbody>
-        </table>
+      </table>
     </div>
-    );
+  );
 }
 export default PatientsList;

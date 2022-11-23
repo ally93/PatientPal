@@ -35,7 +35,6 @@ function PatientForm(props) {
     };
 
     const url = "http://localhost:8000/api/patients/";
-    console.log('data:::', data)
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
