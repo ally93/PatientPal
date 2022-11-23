@@ -9,11 +9,9 @@ function QuestionnairesList() {
         async function fetchQuestionnaires() {
             const url = "http://localhost:8000/api/patients/"+patient_id+"/questionnaires";
             const response = await fetch(url)
-            console.log(response)
 
             if(response.ok) {
                 const data = await response.json()
-                console.log(data)
                 setQuestionnaires(data)
             }
         }

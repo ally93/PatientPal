@@ -7,6 +7,7 @@ import PatientsList from "./PatientsList.js";
 import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
 import QuestionnaireDetail from "./QuestionnaireDetail";
+import QuestionnaireForm from "./QuestionnaireForm";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
 
@@ -22,8 +23,9 @@ function App() {
           <Route path="patients" element={<PatientsList />} />
           <Route path="patient/:patient_id" element={<PatientDetail />} />
           <Route path="patient/create" element={<PatientForm />} />
-          <Route path="patients/:patient_id/questionnaires" element={<QuestionnairesList />} />
+          <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
+          <Route path="patient/:patient_id/questionnaires/create" element={<QuestionnaireForm />} />
         </Routes>
       </div>
     </BrowserRouter>
