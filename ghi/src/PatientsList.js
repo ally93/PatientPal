@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 function PatientsList(props) {
     const [patients, setPatients] = useState([]);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
       async function fetchPatients() {
@@ -19,7 +21,18 @@ function PatientsList(props) {
       fetchPatients();
     }, []);
 
-
+     const deletePatient = async (patient_id) => {
+       const url = `http://localhost:8000/api/patients/${patient_id}`;
+       console.log("url:::", url);
+       const fetchConfig = {
+         method: "DELETE",
+       };
+       const response = await fetch(url, fetchConfig);
+       if (response.ok) {
+         await response.json();
+         window.location.reload(false);
+       }
+     };
 
     return (
     <div className="container">
@@ -46,6 +59,14 @@ function PatientsList(props) {
                 </td>
                 <td>{patient.name}</td>
                 <td>{patient.birth_date}</td>
+                <td>
+                  <button type="button"
+                    className="btn btn-danger"
+                    onClick={() => deletePatient(patient.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
             })}
