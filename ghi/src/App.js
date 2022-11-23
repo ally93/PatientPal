@@ -25,7 +25,7 @@ function App() {
           <Route path="patient/create" element={<PatientForm />} />
           <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
-          <Route path="patient/:patient_id/questionnaires/create" element={<QuestionnaireForm />} />
+          <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />
         </Routes>
       </div>
     </BrowserRouter>

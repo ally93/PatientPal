@@ -7,7 +7,7 @@ function QuestionnairesList() {
 
     useEffect ( () => {
         async function fetchQuestionnaires() {
-            const url = "http://localhost:8000/api/patients/"+patient_id+"/questionnaires";
+            const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaires";
             const response = await fetch(url)
 
             if(response.ok) {

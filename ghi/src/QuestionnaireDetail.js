@@ -20,7 +20,8 @@ function QuestionnaireDetail () {
     return (
         <div>
           <p></p>
-          <h3>Questionnaire Detail</h3>
+          <h1>Questionnaire Detail</h1>
+          <h2>{questionnaire.date}</h2>
             <table className="table table-striped">
                 <tbody>
                 <tr>
