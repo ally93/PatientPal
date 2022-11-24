@@ -11,12 +11,12 @@ from queries.questionnaires import (
 
 router = APIRouter()
 
-@router.get("/questionnaire/{questionnaire_id}", response_model=Optional[QuestionnaireOut])
+@router.get("/questionnaire/{questionnaire_id}", response_model=Optional[EntireQuestionnaireOut])
 def get_one_questionnaire(
     questionnaire_id: int,
     response: Response,
     repo: QuestionnaireRepository = Depends(),
-) -> QuestionnaireOut:
+) -> EntireQuestionnaireOut:
     questionnaire = repo.get_one(questionnaire_id)
     if questionnaire is None:
         response.status_code = 404

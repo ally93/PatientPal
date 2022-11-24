@@ -47,7 +47,7 @@ class EntireQuestionnaireOut(BaseModel):
     patient_id: int
 
 class QuestionnaireRepository:
-    def get_one(self, questionnaire_id: int) -> Optional[QuestionnaireOut]:
+    def get_one(self, questionnaire_id: int) -> Optional[EntireQuestionnaireOut]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -234,7 +234,7 @@ class QuestionnaireRepository:
             return QuestionnaireOut(id=id, **old_data)
 
     def record_to_questionnaire_out(self, record):
-        return QuestionnaireOut(
+        return EntireQuestionnaireOut(
             id=record[0],
             medications=record[1],
             surgeries=record[2],

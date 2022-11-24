@@ -28,7 +28,7 @@ function QuestionnaireDetail () {
 
         const response = await fetch(deleteUrl,fetchConfig)
         if(response.ok) {
-            navigate(-1)
+            navigate('/patient/'+ questionnaire.patient_id+'/questionnaires')
         }
 
 
