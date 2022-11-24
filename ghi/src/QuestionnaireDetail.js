@@ -1,7 +1,9 @@
 import {React, useEffect, useState} from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function QuestionnaireDetail () {
+    const navigate = useNavigate();
+
     const [questionnaire, setQuestionnaire] = useState([]);
     const { questionnaire_id } = useParams()
 
@@ -17,6 +19,20 @@ function QuestionnaireDetail () {
         }
         fetchQuestionnaire()
     }, [questionnaire_id])
+
+    async function deleteQuestionnaire() {
+        const deleteUrl = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const fetchConfig = {
+        method: "delete"
+        }
+
+        const response = await fetch(deleteUrl,fetchConfig)
+        if(response.ok) {
+            navigate(-1)
+        }
+
+
+    }
     return (
         <div>
           <p></p>
@@ -46,6 +62,7 @@ function QuestionnaireDetail () {
                 </tr>
                 </tbody>
             </table>
+                <button onClick= {() => deleteQuestionnaire()}>Delete</button>
             </div>
     )
 }
