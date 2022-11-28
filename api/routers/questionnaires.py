@@ -28,7 +28,7 @@ def get_all_questionnaires(
 ):
     return repo.get_all_questionnaires()
 
-@router.get("/api/patient/{patient_id}/questionnaires", response_model=Union[Error,List[QuestionnaireOut]])
+@router.get("/api/patient/{patient_id}/questionnaires", response_model=Union[Error,List[EntireQuestionnaireOut]])
 def get_all_by_patient(
     patient_id:int,
     repo: QuestionnaireRepository = Depends()

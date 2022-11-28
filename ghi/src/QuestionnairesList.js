@@ -17,6 +17,7 @@ function QuestionnairesList() {
 
         if(response.ok) {
             const data = await response.json()
+            console.log(data)
             setQuestionnaires(data)
         }
     }
@@ -49,7 +50,7 @@ function QuestionnairesList() {
                 <td>
                   <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
                   <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
-                  <button><Link to={`/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
+                  <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
                 </td>
               </tr>
             );
