@@ -9,13 +9,13 @@ import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
-
+import Navbar from "./components/Navbar";
 
 function App() {
 
   return (
     <BrowserRouter>
-      {/* <Nav /> */}
+      <Navbar />
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
