@@ -5,18 +5,34 @@ function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
     const { patient_id } = useParams()
 
-    useEffect ( () => {
-        async function fetchQuestionnaires() {
-            const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaires";
-            const response = await fetch(url)
 
-            if(response.ok) {
-                const data = await response.json()
-                setQuestionnaires(data)
-            }
-        }
+    useEffect ( () => {
         fetchQuestionnaires();
     }, [patient_id])
+
+    async function fetchQuestionnaires() {
+        const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaires";
+        const response = await fetch(url)
+
+        if(response.ok) {
+            const data = await response.json()
+            setQuestionnaires(data)
+        }
+    }
+
+    async function deleteQuestionnaire(questionnaire_id) {
+        const deleteUrl = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const fetchConfig = {
+        method: "delete"
+        }
+
+        const response = await fetch(deleteUrl,fetchConfig)
+        if(response.ok) {
+            fetchQuestionnaires()
+    }
+
+
+}
 
     return (
         <div className="container">
@@ -33,6 +49,7 @@ function QuestionnairesList() {
               <tr key={questionnaire.id}>
                 <td>
                   <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
+                  <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
                 </td>
               </tr>
             );
