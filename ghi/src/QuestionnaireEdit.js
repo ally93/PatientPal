@@ -17,9 +17,9 @@ function QuestionnaireEdit() {
   const [medications, setMedications] = useState("");
   const [surgeries, setSurgeries] = useState("");
   const [concerns, setConcerns] = useState("");
-  const [weight, setWeight] = useState("");
+  const [weight, setWeight] = useState(0);
   const [blood_pressure, setBloodPressure] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const { patient_id,questionnaire_id } = useParams()
 
   const navigate = useNavigate();
