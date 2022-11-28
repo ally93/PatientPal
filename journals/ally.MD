@@ -1,7 +1,7 @@
 ## Nov 28, 2022
 Today I worked on:
 
-* making a patient form to show details of the patient in react
+* 
 
 
 
@@ -10,6 +10,7 @@ Today I worked on:
 
 * update patient form with nav completed
 
+Update form was very similar to patient form except I needed to add a defaultVal incase there are attributes that does not need to change. I also wanted to create a nav link from the list into the update page and was able to create an update button right next to the delete button in patient's list. Successful submission for the update form take you to the patient detail page with updated values. 
 
 
 
@@ -19,7 +20,7 @@ Today I worked on:
 
 * creating a delete button
 
-
+Created a delete functionality in the PatientsList.js to be able to delete patients who are no longer with us. 
 
 
 ## Nov 22, 2022
