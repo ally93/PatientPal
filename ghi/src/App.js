@@ -8,6 +8,7 @@ import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
 import QuestionnaireDetail from "./QuestionnaireDetail";
 import QuestionnaireForm from "./QuestionnaireForm";
+import QuestionnaireEdit from "./QuestionnaireEdit";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
           <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />
+          <Route path="questionnaire/:questionnaire_id/edit" element={<QuestionnaireEdit />} />
         </Routes>
       </div>
     </BrowserRouter>

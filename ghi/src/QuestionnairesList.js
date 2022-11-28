@@ -1,9 +1,10 @@
 import {React, useEffect, useState} from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
     const { patient_id } = useParams()
+    const navigate = useNavigate();
 
 
     useEffect ( () => {
@@ -30,8 +31,6 @@ function QuestionnairesList() {
         if(response.ok) {
             fetchQuestionnaires()
     }
-
-
 }
 
     return (
@@ -50,6 +49,7 @@ function QuestionnairesList() {
                 <td>
                   <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
                   <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
+                  <button><Link to={`/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
                 </td>
               </tr>
             );
