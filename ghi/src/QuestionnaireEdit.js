@@ -14,12 +14,11 @@ function BootstrapInput(props){
 }
 
 function QuestionnaireEdit() {
-  const defaultVal =""
-  const [medications, setMedications] = useState(defaultVal);
-  const [surgeries, setSurgeries] = useState(defaultVal);
-  const [concerns, setConcerns] = useState(defaultVal);
-  const [weight, setWeight] = useState(defaultVal);
-  const [blood_pressure, setBloodPressure] = useState(defaultVal);
+  const [medications, setMedications] = useState("");
+  const [surgeries, setSurgeries] = useState("");
+  const [concerns, setConcerns] = useState("");
+  const [weight, setWeight] = useState(0);
+  const [blood_pressure, setBloodPressure] = useState("");
   const { patient_id,questionnaire_id } = useParams()
 
   const navigate = useNavigate();
@@ -74,7 +73,7 @@ function QuestionnaireEdit() {
     <form onSubmit={editQuestionnaire}>
       <BootstrapInput
         id="medications"
-        placeholder={medications}
+        placeholder="medications"
         labelText="medications"
         value={medications}
         onChange={(e) => setMedications(e.target.value)}
@@ -82,7 +81,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="surgeries"
-        placeholder={surgeries}
+        placeholder="surgeries"
         labelText="surgeries"
         value={surgeries}
         onChange={(e) => setSurgeries(e.target.value)}
@@ -90,7 +89,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="concerns"
-        placeholder={concerns}
+        placeholder="concerns"
         labelText="concerns"
         value={concerns}
         onChange={(e) => setConcerns(e.target.value)}
@@ -98,7 +97,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="weight"
-        placeholder={weight}
+        placeholder="weight"
         labelText="weight"
         value={weight}
         onChange={(e) => setWeight(e.target.value)}
@@ -106,7 +105,7 @@ function QuestionnaireEdit() {
       />
      <BootstrapInput
         id="blood_pressure"
-        placeholder={blood_pressure}
+        placeholder="blood pressure"
         labelText="blood_pressure"
         value={blood_pressure}
         onChange={(e) => setBloodPressure(e.target.value)}
