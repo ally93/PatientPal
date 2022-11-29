@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 
@@ -14,14 +14,32 @@ function BootstrapInput(props){
 }
 
 function QuestionnaireEdit() {
-  const [medications, setMedications] = useState("");
-  const [surgeries, setSurgeries] = useState("");
-  const [concerns, setConcerns] = useState("");
-  const [weight, setWeight] = useState(0);
-  const [blood_pressure, setBloodPressure] = useState("");
+  const defaultVal =""
+  const [medications, setMedications] = useState(defaultVal);
+  const [surgeries, setSurgeries] = useState(defaultVal);
+  const [concerns, setConcerns] = useState(defaultVal);
+  const [weight, setWeight] = useState(defaultVal);
+  const [blood_pressure, setBloodPressure] = useState(defaultVal);
   const { patient_id,questionnaire_id } = useParams()
 
   const navigate = useNavigate();
+
+  useEffect ( () => {
+    async function fetchQuestionnaire() {
+        const url = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const response = await fetch(url)
+
+        if(response.ok) {
+            const data = await response.json()
+            setMedications(data.medications)
+            setSurgeries(data.surgeries)
+            setConcerns(data.concerns)
+            setWeight(data.weight)
+            setBloodPressure(data.blood_pressure)
+        }
+    }
+    fetchQuestionnaire()
+}, [questionnaire_id])
 
   const editQuestionnaire = async (event) => {
     event.preventDefault();
@@ -57,7 +75,7 @@ function QuestionnaireEdit() {
     <form onSubmit={editQuestionnaire}>
       <BootstrapInput
         id="medications"
-        placeholder="Medications"
+        placeholder={medications}
         labelText="medications"
         value={medications}
         onChange={(e) => setMedications(e.target.value)}
@@ -65,7 +83,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="surgeries"
-        placeholder="surgeries"
+        placeholder={surgeries}
         labelText="surgeries"
         value={surgeries}
         onChange={(e) => setSurgeries(e.target.value)}
@@ -73,7 +91,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="concerns"
-        placeholder="concerns"
+        placeholder={concerns}
         labelText="concerns"
         value={concerns}
         onChange={(e) => setConcerns(e.target.value)}
@@ -81,7 +99,7 @@ function QuestionnaireEdit() {
       />
       <BootstrapInput
         id="weight"
-        placeholder="weight"
+        placeholder={weight}
         labelText="weight"
         value={weight}
         onChange={(e) => setWeight(e.target.value)}
@@ -89,7 +107,7 @@ function QuestionnaireEdit() {
       />
      <BootstrapInput
         id="blood_pressure"
-        placeholder="blood_pressure"
+        placeholder={blood_pressure}
         labelText="blood_pressure"
         value={blood_pressure}
         onChange={(e) => setBloodPressure(e.target.value)}
