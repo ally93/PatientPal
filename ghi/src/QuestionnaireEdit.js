@@ -19,7 +19,6 @@ function QuestionnaireEdit() {
   const [concerns, setConcerns] = useState("");
   const [weight, setWeight] = useState(0);
   const [blood_pressure, setBloodPressure] = useState("");
-  const [date, setDate] = useState();
   const { patient_id,questionnaire_id } = useParams()
 
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ function QuestionnaireEdit() {
       "concerns": concerns,
       "weight": weight,
       "blood_pressure": blood_pressure,
-      "date": date,
       "patient_id": patient_id,
       "questionnaire_id": questionnaire_id
     };
@@ -64,14 +62,6 @@ function QuestionnaireEdit() {
         value={medications}
         onChange={(e) => setMedications(e.target.value)}
         type="text"
-      />
-      <BootstrapInput
-        id="date"
-        placeholder="YYYY-MM-DD"
-        labelText="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        type="date"
       />
       <BootstrapInput
         id="surgeries"

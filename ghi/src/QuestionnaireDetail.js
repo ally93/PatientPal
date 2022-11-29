@@ -1,5 +1,7 @@
 import {React, useEffect, useState} from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from 'react-router-dom';
+
+
 
 function QuestionnaireDetail () {
     const navigate = useNavigate();
@@ -64,6 +66,7 @@ function QuestionnaireDetail () {
             </table>
                 <button onClick= {() => deleteQuestionnaire()}>Delete</button>
                 <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
+                <button><Link to={`/patient/${questionnaire.patient_id}/questionnaires/`}>Go Back</Link></button>
             </div>
     )
 }
