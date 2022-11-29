@@ -54,7 +54,6 @@ function QuestionnaireEdit() {
     };
 
     const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaire/"+questionnaire_id;
-    console.log("edit data", data)
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(data),
