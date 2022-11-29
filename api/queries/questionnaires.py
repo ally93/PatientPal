@@ -47,7 +47,7 @@ class EntireQuestionnaireOut(BaseModel):
     patient_id: int
 
 class QuestionnaireRepository:
-    def get_one(self, questionnaire_id: int) -> Optional[QuestionnaireOut]:
+    def get_one(self, questionnaire_id: int) -> Optional[EntireQuestionnaireOut]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -77,7 +77,7 @@ class QuestionnaireRepository:
             print(e)
             return {"message": "Could not get questionnaire details"}
 
-    def get_all_by_patient(self, patient_id:int) -> Union[Error,List[QuestionnaireOut]]:
+    def get_all_by_patient(self, patient_id:int) -> Union[Error,List[EntireQuestionnaireOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -95,7 +95,7 @@ class QuestionnaireRepository:
                     )
 
                     return [
-                        QuestionnaireOut(
+                        EntireQuestionnaireOut(
                             id=record[0],
                             medications=record[1],
                             surgeries=record[2],
@@ -234,7 +234,7 @@ class QuestionnaireRepository:
             return QuestionnaireOut(id=id, **old_data)
 
     def record_to_questionnaire_out(self, record):
-        return QuestionnaireOut(
+        return EntireQuestionnaireOut(
             id=record[0],
             medications=record[1],
             surgeries=record[2],

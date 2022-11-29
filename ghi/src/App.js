@@ -7,6 +7,9 @@ import PatientUpdate from "./PatientUpdateForm";
 import PatientsList from "./PatientsList.js";
 import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
+import QuestionnaireDetail from "./QuestionnaireDetail";
+import QuestionnaireForm from "./QuestionnaireForm";
+import QuestionnaireEdit from "./QuestionnaireEdit";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
 import Navbar from "./components/Navbar";
@@ -26,7 +29,10 @@ function App() {
             element={<PatientUpdate />}
           />
           <Route path="patient/create" element={<PatientForm />} />
-          <Route path="questionnaires" element={<QuestionnairesList />} />
+          <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
+          <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
+          <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />
+          <Route path="patient/:patient_id/questionnaire/:questionnaire_id/edit" element={<QuestionnaireEdit />} />
         </Routes>
       </div>
     </BrowserRouter>
