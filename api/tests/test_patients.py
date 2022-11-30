@@ -7,7 +7,7 @@ from queries.patients import PatientRepository, PatientIn, PatientOut, PatientUp
 client = TestClient(app)
 
 class EmptyPatientQueries:
-    def get_patients(self):
+    def get_all(self):
         return []
 
 def test_get_all_patients():
@@ -19,7 +19,7 @@ def test_get_all_patients():
 
     #assert
     assert response.status_code == 200
-    assert response.json() == {"patients": []}
+    assert response.json() == []
 
     #clean up
     app.dependency_overrides ={}
