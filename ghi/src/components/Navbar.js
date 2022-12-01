@@ -28,7 +28,7 @@ function Navbar() {
         <Link to="/patients"> Patients </Link>
         <Link to="/patient/:patient_id"> Patients Details </Link>
         <Link to="patient/create"> Create Patient </Link>
-        <Link to="questionnaires"> Questionnaires </Link>
+        <Link to="patient/:patient_id/questionnaires"> Questionnaires </Link>
       </div>
     </div>
   );
