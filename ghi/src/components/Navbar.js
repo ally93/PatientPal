@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// import ReorderIcon from "
+import ReorderIcon from "material-icons";
 import "../styles/Navbar.css";
 
 function Navbar() {
@@ -20,7 +20,7 @@ function Navbar() {
             setExpandNavbar((prev) => !prev);
           }}
         >
-          {/* <ReorderIcon /> */}
+          <ReorderIcon />
         </button>
       </div>
       <div className="links">
