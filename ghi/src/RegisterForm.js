@@ -1,65 +1,111 @@
 import React, {useState} from 'react';
 
 const ResgisterForm = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [pid, setPid] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pid, setPid] = useState("");
 
-    const clearRegisterForm = () => {
-        setName("");
-        setEmail("");
-        setPassword("");
-        setPid("");
+  const clearRegisterForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setPid("");
+  };
+
+  const handleSubmit = async (submit) => {
+    submit.preventDefault();
+    const authUrl = "http://localhost:8100/api/accounts";
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+        pid: pid,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const response = await fetch(authUrl, fetchConfig);
+    const data = await response.json();
+    if (response.ok) {
+      clearRegisterForm();
     }
+  };
 
-    const handleSubmit = async (submit) => {
-        submit.preventDefault();
-        const authUrl = "http://localhost:8100/api/accounts";
-        const fetchConfig ={
-            method: "post",
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                pid: pid
-            }),
-            headers: {
-                "Content-type": "application/json"
-            }
-        };
-        const response = await fetch(authUrl, fetchConfig);
-        const data = await response.json();
-        if (response.ok) {
-            clearRegisterForm()
-        };
-    }
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <label htmlFor="name" className="form-label">
+          name
+        </label>
+        <input
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+          className="form-control"
+          id="name"
+          placeholder=" name"
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label">
+          Email
+        </label>
+        <input
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          className="form-control"
+          id="email"
+          placeholder="Email"
+        />
+      </div>
 
-    return (
-        <div>
-            <h1>Create an Account</h1>
-            <form id="new-user-form" onSubmit={handleSubmit}>
-                <div>
-                    <input required type="text" name="name" id="name" value={name} onChange={(event) => setName(event.target.value)}/>
-                    <label>Name</label>
-                </div>
-                <div>
-                    <input required type="email" name="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)}/>
-                    <label>Email</label>
-                </div>
-                <div>
-                    <input required type="password" name="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
-                    <label>Password</label>
-                </div>
-                <div>
-                    <input required type="number" name="pid" id="pid" value={pid} onChange={(event) => setPid(event.target.value)}/>
-                    <label>PID</label>
-                </div>
-                <button>Create</button>
-            </form>
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label">
+          Password
+        </label>
+        <input
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          className="form-control"
+          id="password"
+          placeholder="secret"
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="pid" className="form-label">
+          PID
+        </label>
+        <input
+          required
+          value={pid}
+          onChange={(e) => setPid(e.target.value)}
+          type="pid"
+          className="form-control"
+          id="pid"
+          placeholder="########"
+        />
+      </div>
+      <button className="btn btn-primary">Create</button>
+      {submitted && (
+        <div className="success-message">
+          Success! Thank you for registering
         </div>
-    );
+      )}
+    </form>
+  );
+};
 
-}
+export default ResgisterForm;
 
-export default ResgisterForm
+
+
