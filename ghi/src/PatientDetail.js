@@ -55,6 +55,11 @@ function PatientDetail(props) {
           </tr>
         </tbody>
       </table>
+      <button type="button" className="btn btn-outline-light">
+        <NavLink className="nav-link" aria-current="page" to="update">
+          Edit Patient
+        </NavLink>
+      </button>
     </div>
   );
 }

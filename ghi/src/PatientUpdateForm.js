@@ -1,59 +1,88 @@
-import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-
-function BootstrapInput(props){
+function BootstrapInput(props) {
   const { id, placeholder, labelText, value, onChange, type } = props;
 
-  return(
-    <div className='mb-4'>
-      <label htmlFor={id} className="form-label">{labelText}</label>
-      <input value={value} onChange={onChange} required type={type} className="form-control" id={id} placeholder={placeholder}/>
+  return (
+    <div className="mb-4">
+      <label htmlFor={id} className="form-label">
+        {labelText}
+      </label>
+      <input
+        value={value}
+        onChange={onChange}
+        type={type}
+        className="form-control"
+        id={id}
+        placeholder={placeholder}
+      />
     </div>
   );
 }
 
-function PatientForm(props) {
-  const [name, setName] = useState("");
-  const [birth_date, setBirthDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
-  const [doctor_id, setDoctor] = useState("");
+function PatientUpdate(props) {
+  const defaultVal = "";
+  const [name, setName] = useState(defaultVal);
+  const [birth_date, setBirthDate] = useState(defaultVal);
+  const [email, setEmail] = useState(defaultVal);
+  const [address, setAddress] = useState(defaultVal);
+  const [gender, setGender] = useState(defaultVal);
+  const [doctor_id, setDoctor] = useState(defaultVal);
 
   const navigate = useNavigate();
+  const { patient_id } = useParams();
 
-  const submitNewPatient = async (event) => {
+  const url = "http://localhost:8000/api/patients/" + patient_id;
+
+  useEffect(() => {
+    async function fetchPatient() {
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const data = await response.json();
+        setName(data.name);
+        setBirthDate(data.birth_date);
+        setEmail(data.email);
+        setAddress(data.address);
+        setGender(data.gender);
+        setDoctor(data.doctor_id);
+      }
+    }
+
+    fetchPatient();
+  }, [patient_id]);
+
+  const updatePatient = async (event) => {
     event.preventDefault();
     const data = {
-      "name": name,
-      "birth_date": birth_date,
-      "email": email,
-      "address": address,
-      "gender": gender,
-      "doctor_id": doctor_id
+      name: name,
+      birth_date: birth_date,
+      email: email,
+      address: address,
+      gender: gender,
+      doctor_id: doctor_id,
     };
 
-    const url = "http://localhost:8000/api/patients/";
     const fetchConfig = {
-      method: "post",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const newPatient = await response.json();
-      navigate('/patient/' + newPatient.id);
+      const updatedPatient = await response.json();
+      navigate("/patient/" + updatedPatient.id);
     }
   };
 
   return (
-    <form onSubmit={submitNewPatient}>
+    <form onSubmit={updatePatient}>
       <BootstrapInput
         id="name"
-        placeholder="Full Name"
+        placeholder={name}
         labelText="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -61,7 +90,7 @@ function PatientForm(props) {
       />
       <BootstrapInput
         id="birth_date"
-        placeholder="YYYY-MM-DD"
+        placeholder={birth_date}
         labelText="Date of Birth"
         value={birth_date}
         onChange={(e) => setBirthDate(e.target.value)}
@@ -69,7 +98,7 @@ function PatientForm(props) {
       />
       <BootstrapInput
         id="email"
-        placeholder="Email"
+        placeholder={email}
         labelText="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -77,7 +106,7 @@ function PatientForm(props) {
       />
       <BootstrapInput
         id="address"
-        placeholder="Address"
+        placeholder={address}
         labelText="Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
@@ -85,7 +114,7 @@ function PatientForm(props) {
       />
       <BootstrapInput
         id="doctor_id"
-        placeholder="Doctor ID"
+        placeholder={doctor_id}
         labelText="Doctor ID"
         value={doctor_id}
         onChange={(e) => setDoctor(e.target.value)}
@@ -102,7 +131,7 @@ function PatientForm(props) {
           aria-label="Gender"
           onChange={(e) => setGender(e.target.value)}
         >
-          <option>Select option</option>
+          <option>{gender}</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
           <option value="transgender">Transgender</option>
@@ -111,10 +140,10 @@ function PatientForm(props) {
         </select>
       </div>
       <button type="submit" className="btn btn-primary">
-        Create
+        Update
       </button>
     </form>
   );
 }
 
-export default PatientForm;
+export default PatientUpdate;
