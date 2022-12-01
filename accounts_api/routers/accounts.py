@@ -30,6 +30,24 @@ class HttpError(BaseModel):
 
 router = APIRouter()
 
+not_authorized = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Invalid authentication credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
+
+@router.get("/api/accounts/me/token", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: dict = Depends(authenticator.get_current_account_data)
+) -> AccountToken | None:
+
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
 @router.post("/api/accounts", response_model=AccountToken | HttpError)
 async def create_account(

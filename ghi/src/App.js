@@ -6,6 +6,7 @@ import PatientForm from "./PatientForm";
 import PatientsList from "./PatientsList.js";
 import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
+import ResgisterForm from "./RegisterForm";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="patient/:patient_id" element={<PatientDetail />} />
           <Route path="patient/create" element={<PatientForm />} />
           <Route path="questionnaires" element={<QuestionnairesList />} />
+          <Route path="register" element={<ResgisterForm />} />
         </Routes>
       </div>
     </BrowserRouter>
