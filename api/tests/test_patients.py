@@ -25,16 +25,9 @@ def test_get_all_patients():
     app.dependency_overrides ={}
 
 class CreatePatientQueries:
-    def create_patients(self, patient):
+    def create(self, patient):
         result = {
-                "id": 12345,
-                "doctor": {
-                    "id": 1,
-                    "name": "Name",
-                    "email": "email@email.com",
-                    "password": "password",
-                    "pid": "912345",
-                },
+                "id": 1
         }
         result.update(patient)
         return result
@@ -44,28 +37,23 @@ def test_create_patient():
     # Arrange
     app.dependency_overrides[PatientRepository] = CreatePatientQueries
 
-    json = PatientIn(
-        name="Trina",
-        birth_date="1990-11-23",
-        email="email@email.com",
-        address="central perk coffee house",
-        gender="female",
-        doctor_id=12345).dict()
-
-    expected = {
-        "id": 12345,
+    json = {
         "name":"Trina",
         "birth_date":"1990-11-23",
         "email":"email@email.com",
         "address":"central perk coffee house",
         "gender":"female",
-        "doctor": {
-            "id": 1,
-            "name": "Name",
-            "email": "email@email.com",
-            "password": "password",
-            "pid": "912345",
-        },
+        "doctor_id":12345
+    }
+
+    expected = {
+        "id": 1,
+        "name":"Trina",
+        "birth_date":"1990-11-23",
+        "email":"email@email.com",
+        "address":"central perk coffee house",
+        "gender":"female",
+        "doctor_id": 12345,
     }
 
     # Act

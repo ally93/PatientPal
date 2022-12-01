@@ -1,7 +1,18 @@
-## Nov 28, 2022
+## Nov 30, 2022
 Today I worked on:
 
-* 
+* Continuous Unit testing on patient
+
+
+
+
+
+## Nov 29, 2022
+Today I worked on:
+
+* Unit testing on patient
+
+Today we had a lecture on unit testing and how its important in deploying a clean and working code . Unit testing is a small code to test the code that you've written to check and make sure it is doing what it is supposed to be doing. It helps you write better code, catch bugs and errors earlier, helps making my code easier to refactor and personally makes me more efficient at writing code. There are 3 main steps to unit testing arrange - act - assert. I started working on test get all patients but kept running into an error that said get_all did not exist. As it is past 8pm, I will bring this issue up to my group tomorrow. 
 
 
 
