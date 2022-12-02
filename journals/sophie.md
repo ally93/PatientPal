@@ -7,6 +7,7 @@ We choose Postgres because we wanted to have relations between our tables and us
 
 ## November 18, 2022
 Today I started working on the table and endpoints for questionnaires.
+To create the table, created a migration file and created the table in there using SQL.
 Ally and I also had a review and merge session after completing the patients table and endpoints. I was able to test my endpoints after because my table had a reference to hers.
 
 ## November 21, 2022
@@ -14,6 +15,17 @@ Finished up all the endpoints for questionnaires. I was doubtful about the forei
 All 4 of us also worked together to debug table migration issues. We ended up setting up 2 databases, one for each service.
 
 Today I decided to rework my backend to filter questionnaires by patients. As I was thinking about building the front-end, I thought it would be easier to have endpoints that take in the patient id. A questionnaire cannot exist without that specific patient so I wanted to set that connection up automatically in the backend. This makes creating a questionnaire and such less prone to mistakes because the patient_id is already set to a valid one. There are no worries about inputting a patient id that does not exist now!
+
+## November 22+23, 2022
+Worked on the react portion for my endpoints.
+I created react components for:
+-List questionnaires
+-List detail questionnaire
+-Create questionnaire
+-Edit questionnaire
+and had a button that hits the delete questionnaire endpoint.
+
+I was having issues when creating the edit questionnaire component. Going into it, I wanted to have the form inputs prefilled with the current data. This makes it easy for the user to have all the data is on the same screen while updating. I originally wanted to pass the state of that questionnaire in as props to my EditQuestionnaire function. I was able to do this but everytime I reload the page, the data isn't there anymore. I realized this didnt work because I am setting the state of the questionnaire when I go to the patient detail component. If I dont go through there first, the state isnt set which means no questionnaire inputs to prefill! I ended up just duplicating the fetch questionnaire function into my edit questionnaire component. I guess it doesnt really matter because I am hitting my own API, expense doesnt matter in this case.
 
 ## November 29, 2022
 Wrote a unit test to get all questionnaires.
