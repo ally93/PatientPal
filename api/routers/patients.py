@@ -10,26 +10,23 @@ from queries.patients import (
 
 router = APIRouter()
 
+
 @router.post("/api/patients", response_model=Union[PatientOut, Error])
 def create_patient(
-    patient: PatientIn,
-    response: Response,
-    repo: PatientRepository = Depends()
+    patient: PatientIn, response: Response, repo: PatientRepository = Depends()
 ):
     # response.status_code = 400
     return repo.create(patient)
 
 
-
-@router.get("/api/patients", response_model=Union[Error,List[PatientOut]])
-def get_all(
-    repo: PatientRepository = Depends()
-
-):
+@router.get("/api/patients", response_model=Union[Error, List[PatientOut]])
+def get_all(repo: PatientRepository = Depends()):
     return repo.get_all()
 
 
-@router.put("/api/patients/{patient_id}", response_model=Union[PatientOut, Error])
+@router.put(
+    "/api/patients/{patient_id}", response_model=Union[PatientOut, Error]
+)
 def update_patient(
     patient_id: int,
     patient: PatientUpdateIn,

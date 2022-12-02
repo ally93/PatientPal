@@ -1,13 +1,16 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from typing import List, Optional, Union
+from typing import Optional
+
 # from datetime import date
 from queries.pool import pool
 
 router = APIRouter()
 
+
 class Error(BaseModel):
     message: str
+
 
 class Account(BaseModel):
     id: int
@@ -16,17 +19,20 @@ class Account(BaseModel):
     hashed_password: str
     pid: int
 
+
 class AccountIn(BaseModel):
     name: str
     email: str
     password: str
     pid: int
 
+
 class AccountOut(BaseModel):
     id: int
     name: str
     email: str
     pid: int
+
 
 class AccountRepo:
     def get(self, email: str) -> Optional[Account]:
@@ -45,7 +51,7 @@ class AccountRepo:
                     FROM accounts
                     WHERE email = %s
                     """,
-                    [email]
+                    [email],
                 )
                 record = result.fetchone()
                 if record is None:
@@ -56,7 +62,7 @@ class AccountRepo:
                     email=record[1],
                     hashed_password=record[2],
                     name=record[3],
-                    pid=record[4]
+                    pid=record[4],
                 )
 
     def create(self, account: AccountIn, hashed_password: str) -> Account:
@@ -77,8 +83,8 @@ class AccountRepo:
                         account.email,
                         hashed_password,
                         account.name,
-                        account.pid
-                    ]
+                        account.pid,
+                    ],
                 )
                 id = result.fetchone()[0]
                 return Account(
@@ -86,7 +92,7 @@ class AccountRepo:
                     email=account.email,
                     name=account.name,
                     hashed_password=hashed_password,
-                    pid=account.pid
+                    pid=account.pid,
                 )
 
 
@@ -94,8 +100,10 @@ class AccountForm(BaseModel):
     username: str
     password: str
 
-class AccountToken():
+
+class AccountToken:
     account: AccountOut
+
 
 class HttpError(BaseModel):
     detail: str

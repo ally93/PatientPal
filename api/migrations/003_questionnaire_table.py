@@ -1,6 +1,6 @@
-steps= [
+steps = [
     [
-        ## create a table
+        # create a table
         """
         CREATE TABLE questionnaires (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -14,10 +14,9 @@ steps= [
 
         );
         """,
-
-        ##drop the table
+        # drop the table
         """
         DROP TABLE questionnaires;
-        """
+        """,
     ]
 ]

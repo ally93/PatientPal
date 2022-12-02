@@ -10,44 +10,50 @@ class Error(BaseModel):
 
 class QuestionnaireIn(BaseModel):
     medications: str
-    surgeries : str
-    concerns : str
+    surgeries: str
+    concerns: str
     weight: int
     blood_pressure: str
     date: date
     # patient_id: int
 
+
 class QuestionnaireUpdateIn(BaseModel):
     medications: Optional[str]
-    surgeries : Optional[str]
-    concerns : Optional[str]
+    surgeries: Optional[str]
+    concerns: Optional[str]
     weight: Optional[int]
     blood_pressure: Optional[str]
     date: Optional[date]
     # patient_id: Optional[int]
 
+
 class QuestionnaireOut(BaseModel):
     id: int
     medications: str
-    surgeries : str
-    concerns : str
+    surgeries: str
+    concerns: str
     weight: int
     blood_pressure: str
     date: date
     # patient_id: int
 
+
 class EntireQuestionnaireOut(BaseModel):
     id: int
     medications: str
-    surgeries : str
-    concerns : str
+    surgeries: str
+    concerns: str
     weight: int
     blood_pressure: str
     date: date
     patient_id: int
 
+
 class QuestionnaireRepository:
-    def get_one(self, questionnaire_id: int) -> Optional[EntireQuestionnaireOut]:
+    def get_one(
+        self, questionnaire_id: int
+    ) -> Optional[EntireQuestionnaireOut]:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -67,7 +73,7 @@ class QuestionnaireRepository:
                         FROM questionnaires
                         WHERE id = %s
                         """,
-                        [questionnaire_id]
+                        [questionnaire_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -77,21 +83,24 @@ class QuestionnaireRepository:
             print(e)
             return {"message": "Could not get questionnaire details"}
 
-    def get_all_by_patient(self, patient_id:int) -> Union[Error,List[EntireQuestionnaireOut]]:
+    def get_all_by_patient(
+        self, patient_id: int
+    ) -> Union[Error, List[EntireQuestionnaireOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
                 # get a cursor(something to run SQL with)
                 with conn.cursor() as db:
                     # run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
-                        SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
+                        SELECT id, medications, surgeries, concerns,
+                            weight, blood_pressure, date, patient_id
                         From questionnaires
                         WHERE patient_id= %s
                         ORDER BY date;
                         """,
-                        [patient_id]
+                        [patient_id],
                     )
 
                     return [
@@ -102,8 +111,8 @@ class QuestionnaireRepository:
                             concerns=record[3],
                             weight=record[4],
                             blood_pressure=record[5],
-                            date =record[6],
-                            patient_id=record[7]
+                            date=record[6],
+                            patient_id=record[7],
                         )
                         for record in db
                     ]
@@ -111,16 +120,19 @@ class QuestionnaireRepository:
             print("failed to get list of questionnaires", e)
             return {"message": "Could not get all questionnaires!"}
 
-    def get_all_questionnaires(self) -> Union[Error,List[EntireQuestionnaireOut]]:
+    def get_all_questionnaires(
+        self,
+    ) -> Union[Error, List[EntireQuestionnaireOut]]:
         try:
             # connect the database
             with pool.connection() as conn:
                 # get a cursor(something to run SQL with)
                 with conn.cursor() as db:
                     # run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
-                        SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
+                        SELECT id, medications, surgeries, concerns,
+                            weight, blood_pressure, date, patient_id
                         From questionnaires
                         ORDER BY date;
                         """
@@ -134,8 +146,8 @@ class QuestionnaireRepository:
                             concerns=record[3],
                             weight=record[4],
                             blood_pressure=record[5],
-                            date =record[6],
-                            patient_id=record[7]
+                            date=record[6],
+                            patient_id=record[7],
                         )
                         for record in db
                     ]
@@ -143,7 +155,9 @@ class QuestionnaireRepository:
             print("failed to get list of questionnaires", e)
             return {"message": "Could not get all questionnaires!"}
 
-    def create(self, patient_id:int, questionnaire: QuestionnaireIn) -> QuestionnaireOut:
+    def create(
+        self, patient_id: int, questionnaire: QuestionnaireIn
+    ) -> QuestionnaireOut:
         try:
             # connect the database
             with pool.connection() as conn:
@@ -153,7 +167,8 @@ class QuestionnaireRepository:
                     result = db.execute(
                         """
                         INSERT INTO questionnaires
-                            (medications, surgeries, concerns, weight, blood_pressure, date, patient_id)
+                            (medications, surgeries, concerns, weight,
+                            blood_pressure, date, patient_id)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -165,7 +180,7 @@ class QuestionnaireRepository:
                             questionnaire.weight,
                             questionnaire.blood_pressure,
                             questionnaire.date,
-                            patient_id
+                            patient_id,
                         ],
                     )
                     id = result.fetchone()[0]
@@ -174,7 +189,12 @@ class QuestionnaireRepository:
             print("failed to create questionnaire", e)
             return {"message": "Could not create questionnaire"}
 
-    def update(self, patient_id:int, questionnaire_id: int, questionnaire: QuestionnaireUpdateIn) -> Union[QuestionnaireOut, Error]:
+    def update(
+        self,
+        patient_id: int,
+        questionnaire_id: int,
+        questionnaire: QuestionnaireUpdateIn,
+    ) -> Union[QuestionnaireOut, Error]:
         original = self.get_one(questionnaire_id)
         questionnaire_data = questionnaire.dict(exclude_unset=True)
         questionnaire_detail = original.copy(update=questionnaire_data)
@@ -200,10 +220,12 @@ class QuestionnaireRepository:
                             questionnaire_detail.blood_pressure,
                             questionnaire_detail.date,
                             patient_id,
-                            questionnaire_id
-                        ]
+                            questionnaire_id,
+                        ],
                     )
-                    return self.questionnaire_in_to_out(questionnaire_id, questionnaire_detail)
+                    return self.questionnaire_in_to_out(
+                        questionnaire_id, questionnaire_detail
+                    )
         except Exception as e:
             print(e)
             return {"message": "Could not update questionnaire details!"}
@@ -219,7 +241,7 @@ class QuestionnaireRepository:
                         DELETE FROM questionnaires
                         WHERE id = %s
                         """,
-                        [questionnaire_id]
+                        [questionnaire_id],
                     )
                     return True
         except Exception as e:
@@ -228,7 +250,7 @@ class QuestionnaireRepository:
 
     def questionnaire_in_to_out(self, id: int, questionnaire: QuestionnaireIn):
         old_data = questionnaire.dict()
-        if 'id' in old_data :
+        if "id" in old_data:
             return QuestionnaireOut(**old_data)
         else:
             return QuestionnaireOut(id=id, **old_data)
@@ -241,6 +263,6 @@ class QuestionnaireRepository:
             concerns=record[3],
             weight=record[4],
             blood_pressure=record[5],
-            date = record[6],
-            patient_id=record[7]
+            date=record[6],
+            patient_id=record[7],
         )

@@ -1,6 +1,6 @@
-steps= [
+steps = [
     [
-        ## create a table
+        # create a table
         """
         CREATE TABLE patients (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -12,10 +12,9 @@ steps= [
             doctor_id INTEGER NOT NULL
         );
         """,
-
-        ##drop the table
+        # drop the table
         """
         DROP TABLE patients;
-        """
+        """,
     ]
 ]

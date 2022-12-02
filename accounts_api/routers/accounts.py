@@ -12,21 +12,21 @@ from authenticator import authenticator
 
 from pydantic import BaseModel
 
-from queries.accounts import (
-    AccountIn,
-    AccountOut,
-    AccountRepo
-)
+from queries.accounts import AccountIn, AccountOut, AccountRepo
+
 
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: AccountOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
@@ -36,10 +36,11 @@ not_authorized = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
+
 @router.get("/api/accounts/me/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: dict = Depends(authenticator.get_current_account_data)
+    account: dict = Depends(authenticator.get_current_account_data),
 ) -> AccountToken | None:
 
     if account and authenticator.cookie_name in request.cookies:
@@ -48,6 +49,7 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
 
 @router.post("/api/accounts", response_model=AccountToken | HttpError)
 async def create_account(
