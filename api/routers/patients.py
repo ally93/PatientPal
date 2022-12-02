@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException, status
+from token_auth import get_current_user
 from typing import Union, List, Optional
 from queries.patients import (
     Error,
@@ -10,11 +11,18 @@ from queries.patients import (
 
 router = APIRouter()
 
+not_authorized = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Invalid authentication credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
+
 @router.post("/api/patients", response_model=Union[PatientOut, Error])
 def create_patient(
     patient: PatientIn,
     response: Response,
-    repo: PatientRepository = Depends()
+    repo: PatientRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ):
     # response.status_code = 400
     return repo.create(patient)
@@ -23,8 +31,8 @@ def create_patient(
 
 @router.get("/api/patients", response_model=Union[Error,List[PatientOut]])
 def get_all(
-    repo: PatientRepository = Depends()
-
+    repo: PatientRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ):
     return repo.get_all()
 
