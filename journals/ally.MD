@@ -1,9 +1,16 @@
+## Dec 1, 2022
+Today I worked on:
+
+* Continuous Unit testing on patient
+
+I kept getting JSON non serializable error on create patients but once I manually changed in into a dictionary, it worked. I realized I need to update our readme and will look into it soon. Overall it is a fun experience writing a code to test the code I've written and I am excited to be doing this in a workspace soon. 
+
 ## Nov 30, 2022
 Today I worked on:
 
 * Continuous Unit testing on patient
 
-
+I wrote 2 tests, one to test get all patients and one to create patients, I explained what errors I was having yesterday and my entire team helped me to walk the code one by one, we first realized we can only run the pytest command in the docker terminal, and I then understood why because the dependencies are only in the docker and running it locally will never work. Second, sophie told me the queries name has to match for it to correctly test it, once i tweaked it it ran!  
 
 
 
