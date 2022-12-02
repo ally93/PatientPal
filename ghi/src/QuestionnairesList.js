@@ -1,17 +1,11 @@
-import {React, useEffect, useState} from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import {React, useCallback, useEffect, useState} from "react";
+import { useParams, Link } from "react-router-dom";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
     const { patient_id } = useParams()
-    const navigate = useNavigate();
 
-
-    useEffect ( () => {
-        fetchQuestionnaires();
-    }, [patient_id])
-
-    async function fetchQuestionnaires() {
+    const fetchQuestionnaires = useCallback( async () =>  {
         const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaires";
         const response = await fetch(url)
 
@@ -19,7 +13,11 @@ function QuestionnairesList() {
             const data = await response.json()
             setQuestionnaires(data)
         }
-    }
+    }, [patient_id])
+
+    useEffect ( () => {
+        fetchQuestionnaires();
+    },[fetchQuestionnaires])
 
     async function deleteQuestionnaire(questionnaire_id) {
         const deleteUrl = "http://localhost:8000/questionnaire/"+questionnaire_id;

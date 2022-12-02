@@ -1,7 +1,25 @@
-## Nov 28, 2022
+## Dec 1, 2022
 Today I worked on:
 
-* 
+* Continuous Unit testing on patient
+
+I kept getting JSON non serializable error on create patients but once I manually changed in into a dictionary, it worked. I realized I need to update our readme and will look into it soon. Overall it is a fun experience writing a code to test the code I've written and I am excited to be doing this in a workspace soon. 
+
+## Nov 30, 2022
+Today I worked on:
+
+* Continuous Unit testing on patient
+
+I wrote 2 tests, one to test get all patients and one to create patients, I explained what errors I was having yesterday and my entire team helped me to walk the code one by one, we first realized we can only run the pytest command in the docker terminal, and I then understood why because the dependencies are only in the docker and running it locally will never work. Second, sophie told me the queries name has to match for it to correctly test it, once i tweaked it it ran!  
+
+
+
+## Nov 29, 2022
+Today I worked on:
+
+* Unit testing on patient
+
+Today we had a lecture on unit testing and how its important in deploying a clean and working code . Unit testing is a small code to test the code that you've written to check and make sure it is doing what it is supposed to be doing. It helps you write better code, catch bugs and errors earlier, helps making my code easier to refactor and personally makes me more efficient at writing code. There are 3 main steps to unit testing arrange - act - assert. I started working on test get all patients but kept running into an error that said get_all did not exist. As it is past 8pm, I will bring this issue up to my group tomorrow. 
 
 
 

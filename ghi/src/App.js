@@ -7,6 +7,7 @@ import PatientUpdate from "./PatientUpdateForm";
 import PatientsList from "./PatientsList.js";
 import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
+import ResgisterForm from "./RegisterForm";
 import QuestionnaireDetail from "./QuestionnaireDetail";
 import QuestionnaireForm from "./QuestionnaireForm";
 import QuestionnaireEdit from "./QuestionnaireEdit";
@@ -27,6 +28,8 @@ function App() {
           <Route path="patient/:patient_id" element={<PatientDetail />} />
           <Route path="patient/:patient_id/update/" element={<PatientUpdate />} />
           <Route path="patient/create" element={<PatientForm />} />
+          <Route path="questionnaires" element={<QuestionnairesList />} />
+          <Route path="register" element={<ResgisterForm />} />
           <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
           <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />

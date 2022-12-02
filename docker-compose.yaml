@@ -25,6 +25,7 @@ services:
       DATABASE_URL: postgresql://gamma:password@postgres/gamma
       WAIT_HOSTS: postgres:5432
       PORT: 8000
+      SIGNING_KEY: ASLDKFJASL;FKAS;L
 
   accounts_api:
     build:
