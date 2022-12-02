@@ -30,9 +30,10 @@ const ResgisterForm = () => {
       },
     };
     const response = await fetch(authUrl, fetchConfig);
-    const data = await response.json();
+    await response.json();
     if (response.ok) {
       clearRegisterForm();
+      setSubmitted(true);
     }
   };
 

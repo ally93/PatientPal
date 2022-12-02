@@ -60,6 +60,12 @@ function PatientDetail(props) {
           Edit Patient
         </NavLink>
       </button>
+
+      <button type="button" className="btn btn-outline-light">
+        <NavLink className="nav-link" aria-current="page" to="questionnaires">
+          Patient Questionnaires
+        </NavLink>
+      </button>
     </div>
   );
 }

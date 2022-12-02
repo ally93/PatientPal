@@ -51,7 +51,7 @@ function PatientUpdate(props) {
     }
 
     fetchPatient();
-  }, [patient_id]);
+  }, [url]);
 
   const updatePatient = async (event) => {
     event.preventDefault();

@@ -26,9 +26,7 @@ function Navbar() {
       <div className="links">
         <Link to="/"> Home </Link>
         <Link to="/patients"> Patients </Link>
-        <Link to="/patient/:patient_id"> Patients Details </Link>
         <Link to="patient/create"> Create Patient </Link>
-        <Link to="patient/:patient_id/questionnaires"> Questionnaires </Link>
         {/* <Link to="register"> register </Link> */}
       </div>
     </div>
