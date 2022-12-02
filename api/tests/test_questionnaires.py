@@ -25,7 +25,7 @@ def test_get_all_questionnaires():
 
 
 class CreateQuestionnaireQueries:
-    def create(self, questionnaire):
+    def create(self,patient_id, questionnaire):
         result = {
             "id": 1
         }
