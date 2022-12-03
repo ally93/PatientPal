@@ -25,7 +25,7 @@ function QuestionnaireEdit() {
 
   useEffect ( () => {
     async function fetchQuestionnaire() {
-        const url = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
         const response = await fetch(url)
 
         if(response.ok) {
@@ -51,8 +51,7 @@ function QuestionnaireEdit() {
       "patient_id": patient_id,
       "questionnaire_id": questionnaire_id
     };
-
-    const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaire/"+questionnaire_id;
+    const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patient/${patient_id}/questionnaire/${questionnaire_id}`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(data),

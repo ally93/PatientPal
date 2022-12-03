@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 const ResgisterForm = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -16,7 +16,7 @@ const ResgisterForm = () => {
 
   const handleSubmit = async (submit) => {
     submit.preventDefault();
-    const authUrl = "http://localhost:8100/api/accounts";
+    const authUrl = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify({
@@ -107,6 +107,3 @@ const ResgisterForm = () => {
 };
 
 export default ResgisterForm;
-
-
-
