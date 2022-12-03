@@ -10,10 +10,8 @@ function PatientsList(props) {
       const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients`;
 
       const response = await fetch(url);
-      console.log(url);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setPatients(data);
       }
     }
