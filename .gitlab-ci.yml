@@ -30,13 +30,9 @@ run-patients-api-tests-job:
     DATABASE_URL: postgresql://gamma:password@postgres/gamma
 
 # Build the React/JavaScript front-end
-build-front-end-job:
+build-patients-portal-front-end-job:
   stage: build
   image: node:lts-bullseye
-  needs:
-    - run-patients-api-tests-job
-    - lint-patients-api-job
-    - lint-accounts-api-job
   variables:
     # If either of these variables is defined in the GitLab
     # CI/CD variables, that value will override the value here.
@@ -48,23 +44,37 @@ build-front-end-job:
   script:
     - cd ghi
     - npm install
-    - cp build/index.html build/404.html
-  artifacts:
-    paths:
-      - ghi/build/
 
-# Deploy the React/JavaScript front-end to GitLab pages
-deploy-patients-api:
+deploy-patients-api-job:
   stage: deploy
   rules:
     # uncomment line below after changes are merged into main
     # to force deployments to only happen from main branch
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  dependencies:
-    - run-patients-api-tests-job
-    - lint-patients-api-job
   needs:
     - run-patients-api-tests-job
     - lint-patients-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
+
+deploy-patients-api-job:
+  stage: deploy
+  rules:
+    # uncomment line below after changes are merged into main
+    # to force deployments to only happen from main branch
+    #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - lint-accounts-api-job
+  script:
+    - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4pn7pgp3jkq2r407lg?key=7cvpSPL4XA8"'
+
+deploy-patients-portal-front-end-job:
+  stage: deploy
+  rules:
+    # uncomment line below after changes are merged into main
+    # to force deployments to only happen from main branch
+    #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - build-patients-portal-front-end-job
+  script:
+    - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce5bd9sgqg494100una0?key=QBXaKumtyhQ"'
