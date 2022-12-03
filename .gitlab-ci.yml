@@ -35,14 +35,15 @@ build-front-end-job:
   image: node:lts-bullseye
   needs:
     - lint-test-job
+    - lint-accounts-test-job
   variables:
     # If either of these variables is defined in the GitLab
     # CI/CD variables, that value will override the value here.
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://heaven-seven.gitlab.io/module3-project-gamma/
-    ACCOUNTS_API_HOST: https://accounts-api-uwsq.onrender.com
-    PATIENTS_API_HOST: https://patient-portal-api.onrender.com
+    REACT_APP_ACCOUNTS_API_HOST: https://accounts-api-uwsq.onrender.com
+    REACT_APP_PATIENTS_API_HOST: https://patient-portal-api.onrender.com
   script:
     - cd ghi
     - npm install

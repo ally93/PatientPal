@@ -1,6 +1,13 @@
 ## Dec 1, 2022
 Today I worked on:
 
+* CD deployment in render
+
+I created a postgres sql and called it gamma, i started on deploying the api(patients and questionnaire) and was able to deploy it smoothly. I had issues to deploy our next microservice simply because it was ina different database and render plan that we currently have only allows 1 db to be deployed. So I moved the migration table from accounts_api into api and changed the docker dev file in accounts_api to not make migrations. I also updated our docker compose yml to use the same db but utilizes different ports as these are 2 microservices. I also turned the pipelines in gitlab to run again 
+
+## Dec 1, 2022
+Today I worked on:
+
 * Continuous Unit testing on patient
 
 I kept getting JSON non serializable error on create patients but once I manually changed in into a dictionary, it worked. I realized I need to update our readme and will look into it soon. Overall it is a fun experience writing a code to test the code I've written and I am excited to be doing this in a workspace soon. 

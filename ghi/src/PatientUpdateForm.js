@@ -33,7 +33,7 @@ function PatientUpdate(props) {
   const navigate = useNavigate();
   const { patient_id } = useParams();
 
-  const url = "http://localhost:8000/api/patients/" + patient_id;
+  const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`; 
 
   useEffect(() => {
     async function fetchPatient() {

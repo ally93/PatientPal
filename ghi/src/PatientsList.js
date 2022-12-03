@@ -7,12 +7,13 @@ function PatientsList(props) {
 
   useEffect(() => {
     async function fetchPatients() {
-      const url = "http://localhost:8000/api/patients";
+      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients`;
 
       const response = await fetch(url);
-
+      console.log(url);
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setPatients(data);
       }
     }
@@ -21,7 +22,7 @@ function PatientsList(props) {
   }, []);
 
   const deletePatient = async (patient_id) => {
-    const url = `http://localhost:8000/api/patients/${patient_id}`;
+    const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
     const fetchConfig = {
       method: "DELETE",
     };
