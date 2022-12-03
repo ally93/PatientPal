@@ -10,8 +10,8 @@ lint-patients-api-job:
   script:
     - pip install flake8
     - flake8 api
-  only:
-    changes:
+  rules:
+    - changes:
       - api/**/*
 
 lint-accounts-api-job:
@@ -20,8 +20,8 @@ lint-accounts-api-job:
   script:
     - pip install flake8
     - flake8 accounts_api
-  only:
-    changes:
+  rules:
+    - changes:
       - accounts_api/**/*
 
 run-patients-api-tests-job:
@@ -34,8 +34,8 @@ run-patients-api-tests-job:
     - python -m pytest
   variables:
     DATABASE_URL: postgresql://gamma:password@postgres/gamma
-  only:
-    changes:
+  rules:
+    - changes:
       - api/**/*
 
 # Build the React/JavaScript front-end
@@ -63,11 +63,14 @@ deploy-patients-api-job:
     # uncomment line below after changes are merged into main
     # to force deployments to only happen from main branch
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - changes:
+      - api/**/*
   dependencies:
     - run-patients-api-tests-job
     - lint-patients-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
+    
 
 deploy-accounts-api-job:
   stage: deploy
@@ -75,10 +78,13 @@ deploy-accounts-api-job:
     # uncomment line below after changes are merged into main
     # to force deployments to only happen from main branch
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - changes:
+      - accounts_api/**/*
   dependencies:
     - lint-accounts-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4pn7pgp3jkq2r407lg?key=7cvpSPL4XA8"'
+    
 
 deploy-patients-portal-front-end-job:
   stage: deploy
@@ -86,6 +92,8 @@ deploy-patients-portal-front-end-job:
     # uncomment line below after changes are merged into main
     # to force deployments to only happen from main branch
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - changes:
+      - ghi/**/*
   dependencies:
     - build-patients-portal-front-end-job
   script:
