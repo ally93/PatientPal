@@ -9,9 +9,7 @@ from authenticator import authenticator
 app = FastAPI()
 
 origins = [
-    os.environ.get("CORS_HOST", "http://localhost"),
-    "http://localhost:3000",
-    "https://heaven-seven.gitlab.io/module3-project-gamma",
+    os.environ.get("CORS_HOST", "http://localhost:3000"),
 ]
 
 app.add_middleware(
