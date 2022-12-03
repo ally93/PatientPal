@@ -10,8 +10,8 @@ lint-patients-api-job:
   script:
     - pip install flake8
     - flake8 api
-  only:
-    changes:
+  rules:
+    - changes:
       - api/**/*
 
 lint-accounts-api-job:
@@ -20,8 +20,8 @@ lint-accounts-api-job:
   script:
     - pip install flake8
     - flake8 accounts_api
-  only:
-    changes:
+  rules:
+    - changes:
       - accounts_api/**/*
 
 run-patients-api-tests-job:
@@ -34,8 +34,8 @@ run-patients-api-tests-job:
     - python -m pytest
   variables:
     DATABASE_URL: postgresql://gamma:password@postgres/gamma
-  only:
-    changes:
+  rules:
+    - changes:
       - api/**/*
 
 # Build the React/JavaScript front-end
@@ -53,8 +53,8 @@ build-patients-portal-front-end-job:
   script:
     - cd ghi
     - npm install
-  only:
-    changes:
+  rules:
+    - changes:
       - ghi/**/*
 
 deploy-patients-api-job:
