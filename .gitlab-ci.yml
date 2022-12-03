@@ -68,6 +68,9 @@ deploy-patients-api-job:
     - lint-patients-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
+  only:
+    changes:
+      - api/**/*
 
 deploy-accounts-api-job:
   stage: deploy
@@ -79,6 +82,9 @@ deploy-accounts-api-job:
     - lint-accounts-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4pn7pgp3jkq2r407lg?key=7cvpSPL4XA8"'
+  only:
+    changes:
+      - accounts_api/**/*
 
 deploy-patients-portal-front-end-job:
   stage: deploy
@@ -90,3 +96,6 @@ deploy-patients-portal-front-end-job:
     - build-patients-portal-front-end-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce5bd9sgqg494100una0?key=QBXaKumtyhQ"'
+  only:
+    changes:
+      - ghi/**/*
