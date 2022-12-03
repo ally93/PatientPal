@@ -66,9 +66,6 @@ deploy-patients-api-job:
   dependencies:
     - run-patients-api-tests-job
     - lint-patients-api-job
-  needs:
-    - run-patients-api-tests-job
-    - lint-patients-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
 
@@ -80,8 +77,6 @@ deploy-accounts-api-job:
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   dependencies:
     - lint-accounts-api-job
-  needs:
-    - lint-accounts-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4pn7pgp3jkq2r407lg?key=7cvpSPL4XA8"'
 
@@ -92,8 +87,6 @@ deploy-patients-portal-front-end-job:
     # to force deployments to only happen from main branch
     #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   dependencies:
-    - build-patients-portal-front-end-job
-  needs:
     - build-patients-portal-front-end-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce5bd9sgqg494100una0?key=QBXaKumtyhQ"'
