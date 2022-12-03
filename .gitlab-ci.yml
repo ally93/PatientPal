@@ -57,7 +57,7 @@ deploy-patients-api-job:
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
 
-deploy-patients-api-job:
+deploy-accounts-api-job:
   stage: deploy
   rules:
     # uncomment line below after changes are merged into main
