@@ -6,7 +6,7 @@ function QuestionnairesList() {
     const { patient_id } = useParams()
 
     const fetchQuestionnaires = useCallback(async () => {
-      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patient/${patient_id}/questionnaires`; 
+      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patient/${patient_id}/questionnaires`;
       const response = await fetch(url);
 
       if (response.ok) {
@@ -20,7 +20,7 @@ function QuestionnairesList() {
     }, [fetchQuestionnaires]);
 
     async function deleteQuestionnaire(questionnaire_id) {
-        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
+        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`;
         const fetchConfig = {
         method: "delete"
         }
@@ -48,6 +48,7 @@ function QuestionnairesList() {
                   <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
                   <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
                   <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
+                  <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/create`}>Create Questionnaire</Link></button>
                 </td>
               </tr>
             );
