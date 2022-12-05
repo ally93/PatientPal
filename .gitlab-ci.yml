@@ -60,9 +60,7 @@ build-patients-portal-front-end-job:
 deploy-patients-api-job:
   stage: deploy
   rules:
-    # uncomment line below after changes are merged into main
-    # to force deployments to only happen from main branch
-    #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - changes:
       - api/**/*
   dependencies:
@@ -75,9 +73,7 @@ deploy-patients-api-job:
 deploy-accounts-api-job:
   stage: deploy
   rules:
-    # uncomment line below after changes are merged into main
-    # to force deployments to only happen from main branch
-    #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - changes:
       - accounts_api/**/*
   dependencies:
@@ -89,9 +85,7 @@ deploy-accounts-api-job:
 deploy-patients-portal-front-end-job:
   stage: deploy
   rules:
-    # uncomment line below after changes are merged into main
-    # to force deployments to only happen from main branch
-    #- if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - changes:
       - ghi/**/*
   dependencies:
