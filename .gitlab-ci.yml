@@ -54,6 +54,7 @@ build-patients-portal-front-end-job:
     - cd ghi
     - npm install
     - npm run build
+    - ls
   artifacts:
     paths:
       - ./build
