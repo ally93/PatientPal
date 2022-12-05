@@ -53,6 +53,9 @@ build-patients-portal-front-end-job:
   script:
     - cd ghi
     - npm install
+  artifacts:
+    paths:
+      - ghi/build/
   rules:
     - changes:
         - ghi/**/*
