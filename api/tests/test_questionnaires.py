@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.questionnaires import QuestionnaireRepository
+from token_auth import get_current_user
 # from queries.questionnaires import (
 #     QuestionnaireIn,
 #     QuestionnaireOut,
@@ -9,17 +10,20 @@ from queries.questionnaires import QuestionnaireRepository
 
 client = TestClient(app)
 
+def override_auth_user():
+    return []
 
+## Unit test to get all questionnaires
 class EmptyQuestionnaireQueries:
     def get_all_questionnaires(self):
         return []
-
 
 def test_get_all_questionnaires():
     # arrange
     app.dependency_overrides[
         QuestionnaireRepository
     ] = EmptyQuestionnaireQueries
+    app.dependency_overrides[get_current_user] = override_auth_user
 
     # act
     response = client.get("/questionnaire")
@@ -31,7 +35,7 @@ def test_get_all_questionnaires():
     #clean up
     app.dependency_overrides ={}
 
-
+## Unit test to create a questionnaire
 class CreateQuestionnaireQueries:
     def create(self,patient_id, questionnaire):
         result = {
@@ -43,6 +47,7 @@ class CreateQuestionnaireQueries:
 def test_create_questionnaire():
     # Arrange
     app.dependency_overrides[QuestionnaireRepository] = CreateQuestionnaireQueries
+    app.dependency_overrides[get_current_user] = override_auth_user
 
     json = {
             "medications":"banana",
