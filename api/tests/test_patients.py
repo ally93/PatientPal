@@ -10,6 +10,8 @@ from queries.patients import (
     # PatientUpdateIn,
 )
 
+from token_auth import get_current_user
+
 client = TestClient(app)
 
 
@@ -18,9 +20,14 @@ class EmptyPatientQueries:
         return []
 
 
+def override_auth_user():
+    return []
+
+
 def test_get_all_patients():
     # arrange
     app.dependency_overrides[PatientRepository] = EmptyPatientQueries
+    app.dependency_overrides[get_current_user] = override_auth_user
 
     # act
     response = client.get("/api/patients")
@@ -43,6 +50,7 @@ class CreatePatientQueries:
 def test_create_patient():
     # Arrange
     app.dependency_overrides[PatientRepository] = CreatePatientQueries
+    app.dependency_overrides[get_current_user] = override_auth_user
 
     json = {
         "name": "Trina",
