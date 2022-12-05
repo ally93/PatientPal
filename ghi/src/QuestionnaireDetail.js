@@ -11,7 +11,7 @@ function QuestionnaireDetail () {
 
     useEffect ( () => {
         async function fetchQuestionnaire() {
-            const url = "http://localhost:8000/questionnaire/"+questionnaire_id;
+            const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
             const response = await fetch(url)
 
             if(response.ok) {
@@ -23,7 +23,7 @@ function QuestionnaireDetail () {
     }, [questionnaire_id])
 
     async function deleteQuestionnaire() {
-        const deleteUrl = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
         const fetchConfig = {
         method: "delete"
         }

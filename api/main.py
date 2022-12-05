@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from routers import patients, questionnaires
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +9,7 @@ app.include_router(patients.router)
 app.include_router(questionnaires.router)
 
 origins = [
-    "http://localhost:3000",
+    os.environ.get("CORS_HOST", "http://localhost:3000"),
 ]
 
 app.add_middleware(

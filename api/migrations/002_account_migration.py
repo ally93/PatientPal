@@ -1,4 +1,4 @@
-steps= [
+steps = [
     [
         # "Up" SQL statement
         """
@@ -13,8 +13,6 @@ steps= [
         # "Down" SQL statement
         """
         DROP TABLE accounts;
-        """
+        """,
     ]
 ]
-
-

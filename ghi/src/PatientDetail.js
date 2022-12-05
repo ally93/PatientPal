@@ -7,7 +7,7 @@ function PatientDetail(props) {
 
   useEffect(() => {
     async function fetchPatient() {
-      const url = "http://localhost:8000/api/patients/" + patient_id;
+      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
       const response = await fetch(url);
 
       if (response.ok) {
@@ -58,6 +58,12 @@ function PatientDetail(props) {
       <button type="button" className="btn btn-outline-light">
         <NavLink className="nav-link" aria-current="page" to="update">
           Edit Patient
+        </NavLink>
+      </button>
+
+      <button type="button" className="btn btn-outline-light">
+        <NavLink className="nav-link" aria-current="page" to="questionnaires">
+          Patient Questionnaires
         </NavLink>
       </button>
     </div>

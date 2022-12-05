@@ -1,26 +1,26 @@
-import {React, useCallback, useEffect, useState} from "react";
+import { React, useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
     const { patient_id } = useParams()
 
-    const fetchQuestionnaires = useCallback( async () =>  {
-        const url = "http://localhost:8000/api/patient/"+patient_id+"/questionnaires";
-        const response = await fetch(url)
+    const fetchQuestionnaires = useCallback(async () => {
+      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patient/${patient_id}/questionnaires`; 
+      const response = await fetch(url);
 
-        if(response.ok) {
-            const data = await response.json()
-            setQuestionnaires(data)
-        }
-    }, [patient_id])
+      if (response.ok) {
+        const data = await response.json();
+        setQuestionnaires(data);
+      }
+    }, [patient_id]);
 
-    useEffect ( () => {
-        fetchQuestionnaires();
-    },[fetchQuestionnaires])
+    useEffect(() => {
+      fetchQuestionnaires();
+    }, [fetchQuestionnaires]);
 
     async function deleteQuestionnaire(questionnaire_id) {
-        const deleteUrl = "http://localhost:8000/questionnaire/"+questionnaire_id;
+        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
         const fetchConfig = {
         method: "delete"
         }

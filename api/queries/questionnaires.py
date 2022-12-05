@@ -92,9 +92,10 @@ class QuestionnaireRepository:
                 # get a cursor(something to run SQL with)
                 with conn.cursor() as db:
                     # run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
-                        SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
+                        SELECT id, medications, surgeries, concerns,
+                            weight, blood_pressure, date, patient_id
                         From questionnaires
                         WHERE patient_id= %s
                         ORDER BY date;
@@ -128,9 +129,10 @@ class QuestionnaireRepository:
                 # get a cursor(something to run SQL with)
                 with conn.cursor() as db:
                     # run our SELECT statement
-                    result = db.execute(
+                    db.execute(
                         """
-                        SELECT id, medications, surgeries, concerns, weight, blood_pressure, date, patient_id
+                        SELECT id, medications, surgeries, concerns,
+                            weight, blood_pressure, date, patient_id
                         From questionnaires
                         ORDER BY date;
                         """
@@ -165,7 +167,8 @@ class QuestionnaireRepository:
                     result = db.execute(
                         """
                         INSERT INTO questionnaires
-                            (medications, surgeries, concerns, weight, blood_pressure, date, patient_id)
+                            (medications, surgeries, concerns, weight,
+                            blood_pressure, date, patient_id)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;

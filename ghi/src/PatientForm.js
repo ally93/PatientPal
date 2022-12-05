@@ -34,7 +34,7 @@ function PatientForm(props) {
       "doctor_id": doctor_id
     };
 
-    const url = "http://localhost:8000/api/patients/";
+    const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
