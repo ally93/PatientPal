@@ -55,7 +55,7 @@ build-patients-portal-front-end-job:
     - npm install
   artifacts:
     paths:
-      - public/
+      - ./build
   rules:
     - changes:
         - ghi/**/*
