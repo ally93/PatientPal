@@ -12,7 +12,7 @@ lint-patients-api-job:
     - flake8 api
   rules:
     - changes:
-      - api/**/*
+        - api/**/*
 
 lint-accounts-api-job:
   image: python:3-bullseye
@@ -22,7 +22,7 @@ lint-accounts-api-job:
     - flake8 accounts_api
   rules:
     - changes:
-      - accounts_api/**/*
+        - accounts_api/**/*
 
 run-patients-api-tests-job:
   image: python:3.10-bullseye
@@ -36,7 +36,7 @@ run-patients-api-tests-job:
     DATABASE_URL: postgresql://gamma:password@postgres/gamma
   rules:
     - changes:
-      - api/**/*
+        - api/**/*
 
 # Build the React/JavaScript front-end
 build-patients-portal-front-end-job:
@@ -55,39 +55,37 @@ build-patients-portal-front-end-job:
     - npm install
   rules:
     - changes:
-      - ghi/**/*
+        - ghi/**/*
 
 deploy-patients-api-job:
   stage: deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - changes:
-      - api/**/*
+      changes:
+        - api/**/*
   dependencies:
     - run-patients-api-tests-job
     - lint-patients-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4p3hpgp3jkq2r2rj50?key=vHKBJ02zCy4"'
-    
 
 deploy-accounts-api-job:
   stage: deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - changes:
-      - accounts_api/**/*
+      changes:
+        - accounts_api/**/*
   dependencies:
     - lint-accounts-api-job
   script:
     - 'curl --request POST --header "Content-Type: application/json" "https://api.render.com/deploy/srv-ce4pn7pgp3jkq2r407lg?key=7cvpSPL4XA8"'
-    
 
 deploy-patients-portal-front-end-job:
   stage: deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - changes:
-      - ghi/**/*
+      changes:
+        - ghi/**/*
   dependencies:
     - build-patients-portal-front-end-job
   script:
