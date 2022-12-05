@@ -57,7 +57,7 @@ build-patients-portal-front-end-job:
     - ls
   artifacts:
     paths:
-      - ./build
+      - ghi/build
   rules:
     - changes:
         - ghi/**/*
