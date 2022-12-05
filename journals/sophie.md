@@ -1,13 +1,16 @@
 ## November 15, 2022
-Today we wanted to test merge requests by each creating our own journal branch and creating a merge request. There were issues with the pipeline failing that were fixed after verifying our accounts and the pipeline.
+Today we wanted to test merge requests by each creating our own journal branch and creating a merge request. There were issues with the pipeline failing. We didnt really go over that in lecture so spent some time trying to figure out what it meant and how to fix it. Not even sure if it was important or not since we always receive vauge answers. Finally got it to work after inputting my card information. Then I had to validate the pipeline.
 
 ## November 16, 2022
 Today I set up the database and fastapi. I had some issues at first but fixing the indentation on my docker compose file fixed the issues.
 We choose Postgres because we wanted to have relations between our tables and use foreign keys.
+I was interested in using Mongo but felt that the lectures and learn notes were not sufficent enough to invest in.
 
 ## November 18, 2022
 Today I started working on the table and endpoints for questionnaires.
+I needed endpoints for the following: get questionnaires, get one questionnaire, create questionnaire, delete questionnaire, and edit questionnaire.
 To create the table, created a migration file and created the table in there using SQL.
+Initally I thought we had to make migrations for the tables through our terminal but Ally updated the docker files to migrate up the tables.
 Ally and I also had a review and merge session after completing the patients table and endpoints. I was able to test my endpoints after because my table had a reference to hers.
 
 ## November 21, 2022
@@ -24,11 +27,17 @@ I created react components for:
 -Create questionnaire
 -Edit questionnaire
 and had a button that hits the delete questionnaire endpoint.
+All of my components are function based and use useEffect to fetch the api calls
 
 I was having issues when creating the edit questionnaire component. Going into it, I wanted to have the form inputs prefilled with the current data. This makes it easy for the user to have all the data is on the same screen while updating. I originally wanted to pass the state of that questionnaire in as props to my EditQuestionnaire function. I was able to do this but everytime I reload the page, the data isn't there anymore. I realized this didnt work because I am setting the state of the questionnaire when I go to the patient detail component. If I dont go through there first, the state isnt set which means no questionnaire inputs to prefill! I ended up just duplicating the fetch questionnaire function into my edit questionnaire component. I guess it doesnt really matter because I am hitting my own API, expense doesnt matter in this case.
 
 ## November 29, 2022
-Wrote a unit test to get all questionnaires.
+Wrote a unit test to get all questionnaires. The way that we learned how to create a unit test in class seemed more complex than the learn readings did so I had to rewatch the videos and do additional reading to figure out the unit tests.
+
 
 ## December 2, 2022
 Fixed an es lint issue that was appearing in my terminal. I had an error say "React Hook useEffect has a missing dependency: 'fetchQuestionnaires'. Either include it or remove the dependency array". If I added 'fetchQuestionnaires' to the dependency array, it will continously make the fetch while im on that component. To fix this, I made the function to fetch questionnaires a callback.
+
+## December 5, 2022
+Added a create questionnaire button to the questionnaire list page.
+Merged my unit tests and button with main.
