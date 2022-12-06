@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 COPY main.py main.py
+COPY token_auth.py token_auth.py
 
 COPY migrations migrations
 COPY queries queries
