@@ -98,7 +98,7 @@ const ResgisterForm = () => {
       </div>
       <button className="btn btn-primary">Create</button>
       {submitted && (
-        <div className="success-message">
+        <div className="success-message" >
           Success! Thank you for registering
         </div>
       )}

@@ -1,112 +1,66 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useAuthContext } from "./useToken";
+import { useState, useEffect } from "react";
 import { useToken } from "./useToken";
-// import {useAuthContext, getTokenInternal } from "./useToken";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
-
-  const RESPONSE_TYPE = "token";
-
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-    // how to get token from url (when we have a hashtag and no token)
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-      // set hash token to an empty string
-      window.location.hash = "";
-      // save token to local storage
-      window.localStorage.setItem("token", token);
-    }
-    setToken(token);
-  }, []);
-
-  const logout = () => {
-    setToken("");
-    window.localStorage.removeItem("token");
-  };
-
-  const [, login] = useToken();
-  const [email, setEmail] = useState("");
+function LoginForm() {
+  const [token, login] = useToken();
+  const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  async function clickForm(e) {
     e.preventDefault();
-    const name = await login(email, password);
+    login(username, password).then(() => navigate("/"));
+  }
 
-    if (name !== null) {
-      navigate("/");
-    } else {
-      navigate("/register");
-    }
-  };
   return (
-    <>
-      <br></br>
-      <br></br>
-      <h1>Please login </h1>
-      <h2>
-        {!token ? (
-          <a
-            href="/"
-          >
-            Login
-          </a>
-        ) : (
-          <button className="btn btn-dark" onClick={logout}>
-            Logout
-          </button>
-        )}
-      </h2>
+    <div className="row">
+      <div className="offset-3 col-6">
+        <div className="shadow p-4 mt-4">
+          <h1>Login</h1>
+          <form onSubmit={login}>
 
-      {!token ? (
-        <p></p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              email
-            </label>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              type="text"
-              className="form-control"
-              id="email"
-              placeholder="email"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="shhhhhh"
-            />
-          </div>
-          <button className="btn btn-primary">Login</button>
-          <div className="success-message">
-            Welcome
-          </div>
-          <p>
-            Not a member yet? {" "}
-            <a href="http://localhost:3000/register">here</a>
-          </p>
-        </form>
-      )}
+            <div className="mb-3">
+              <label htmlFor="username">Email</label>
+              <input
+                onChange={(e) => setUser(e.target.value)}
+                type="email"
+                name="username"
+                value={username}
+                className="form-control"
+                required
+                placeholder="email@email.com"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password">Password</label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                name="password"
+                value={password}
+                className="form-control"
+                required
+                placeholder="password"
+              />
+            </div>
+            <button
+              onClick={clickForm}
+              type="submit"
+              className="btn btn-primary"
+            >
+              Login
+            </button>
 
-    </>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default Login;
+export default LoginForm;
+
+

@@ -15,7 +15,8 @@ import QuestionnaireEdit from "./QuestionnaireEdit";
 // import Nav from "./Nav";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
-import Login from "./Login";
+
+import LoginForm from "./Login";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
           <Route path="patient/create" element={<PatientForm />} />
           <Route path="questionnaires" element={<QuestionnairesList />} />
           <Route path="register" element={<ResgisterForm />} />
-          <Route pather="login" element={<Login />} />
+          <Route path="login" element={<LoginForm />} />
           <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
           <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />
