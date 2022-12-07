@@ -58,9 +58,9 @@ build-patients-portal-front-end-job:
   artifacts:
     paths:
       - ghi/build
-  rules:
-    - changes:
-        - ghi/**/*
+  # rules:
+  #   - changes:
+  #       - ghi/**/*
 
 deploy-front-end-job:
   stage: deploy
@@ -71,6 +71,9 @@ deploy-front-end-job:
   artifacts:
     paths:
       - public
+  # rules:
+  #   - changes:
+  #       - ghi/**/*
 
 deploy-patients-api-job:
   stage: deploy
