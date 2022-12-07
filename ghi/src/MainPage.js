@@ -5,6 +5,7 @@ function MainPage() {
     <>
       <h1>My Patient Portal</h1>
       <Link to="register"> register </Link>
+      <Link to="login"> login</Link>
       <div>
         {/* <Link to="register"> register </Link> */}
         <img src={familyphoto} alt="fam" />
