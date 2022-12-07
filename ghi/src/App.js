@@ -25,14 +25,14 @@ function App() {
       <Navbar />
       <div className="container">
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="patients" element={<PatientsList />} />
           <Route path="patient/:patient_id" element={<PatientDetail />} />
           <Route path="patient/:patient_id/update/" element={<PatientUpdate />} />
           <Route path="patient/create" element={<PatientForm />} />
           <Route path="questionnaires" element={<QuestionnairesList />} />
           <Route path="register" element={<ResgisterForm />} />
-          <Route path="login" element={<LoginForm />} />
+          <Route path="dashboard" element={<MainPage />} />
           <Route path="patient/:patient_id/questionnaires" element={<QuestionnairesList />} />
           <Route path="questionnaire/:questionnaire_id" element={<QuestionnaireDetail />} />
           <Route path="patient/:patient_id/questionnaire/create" element={<QuestionnaireForm />} />
