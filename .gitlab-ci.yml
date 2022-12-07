@@ -64,6 +64,8 @@ build-patients-portal-front-end-job:
 
 deploy-front-end-job:
   stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   dependencies:
     - build-patients-portal-front-end-job
   needs:
@@ -73,9 +75,7 @@ deploy-front-end-job:
   artifacts:
     paths:
       - public
-  # rules:
-  #   - changes:
-  #       - ghi/**/*
+ 
 
 deploy-patients-api-job:
   stage: deploy
