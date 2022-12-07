@@ -18,6 +18,7 @@ not_authorized = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
+
 @router.get(
     "/questionnaire/{questionnaire_id}",
     response_model=Optional[EntireQuestionnaireOut],
