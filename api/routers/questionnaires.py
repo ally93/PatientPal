@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException, status
+from token_auth import get_current_user
 from typing import Union, List, Optional
 from queries.questionnaires import (
     Error,
@@ -11,6 +12,11 @@ from queries.questionnaires import (
 
 router = APIRouter()
 
+not_authorized = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Invalid authentication credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
 
 @router.get(
     "/questionnaire/{questionnaire_id}",
@@ -20,6 +26,7 @@ def get_one_questionnaire(
     questionnaire_id: int,
     response: Response,
     repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> EntireQuestionnaireOut:
     questionnaire = repo.get_one(questionnaire_id)
     if questionnaire is None:
@@ -30,7 +37,10 @@ def get_one_questionnaire(
 @router.get(
     "/questionnaire", response_model=Union[Error, List[EntireQuestionnaireOut]]
 )
-def get_all_questionnaires(repo: QuestionnaireRepository = Depends()):
+def get_all_questionnaires(
+    repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
+):
     return repo.get_all_questionnaires()
 
 
@@ -39,7 +49,8 @@ def get_all_questionnaires(repo: QuestionnaireRepository = Depends()):
     response_model=Union[Error, List[EntireQuestionnaireOut]],
 )
 def get_all_by_patient(
-    patient_id: int, repo: QuestionnaireRepository = Depends()
+    patient_id: int, repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ):
     return repo.get_all_by_patient(patient_id)
 
@@ -53,6 +64,7 @@ def create_questionnaire(
     questionnaire: QuestionnaireIn,
     response: Response,
     repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ):
     # response.status_code = 400
     return repo.create(patient_id, questionnaire)
@@ -67,6 +79,7 @@ def update_questionnaire(
     questionnaire_id: int,
     questionnaire: QuestionnaireUpdateIn,
     repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> Union[QuestionnaireOut, Error]:
     return repo.update(patient_id, questionnaire_id, questionnaire)
 
@@ -75,5 +88,6 @@ def update_questionnaire(
 def delete_questionnaire(
     questionnaire_id: int,
     repo: QuestionnaireRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> bool:
     return repo.delete(questionnaire_id)

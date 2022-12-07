@@ -44,6 +44,7 @@ def update_patient(
     patient_id: int,
     patient: PatientUpdateIn,
     repo: PatientRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> Union[PatientOut, Error]:
     return repo.update(patient_id, patient)
 
@@ -52,6 +53,7 @@ def update_patient(
 def delete_patient(
     patient_id: int,
     repo: PatientRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> bool:
     return repo.delete(patient_id)
 
@@ -61,6 +63,7 @@ def get_one_patient(
     patient_id: int,
     response: Response,
     repo: PatientRepository = Depends(),
+    account_data: dict = Depends(get_current_user),
 ) -> PatientOut:
     patient = repo.get_one(patient_id)
     if patient is None:

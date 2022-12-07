@@ -7,6 +7,8 @@ from queries.pool import pool
 
 router = APIRouter()
 
+class DuplicateAccountError(ValueError):
+    pass
 
 class Error(BaseModel):
     message: str
