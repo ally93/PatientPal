@@ -3,6 +3,7 @@ import { useAuthContext } from "./useToken";
 import { useState, useEffect } from "react";
 import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginForm() {
   const [token, login] = useToken();
@@ -21,7 +22,6 @@ function LoginForm() {
         <div className="shadow p-4 mt-4">
           <h1>Login</h1>
           <form onSubmit={login}>
-
             <div className="mb-3">
               <label htmlFor="username">Email</label>
               <input
@@ -53,8 +53,8 @@ function LoginForm() {
             >
               Login
             </button>
-
           </form>
+          <Link to="register"> register </Link>
         </div>
       </div>
     </div>
