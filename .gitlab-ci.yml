@@ -10,9 +10,9 @@ lint-patients-api-job:
   script:
     - pip install flake8
     - flake8 api
-  # rules:
-  #   - changes:
-  #       - api/**/*
+  rules:
+    - changes:
+        - api/**/*
 
 lint-accounts-api-job:
   image: python:3-bullseye
