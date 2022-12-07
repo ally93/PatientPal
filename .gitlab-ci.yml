@@ -62,6 +62,16 @@ build-patients-portal-front-end-job:
     - changes:
         - ghi/**/*
 
+deploy-front-end-job:
+  stage: deploy
+  dependencies: 
+    - build-patients-portal-front-end-job
+  scripts: 
+    - mv ghi/build/ public
+  artifacts:
+    paths:
+      - public
+
 deploy-patients-api-job:
   stage: deploy
   rules:
