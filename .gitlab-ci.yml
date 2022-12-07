@@ -55,6 +55,7 @@ build-patients-portal-front-end-job:
     - npm install
     - npm run build
     - cp build/index.html build/404.html
+    - printenv
   artifacts:
     paths:
       - ghi/build
