@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 const ResgisterForm = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -6,6 +7,7 @@ const ResgisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pid, setPid] = useState("");
+  const navigate = useNavigate();
 
   const clearRegisterForm = () => {
     setName("");
@@ -34,6 +36,7 @@ const ResgisterForm = () => {
     if (response.ok) {
       clearRegisterForm();
       setSubmitted(true);
+      navigate("/")
     }
   };
 
