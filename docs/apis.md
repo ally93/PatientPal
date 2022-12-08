@@ -52,7 +52,7 @@ Output:
 | PUT (BY PATIENT) | `/api/patient/<int:pk>/questionnaire/<int:pk>` |
 
 ### Creating a Questionnaire
-Rquires patient id as a parameter. Saves the medications, surgeries, concerns, weight, blood pressure, and date to the database. Each questionnaire is given unique identifier when created. A user/doctor can then update or delete the questionnaire.
+Requires patient id as a parameter. Saves the medications, surgeries, concerns, weight, blood pressure, and date to the database. Each questionnaire is given unique identifier when created. A user/doctor can then update or delete the questionnaire.
 
 Input:
 
