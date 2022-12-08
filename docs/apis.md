@@ -90,7 +90,7 @@ Output:
 | POST             | `/api/accounts`          |
 
 ### Creating an Account
-Saves the name, birth date, email, address, gender, and doctor id to the database. Each patient is given a unique identifier when created.
+Saves the name, birth date, email, address, gender, and doctor id to the database. Each account is given a unique identifier when created.
 
 Input:
 
