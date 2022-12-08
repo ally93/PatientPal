@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuthContext } from "./useToken";
 
 function BootstrapInput(props) {
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -29,15 +30,21 @@ function PatientUpdate(props) {
   const [address, setAddress] = useState(defaultVal);
   const [gender, setGender] = useState(defaultVal);
   const [doctor_id, setDoctor] = useState(defaultVal);
+  const {token} = useAuthContext();
 
   const navigate = useNavigate();
   const { patient_id } = useParams();
 
-  const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`; 
+  const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
 
   useEffect(() => {
     async function fetchPatient() {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -51,7 +58,7 @@ function PatientUpdate(props) {
     }
 
     fetchPatient();
-  }, [url]);
+  }, [url, token]);
 
   const updatePatient = async (event) => {
     event.preventDefault();
@@ -69,6 +76,7 @@ function PatientUpdate(props) {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
     const response = await fetch(url, fetchConfig);

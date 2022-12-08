@@ -30,6 +30,9 @@ function PatientsList(props) {
     const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
     const fetchConfig = {
       method: "DELETE",
+      headers: {
+          Authorization: `Bearer ${token}`
+        }
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
