@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthContext } from "./useToken";
-import { useState, useEffect } from "react";
+// import { useAuthContext } from "./useToken";
+import { useState } from "react";
 import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -14,6 +14,9 @@ function LoginForm() {
   async function clickForm(e) {
     e.preventDefault();
     login(username, password).then(() => navigate("dashboard"));
+    // Added so no-unused-vars exception is thrown while running npm run build
+    // remove this after token used for auth
+    console.log(token)
   }
 
   return (

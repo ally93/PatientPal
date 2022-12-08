@@ -10,9 +10,9 @@ lint-patients-api-job:
   script:
     - pip install flake8
     - flake8 api
-  # rules:
-  #   - changes:
-  #       - api/**/*
+  rules:
+    - changes:
+        - api/**/*
 
 lint-accounts-api-job:
   image: python:3-bullseye
@@ -42,8 +42,6 @@ run-patients-api-tests-job:
 build-patients-portal-front-end-job:
   stage: build
   image: node:lts-bullseye
-  needs:
-    - lint-patients-api-job
   variables:
     # If either of these variables is defined in the GitLab
     # CI/CD variables, that value will override the value here.
@@ -57,15 +55,15 @@ build-patients-portal-front-end-job:
     - npm install
     - npm run build
     - cp build/index.html build/404.html
+    - printenv
   artifacts:
     paths:
       - ghi/build
 
-
-deploy-front-end-job:
+pages:
   stage: deploy
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  # rules:
+  #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   dependencies:
     - build-patients-portal-front-end-job
   needs:
@@ -75,7 +73,6 @@ deploy-front-end-job:
   artifacts:
     paths:
       - public
- 
 
 deploy-patients-api-job:
   stage: deploy
