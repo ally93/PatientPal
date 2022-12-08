@@ -14,8 +14,8 @@
 - [GHI](docs/ghi.md)
 
 ## Intended Market
-We are targeting healthcare professionals who are looking for an organized and paperless apporach to hold patient information.
-Typically, a patient fills out a general questionnaire that gets passed around between staff. This application removes the chance of misplacing the papers and provides a place to store the information.
+We are targeting healthcare professionals who are looking for an organized and paperless approach to hold patient information.
+Typically, a patient fills out a general questionnaire that is passed between staff. This application provides a clean interface to view the patients infromation while removing the chance of misplacing papers
 
 ## Functionality
 
