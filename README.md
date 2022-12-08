@@ -12,7 +12,6 @@
 - [API design](docs/apis.md)
 - [Data model](docs/data-model.md)
 - [GHI](docs/ghi.md)
-- [Integrations](docs/integrations.md)
 
 ## Intended Market
 We are targeting healthcare professionals who are looking for an organized and paperless apporach to hold patient information.
