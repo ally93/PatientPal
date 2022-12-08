@@ -1,8 +1,9 @@
 # Data Models
+![Design](table-design.png)
 
-### Patient Microservice
+## Patient Microservice
 
-## Patient
+### Patient
 
 | name             | type   | unique | optional |
 | ---------------- | ------ | ------ | -------- |
@@ -13,9 +14,9 @@
 | gender           | string | no     | no       |
 | doctor_id        | int    | no     | no       |
 
-The 'patient' entity contains data about a specific patient that belongs to an 'account'(doctor)
+The `patient` entity contains data about a specific patient that belongs to an `account`(doctor)
 
-## Questionnaire
+### Questionnaire
 
 | name             | type                        | unique | optional |
 | ---------------- | --------------------------- | ------ | -------- |
@@ -27,11 +28,11 @@ The 'patient' entity contains data about a specific patient that belongs to an '
 | date             | date                        | no     | yes      |
 | patient_id       | reference to Patient entity | no     | no       |
 
-The 'questionnaire' contains data about a specific questionnaire that belongs to a 'patient' entity
+The `questionnaire` contains data about a specific questionnaire that belongs to a `patient` entity
 
-### Accounts Microservice
+## Accounts Microservice
 
-## Account
+### Account
 
 | name             | type   | unique | optional |
 | ---------------- | ------ | ------ | -------- |
@@ -40,6 +41,4 @@ The 'questionnaire' contains data about a specific questionnaire that belongs to
 | hashed_password  | string | no     | no       |
 | pid              | int    | yes    | no       |
 
-The 'Account' entity contains data about a specific doctor that allows them to log in and view their patients
-
-![Design](table-design.png)
+The `Account` entity contains data about a specific doctor that allows them to log in and view their patients
