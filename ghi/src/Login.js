@@ -14,9 +14,6 @@ function LoginForm() {
   async function clickForm(e) {
     e.preventDefault();
     login(username, password).then(() => navigate("dashboard"));
-    // Added so no-unused-vars exception is thrown while running npm run build
-    // remove this after token used for auth
-    console.log(token)
   }
 
   return (

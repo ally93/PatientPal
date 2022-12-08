@@ -17,8 +17,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useAuthContext } from "./useToken";
 import LoginForm from "./Login";
-import LogOut from "./Logout";
-import SignOut from "./Logout";
+// import SignOut from "./Logout";
+import Logout from "./LogOutTest";
 
 
 function App() {
@@ -33,8 +33,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="patients" element={<PatientsList />} />
 
-            <Route path="dashboard/logout" element={<SignOut />} />
-            <Route path="logout" element={<SignOut />} />
+            <Route path="/logout" element={<Logout />} />
 
             <Route path="patient/:patient_id" element={<PatientDetail />} />
             <Route
