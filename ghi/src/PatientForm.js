@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from "./useToken";
 
 
 function BootstrapInput(props){
@@ -20,7 +21,7 @@ function PatientForm(props) {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [doctor_id, setDoctor] = useState("");
-
+  const {token} = useAuthContext();
   const navigate = useNavigate();
 
   const submitNewPatient = async (event) => {
@@ -40,6 +41,7 @@ function PatientForm(props) {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       }
     };
     const response = await fetch(url, fetchConfig);

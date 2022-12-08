@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
+import { useAuthContext } from "./useToken";
 
 function PatientDetail(props) {
   const [patient, setPatient] = useState({});
   const { patient_id } = useParams();
+  const {token} = useAuthContext();
 
   useEffect(() => {
     async function fetchPatient() {
       const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -17,7 +24,7 @@ function PatientDetail(props) {
     }
 
     fetchPatient();
-  }, [patient_id]);
+  }, [patient_id, token]);
 
   return (
     <div className="container">
