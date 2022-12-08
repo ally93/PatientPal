@@ -60,7 +60,7 @@ build-patients-portal-front-end-job:
     paths:
       - ghi/build
 
-deploy-front-end-job:
+pages:
   stage: deploy
   # rules:
   #   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
