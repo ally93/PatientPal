@@ -3,7 +3,6 @@
 ## Home Page -- logged in
 
 This is the first page a user sees when logged in.
-
 From the navigation bar, the user has 4 options:
    * 'Home' - When clicked, the page will not redirect
    * 'Patients' - When clicked, the page will redirect to a list view of patients
