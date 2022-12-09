@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 function LoginForm() {
-  const [token, login] = useToken();
+  const [, login] = useToken();
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ function LoginForm() {
   async function clickForm(e) {
     e.preventDefault();
     login(username, password).then(() => navigate("/dashboard"));
-    return token;
   }
 
   return (
