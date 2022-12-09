@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ResgisterForm = () => {
+const RegisterForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ const ResgisterForm = () => {
     if (response.ok) {
       clearRegisterForm();
       setSubmitted(true);
-      navigate("/")
+      navigate("/");
     }
   };
 
@@ -101,7 +101,7 @@ const ResgisterForm = () => {
       </div>
       <button className="btn btn-primary">Create</button>
       {submitted && (
-        <div className="success-message" >
+        <div className="success-message">
           Success! Thank you for registering
         </div>
       )}
@@ -109,4 +109,4 @@ const ResgisterForm = () => {
   );
 };
 
-export default ResgisterForm;
+export default RegisterForm;
