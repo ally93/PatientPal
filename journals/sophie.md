@@ -41,3 +41,7 @@ Fixed an es lint issue that was appearing in my terminal. I had an error say "Re
 ## December 5, 2022
 Added a create questionnaire button to the questionnaire list page.
 Merged my unit tests and button with main.
+
+## December 8/9. 2022
+Started and completed readme. I updated our readme with our wireframes, apis, and data models. Researched alot on markdown files. I was able to create links on our readme to keep it more organized and have the initial page clean.
+I also redid all of our wireframes on excalidraw to reflect changes.
