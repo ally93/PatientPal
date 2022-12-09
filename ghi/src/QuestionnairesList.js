@@ -1,7 +1,5 @@
 import { React, useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
@@ -34,10 +32,7 @@ function QuestionnairesList() {
 }
 
     return (
-      <>
-      <Navbar />
         <div className="container">
-        <button><Link to={`/patient/${patient_id}/questionnaire/create`}>Create Questionnaire</Link></button>
         <h3 className="display-6 fw-bold">Questionnaire List</h3>
         <table className="table table-striped">
         <thead>
@@ -53,6 +48,7 @@ function QuestionnairesList() {
                   <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
                   <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
                   <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
+                  <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/create`}>Create Questionnaire</Link></button>
                 </td>
               </tr>
             );
@@ -60,8 +56,7 @@ function QuestionnairesList() {
         </tbody>
         </table>
     </div>
-    <Footer />
-    </>
+
     )
 }
 
