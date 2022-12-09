@@ -20,7 +20,7 @@ The user can click on the create button to add a new patient.
 
 ## Create Patient
 
-![Create Patient](wireframes/patient-list.png)
+![Create Patient](wireframes/create-patient.png)
 
 ## Questionnaire List
 
