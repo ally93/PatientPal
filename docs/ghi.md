@@ -12,6 +12,11 @@ From the navigation bar, the user has 4 options:
 ![Home -- Logged in](wireframes/home-logged-in.png)
 
 ## Patient List
+A list view of all patients that belong to the user.
+The user can click on an individual patient id to view additional details.
+The user can click on the create button to add a new patient.
+
+![Patient List](wireframes/patient-list.png)
 
 ## Create Patient
 
