@@ -1,4 +1,4 @@
-# Customer Graphical Human Interface
+# User Graphical Human Interface
 
 ## Landing Page
 Initial page a user sees when the application starts. User has two options:
