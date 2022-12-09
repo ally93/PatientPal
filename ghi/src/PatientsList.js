@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useToken";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function PatientsList(props) {
   const [patients, setPatients] = useState([]);
@@ -20,6 +23,9 @@ function PatientsList(props) {
       if (response.ok) {
         const data = await response.json();
         setPatients(data);
+      } else if(response.status == 401) {
+        console.log("Unauthorized redirecting");
+        navigate("/dashboard"); 
       }
     }
 
@@ -38,73 +44,72 @@ function PatientsList(props) {
     if (response.ok) {
       await response.json();
       window.location.reload(false);
-    }
+    } 
   };
 
   const redirect = (patient_id) => {
     navigate(`/patient/${patient_id}/update`);
   };
 
-
-
   if (token) {
     return (
-      <div className="container">
-        <h3 className="display-6 fw-bold">Patients List</h3>
-        <button type="button" className="btn btn-outline-light">
-          <NavLink className="nav-link" aria-current="page" to="/patient/create">
-            Create a new patient
-          </NavLink>
-        </button>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Patient Id </th>
-              <th>Name</th>
-              <th>Date Of Birth</th>
-            </tr>
-          </thead>
-          <tbody>
-            {patients.map((patient) => {
-              return (
-                <tr key={patient.id}>
-                  <td>
-                    <Link to={`/patient/${patient.id}`}>{patient.id}</Link>
-                  </td>
-                  <td>{patient.name}</td>
-                  <td>{patient.birth_date}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={() => deletePatient(patient.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={() => redirect(patient.id)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <>
+        <Navbar />
+        <div className="container">
+          <h3 className="display-6 fw-bold">Patients List</h3>
+          <button
+            type="button"
+            className="btn btn-outline-light"
+            onClick={() => navigate("/patient/create")}>
+              Create a new patient
+          </button>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Patient Id </th>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patients.map((patient) => {
+                return (
+                  <tr key={patient.id}>
+                    <td>
+                      <Link to={`/patient/${patient.id}`}>{patient.id}</Link>
+                    </td>
+                    <td>{patient.name}</td>
+                    <td>{patient.birth_date}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => deletePatient(patient.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => redirect(patient.id)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <Footer />
+      </>
     );
-  } else {
-    return (
-      <div>
-        No token
-      </div>
-    )
-  }
+    } else {
+      navigate("/dashboard"); 
+    }
 
   }
 export default PatientsList;

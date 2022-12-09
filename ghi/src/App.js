@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 // import { useEffect, useState } from "react";
 import "./App.css";
 import PatientDetail from "./PatientDetail";
@@ -13,21 +13,14 @@ import QuestionnaireForm from "./QuestionnaireForm";
 import QuestionnaireEdit from "./QuestionnaireEdit";
 // import MainPage from "./MainPage";
 // import Nav from "./Nav";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import { useAuthContext } from "./useToken";
 import LoginForm from "./Login";
 // import SignOut from "./Logout";
 import Logout from "./LogOutTest";
 
 
 function App() {
-  const { token } = useAuthContext();
-
-  if (token) {
     return (
-      <BrowserRouter>
-        <Navbar />
+      <HashRouter>
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -60,22 +53,12 @@ function App() {
               path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
               element={<QuestionnaireEdit />}
             />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="register" element={<ResgisterForm />} />
           </Routes>
-
-          <Footer />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
-  } else {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginForm />} />
-          <Route path="register" element={<ResgisterForm />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  }
 }
 
 export default App;

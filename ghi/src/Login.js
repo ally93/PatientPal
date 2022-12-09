@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function LoginForm() {
   const [token, login] = useToken();
@@ -13,7 +13,7 @@ function LoginForm() {
 
   async function clickForm(e) {
     e.preventDefault();
-    login(username, password).then(() => navigate("dashboard"));
+    login(username, password).then(() => navigate("/dashboard"));
   }
 
   return (
@@ -54,7 +54,9 @@ function LoginForm() {
               Login
             </button>
           </form>
-          <Link to="register"> register </Link>
+          <NavLink className="nav-link" aria-current="page" to="register">
+            register
+          </NavLink>
         </div>
       </div>
     </div>
