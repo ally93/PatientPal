@@ -23,7 +23,7 @@ function PatientsList(props) {
       if (response.ok) {
         const data = await response.json();
         setPatients(data);
-      } else if(response.status == 401) {
+      } else if(response.status === 401) {
         console.log("Unauthorized redirecting");
         navigate("/dashboard"); 
       }
