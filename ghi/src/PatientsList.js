@@ -30,7 +30,7 @@ function PatientsList(props) {
     }
 
     fetchPatients();
-  }, [token]);
+  }, [token, navigate]);
 
   const deletePatient = async (patient_id) => {
     const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
