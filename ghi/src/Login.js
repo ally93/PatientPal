@@ -55,7 +55,7 @@ function LoginForm() {
               Login
             </button>
           </form>
-          <NavLink className="nav-link" aria-current="page" to="register">
+          <NavLink className="nav-link" aria-current="page" to="/register">
             register
           </NavLink>
         </div>
