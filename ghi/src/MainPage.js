@@ -1,13 +1,13 @@
-import { useAuthContext } from "./useToken";
+// import { useAuthContext } from "./useToken";
 import familyphoto from "./images/familyphoto.jpeg";
 
-import { Navigate } from "react-router-dom";
-import { useState } from "react";
+// import { Navigate } from "react-router-dom";
+// import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function MainPage() {
-  const { token } = useAuthContext();
+  // const { token } = useAuthContext();
 
 
 
