@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 // import { useEffect, useState } from "react";
 import "./App.css";
 import PatientDetail from "./PatientDetail";
@@ -29,7 +29,7 @@ function GetToken() {
 
 function App() {
     return (
-      <HashRouter basename="/module3-project-gamma/">
+      <BrowserRouter basename="/module3-project-gamma/">
         {/* <HashRouter > */}
         <AuthProvider>
           <GetToken />
@@ -70,7 +70,7 @@ function App() {
             </Routes>
           </div>
         </AuthProvider>
-      </HashRouter>
+      </BrowserRouter>
     );
 }
 
