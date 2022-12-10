@@ -1,6 +1,7 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 // import { useEffect, useState } from "react";
 import "./App.css";
+import PrivateRoute from "./PrivateRoute";
 import PatientDetail from "./PatientDetail";
 import PatientForm from "./PatientForm";
 import PatientUpdate from "./PatientUpdateForm";
@@ -26,16 +27,32 @@ function GetToken() {
 function App() {
     return (
       //uncomment this to test in deployed environment
-      <BrowserRouter basename="/module3-project-gamma/">
+      // <BrowserRouter basename="/module3-project-gamma/">
+      <BrowserRouter basename="/">
         {/* <HashRouter > */}
         <AuthProvider>
           <GetToken />
           <div className="container">
             <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="patients" element={<PatientsList />} />
-
+              <Route path="login" element={<LoginForm />} />
+              <Route path="register" element={<RegisterForm />} />
               <Route path="/logout" element={<Logout />} />
+
+              <Route path="/"
+                element={
+                  <PrivateRoute>
+                    <MainPage />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route path="/patients"
+                element={
+                  <PrivateRoute>
+                    <PatientsList />
+                  </PrivateRoute>
+                }
+              />
 
               <Route path="patient/:patient_id" element={<PatientDetail />} />
               <Route
@@ -62,8 +79,6 @@ function App() {
                 path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
                 element={<QuestionnaireEdit />}
               />
-              <Route path="login" element={<LoginForm />} />
-              <Route path="register" element={<RegisterForm />} />
             </Routes>
           </div>
         </AuthProvider>

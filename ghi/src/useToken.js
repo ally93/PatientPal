@@ -6,6 +6,10 @@ export function getToken() {
   return internalToken;
 }
 
+export function isLoggedIn() {
+  return internalToken !== undefined && internalToken !== null;
+}
+
 export async function getTokenInternal() {
   const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts/me/token/`;
   try {
@@ -96,7 +100,7 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
-      navigate("/dashboard")
+      navigate("/dashboard");
       return;
     }
     let error = await response.json();
@@ -145,5 +149,5 @@ export function useToken() {
     return false;
   }
 
-  return [token, login, logout, signup, update];
+  return [token, login, logout, signup, update, isLoggedIn];
 }
