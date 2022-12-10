@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useToken";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function BootstrapInput(props) {
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -64,6 +66,7 @@ function QuestionnaireForm() {
 
   return (
     <>
+      <Navbar />
       <h3 className="display-6 fw-bold">Create a Questionnaire</h3>
       <form onSubmit={submitQuestionnaire}>
         <BootstrapInput
@@ -118,6 +121,7 @@ function QuestionnaireForm() {
           Create
         </button>
       </form>
+      <Footer />
     </>
   );
 }

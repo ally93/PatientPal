@@ -1,6 +1,8 @@
-import { React, useEffect, useState, useCallback } from "react";
+import { React, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAuthContext } from "./useToken";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
@@ -59,33 +61,51 @@ function QuestionnairesList() {
 }
 
     return (
+      <>
+        <Navbar />
         <div className="container">
-        <h3 className="display-6 fw-bold">Questionnaire List</h3>
-        <button><Link to={`/patient/${patient_id}/questionnaire/create`}>Create Questionnaire</Link></button>
-        <table className="table table-striped">
-        <thead>
-            <tr>
-            <th>Questionnaire Date </th>
-            </tr>
-        </thead>
-        <tbody>
-            {questionnaires.map((questionnaire) => {
-            return (
-              <tr key={questionnaire.id}>
-                <td>
-                  <Link to={`/questionnaire/${questionnaire.id}`}>{questionnaire.date}</Link>
-                  <button onClick= {() => deleteQuestionnaire(questionnaire.id)}>Delete</button>
-                  <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
-
-                </td>
+          <h3 className="display-6 fw-bold">Questionnaire List</h3>
+          <button>
+            <Link to={`/patient/${patient_id}/questionnaire/create`}>
+              Create Questionnaire
+            </Link>
+          </button>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Questionnaire Date </th>
               </tr>
-            );
-            })}
-        </tbody>
-        </table>
-    </div>
-
-    )
+            </thead>
+            <tbody>
+              {questionnaires.map((questionnaire) => {
+                return (
+                  <tr key={questionnaire.id}>
+                    <td>
+                      <Link to={`/questionnaire/${questionnaire.id}`}>
+                        {questionnaire.date}
+                      </Link>
+                      <button
+                        onClick={() => deleteQuestionnaire(questionnaire.id)}
+                      >
+                        Delete
+                      </button>
+                      <button>
+                        <Link
+                          to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}
+                        >
+                          Edit
+                        </Link>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <Footer />
+      </>
+    );
 }
 
 export default QuestionnairesList

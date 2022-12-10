@@ -1,6 +1,8 @@
 import {React, useEffect, useState} from "react";
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from "./useToken";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 
 function QuestionnaireDetail () {
@@ -45,39 +47,53 @@ function QuestionnaireDetail () {
 
     }
     return (
+      <>
+        <Navbar />
         <div>
           <p></p>
           <h1>Questionnaire Detail</h1>
           <h2>{questionnaire.date}</h2>
-            <table className="table table-striped">
-                <tbody>
-                <tr>
-                    <th>Medications</th>
-                    <td>{ questionnaire.medications }</td>
-                </tr>
-                <tr>
-                    <th>Surgeries</th>
-                    <td>{ questionnaire.surgeries }</td>
-                </tr>
-                <tr>
-                    <th>Concerns</th>
-                    <td>{ questionnaire.concerns }</td>
-                </tr>
-                <tr>
-                    <th>Blood Pressure</th>
-                    <td>{ questionnaire.blood_pressure }</td>
-                </tr>
-                <tr>
-                    <th>Weight(lbs)</th>
-                    <td>{ questionnaire.weight }</td>
-                </tr>
-                </tbody>
-            </table>
-                <button onClick= {() => deleteQuestionnaire()}>Delete</button>
-                <button><Link to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}>Edit</Link></button>
-                <button><Link to={`/patient/${questionnaire.patient_id}/questionnaires/`}>Go Back</Link></button>
-            </div>
-    )
+          <table className="table table-striped">
+            <tbody>
+              <tr>
+                <th>Medications</th>
+                <td>{questionnaire.medications}</td>
+              </tr>
+              <tr>
+                <th>Surgeries</th>
+                <td>{questionnaire.surgeries}</td>
+              </tr>
+              <tr>
+                <th>Concerns</th>
+                <td>{questionnaire.concerns}</td>
+              </tr>
+              <tr>
+                <th>Blood Pressure</th>
+                <td>{questionnaire.blood_pressure}</td>
+              </tr>
+              <tr>
+                <th>Weight(lbs)</th>
+                <td>{questionnaire.weight}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button onClick={() => deleteQuestionnaire()}>Delete</button>
+          <button>
+            <Link
+              to={`/patient/${questionnaire.patient_id}/questionnaire/${questionnaire.id}/edit`}
+            >
+              Edit
+            </Link>
+          </button>
+          <button>
+            <Link to={`/patient/${questionnaire.patient_id}/questionnaires/`}>
+              Go Back
+            </Link>
+          </button>
+        </div>
+        <Footer />
+      </>
+    );
 }
 
 export default QuestionnaireDetail
