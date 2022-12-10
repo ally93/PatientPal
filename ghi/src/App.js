@@ -24,7 +24,7 @@ function GetToken() {
 }
 
 const proj = process.env.PROJECT_NAME;
-const basename = '/';
+let basename = '/';
 if (proj) {
   basename = `/${proj}/`;
 }
