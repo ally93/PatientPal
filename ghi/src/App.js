@@ -23,13 +23,14 @@ function GetToken() {
   return null
 }
 
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, "");
+// const domain = /https:\/\/[^/]+/;
+// const basename = process.env.PUBLIC_URL.replace(domain, "");
 
 
 function App() {
     return (
-      <HashRouter basename={basename}>
+      // <HashRouter basename={basename}>
+      <HashRouter >
         <AuthProvider>
         <GetToken/>
         <div className="container">
