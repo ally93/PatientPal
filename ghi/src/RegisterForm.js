@@ -24,10 +24,8 @@ const RegisterForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response_success = await signup(name, password, email, pid)
-    console.log("RESPONSEEE", response_success)
     if (!response_success) {
       setSubmitted(true)
-      console.log("BAD REQUEST", response_success)
     } else {
       clearRegisterForm();
       navigate("/")

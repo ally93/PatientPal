@@ -9,24 +9,6 @@ function PatientsList(props) {
   const [patients, setPatients] = useState([]);
   const {token} = useAuthContext();
   const navigate = useNavigate();
-  console.log(token)
-  // const fetchPatients = useCallback(async () => {
-  //    const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients`;
-
-  //    const response = await fetch(url, {
-  //      method: "GET",
-  //      headers: {
-  //        Authorization: `Bearer ${token}`,
-  //      },
-  //    });
-  //    if (response.ok) {
-  //      const data = await response.json();
-  //      setPatients(data);
-  //    } else if (response.status === 401) {
-  //      console.log("Unauthorized redirecting");
-  //     //  navigate("/dashboard");
-  //    }
-  // }, [token, navigate]);
 
   useEffect(() => {
     async function fetchPatients() {
@@ -41,9 +23,6 @@ function PatientsList(props) {
       if (response.ok) {
         const data = await response.json();
         setPatients(data);
-      } else if (response.status === 401) {
-        console.log("Unauthorized redirecting");
-        //  navigate("/dashboard");
       }
     }
     if (token) {

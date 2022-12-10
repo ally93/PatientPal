@@ -96,7 +96,6 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
-      console.log("SUCCCESSSSS")
       navigate("/dashboard")
       return;
     }
@@ -119,10 +118,8 @@ export function useToken() {
       },
     });
     if (response.ok) {
-      console.log(email, password)
       await login(email, password);
     }
-    console.log("WTFFFFFFFFFFFFFFFFFFFF")
     return false;
   }
 
