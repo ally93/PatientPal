@@ -30,6 +30,7 @@ function getBasename() {
     basename = `/${proj}/`;
   }
   console.log(basename);
+  return basename;
 }
 
 
