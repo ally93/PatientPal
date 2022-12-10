@@ -6,8 +6,18 @@ export function getToken() {
   return internalToken;
 }
 
-export function isLoggedIn() {
-  return internalToken !== undefined && internalToken !== null;
+export async function isLoggedIn() {
+  console.log(internalToken);
+  if (internalToken) {
+    return true;
+  } else {
+    const token_refresh = await getTokenInternal();
+    console.log("refresh token: ", token_refresh);
+    return (
+      internalToken !== undefined && internalToken !== null && internalToken !== false
+    );
+  }
+  // return internalToken !== undefined && internalToken !== null;
 }
 
 export async function getTokenInternal() {
