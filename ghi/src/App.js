@@ -7,7 +7,7 @@ import PatientUpdate from "./PatientUpdateForm";
 import PatientsList from "./PatientsList.js";
 import MainPage from "./MainPage";
 import QuestionnairesList from "./QuestionnairesList";
-import ResgisterForm from "./RegisterForm";
+import RegisterForm from "./RegisterForm";
 import QuestionnaireDetail from "./QuestionnaireDetail";
 import QuestionnaireForm from "./QuestionnaireForm";
 import QuestionnaireEdit from "./QuestionnaireEdit";
@@ -29,46 +29,46 @@ function GetToken() {
 
 function App() {
     return (
-      // <HashRouter basename={basename}>
-      <HashRouter >
+      <HashRouter basename="/module3-project-gamma/">
+        {/* <HashRouter > */}
         <AuthProvider>
-        <GetToken/>
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="patients" element={<PatientsList />} />
+          <GetToken />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="patients" element={<PatientsList />} />
 
-            <Route path="/logout" element={<Logout />} />
+              <Route path="/logout" element={<Logout />} />
 
-            <Route path="patient/:patient_id" element={<PatientDetail />} />
-            <Route
-              path="patient/:patient_id/update/"
-              element={<PatientUpdate />}
-            />
-            <Route path="patient/create" element={<PatientForm />} />
-            <Route path="questionnaires" element={<QuestionnairesList />} />
+              <Route path="patient/:patient_id" element={<PatientDetail />} />
+              <Route
+                path="patient/:patient_id/update/"
+                element={<PatientUpdate />}
+              />
+              <Route path="patient/create" element={<PatientForm />} />
+              <Route path="questionnaires" element={<QuestionnairesList />} />
 
-            <Route path="dashboard" element={<MainPage />} />
-            <Route
-              path="patient/:patient_id/questionnaires"
-              element={<QuestionnairesList />}
-            />
-            <Route
-              path="questionnaire/:questionnaire_id"
-              element={<QuestionnaireDetail />}
-            />
-            <Route
-              path="patient/:patient_id/questionnaire/create"
-              element={<QuestionnaireForm />}
-            />
-            <Route
-              path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
-              element={<QuestionnaireEdit />}
-            />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="register" element={<ResgisterForm />} />
-          </Routes>
-        </div>
+              <Route path="dashboard" element={<MainPage />} />
+              <Route
+                path="patient/:patient_id/questionnaires"
+                element={<QuestionnairesList />}
+              />
+              <Route
+                path="questionnaire/:questionnaire_id"
+                element={<QuestionnaireDetail />}
+              />
+              <Route
+                path="patient/:patient_id/questionnaire/create"
+                element={<QuestionnaireForm />}
+              />
+              <Route
+                path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
+                element={<QuestionnaireEdit />}
+              />
+              <Route path="login" element={<LoginForm />} />
+              <Route path="register" element={<RegisterForm />} />
+            </Routes>
+          </div>
         </AuthProvider>
       </HashRouter>
     );
