@@ -29,6 +29,8 @@ if (proj) {
   basename = `/${proj}/`;
 }
 
+console.log(basename);
+
 function App() {
     return (
       //uncomment this to test in deployed environment
