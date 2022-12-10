@@ -23,18 +23,20 @@ function GetToken() {
   return null
 }
 
-const proj = process.env.PROJECT_NAME;
-let basename = '/';
-if (proj) {
-  basename = `/${proj}/`;
+function getBasename() { 
+  const proj = process.env.PROJECT_NAME;
+  let basename = '/';
+  if (proj) {
+    basename = `/${proj}/`;
+  }
+  console.log(basename);
 }
 
-console.log(basename);
 
 function App() {
     return (
       //uncomment this to test in deployed environment
-      <BrowserRouter basename={basename}>
+      <BrowserRouter basename={getBasename()}>
         {/* <HashRouter > */}
         <AuthProvider>
           <GetToken />
