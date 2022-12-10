@@ -23,13 +23,16 @@ function GetToken() {
   return null
 }
 
-// const domain = /https:\/\/[^/]+/;
-// const basename = process.env.PUBLIC_URL.replace(domain, "");
-
+const proj = process.env.PROJECT_NAME;
+const basename = '/';
+if (proj) {
+  basename = `/${proj}/`;
+}
 
 function App() {
     return (
-      <BrowserRouter basename="/module3-project-gamma/">
+      //uncomment this to test in deployed environment
+      <BrowserRouter basename={basename}>
         {/* <HashRouter > */}
         <AuthProvider>
           <GetToken />
