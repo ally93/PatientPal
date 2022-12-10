@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { useAuthContext } from "./useToken";
 
 function BootstrapInput(props){
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -19,14 +19,20 @@ function QuestionnaireEdit() {
   const [concerns, setConcerns] = useState("");
   const [weight, setWeight] = useState(0);
   const [blood_pressure, setBloodPressure] = useState("");
-  const { patient_id,questionnaire_id } = useParams()
+  const { patient_id,questionnaire_id } = useParams();
+  const {token} = useAuthContext();
 
   const navigate = useNavigate();
 
   useEffect ( () => {
     async function fetchQuestionnaire() {
-        const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
-        const response = await fetch(url)
+        const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`;
+        const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
         if(response.ok) {
             const data = await response.json()
@@ -38,7 +44,7 @@ function QuestionnaireEdit() {
         }
     }
     fetchQuestionnaire()
-}, [questionnaire_id])
+}, [token, questionnaire_id])
 
   const editQuestionnaire = async (event) => {
     event.preventDefault();
@@ -57,6 +63,7 @@ function QuestionnaireEdit() {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       }
     };
     const response = await fetch(url, fetchConfig);

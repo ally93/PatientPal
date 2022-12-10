@@ -1,6 +1,6 @@
 import {React, useEffect, useState} from "react";
 import { useParams, useNavigate, Link } from 'react-router-dom';
-
+import { useAuthContext } from "./useToken";
 
 
 function QuestionnaireDetail () {
@@ -8,11 +8,17 @@ function QuestionnaireDetail () {
 
     const [questionnaire, setQuestionnaire] = useState([]);
     const { questionnaire_id } = useParams()
+    const {token} = useAuthContext();
 
     useEffect ( () => {
         async function fetchQuestionnaire() {
-            const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
-            const response = await fetch(url)
+            const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`;
+            const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
             if(response.ok) {
                 const data = await response.json()
@@ -20,15 +26,18 @@ function QuestionnaireDetail () {
             }
         }
         fetchQuestionnaire()
-    }, [questionnaire_id])
+    }, [questionnaire_id, token])
 
     async function deleteQuestionnaire() {
-        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`; 
+        const deleteUrl = `${process.env.REACT_APP_PATIENTS_API_HOST}/questionnaire/${questionnaire_id}`;
         const fetchConfig = {
-        method: "delete"
+            method: "delete",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         }
 
-        const response = await fetch(deleteUrl,fetchConfig)
+        const response = await fetch(deleteUrl, fetchConfig)
         if(response.ok) {
             navigate('/patient/'+ questionnaire.patient_id+'/questionnaires')
         }

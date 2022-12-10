@@ -16,11 +16,22 @@ import QuestionnaireEdit from "./QuestionnaireEdit";
 import LoginForm from "./Login";
 // import SignOut from "./Logout";
 import Logout from "./LogOutTest";
+import { AuthProvider, useToken } from "./useToken";
+
+function GetToken() {
+  useToken()
+  return null
+}
+
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
 
 
 function App() {
     return (
-      <HashRouter>
+      <HashRouter basename={basename}>
+        <AuthProvider>
+        <GetToken/>
         <div className="container">
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -57,6 +68,7 @@ function App() {
             <Route path="register" element={<ResgisterForm />} />
           </Routes>
         </div>
+        </AuthProvider>
       </HashRouter>
     );
 }

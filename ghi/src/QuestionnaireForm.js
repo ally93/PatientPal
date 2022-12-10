@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuthContext } from "./useToken";
 
 function BootstrapInput(props) {
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -30,6 +31,7 @@ function QuestionnaireForm() {
   const [blood_pressure, setBloodPressure] = useState("");
   const [date, setDate] = useState("");
   const { patient_id } = useParams();
+  const {token} = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -50,6 +52,7 @@ function QuestionnaireForm() {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
     const response = await fetch(url, fetchConfig);

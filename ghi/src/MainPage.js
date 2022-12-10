@@ -2,14 +2,15 @@ import { useAuthContext } from "./useToken";
 import familyphoto from "./images/familyphoto.jpeg";
 
 import { Navigate } from "react-router-dom";
-
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function MainPage() {
   const { token } = useAuthContext();
 
-  if(token) {
+
+
     return (
       <>
         <Navbar />
@@ -22,11 +23,9 @@ function MainPage() {
         <Footer />
       </>
     );
-  } else {
-    return <Navigate to="/login" />;
-  }
+  
 
- 
+
 }
 
 export default MainPage;

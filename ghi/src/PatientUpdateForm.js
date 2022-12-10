@@ -59,8 +59,10 @@ function PatientUpdate(props) {
         setDoctor(data.doctor_id);
       }
     }
+    if (token) {
+      fetchPatient();
+    }
 
-    fetchPatient();
   }, [url, token]);
 
   const updatePatient = async (event) => {

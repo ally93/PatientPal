@@ -25,8 +25,10 @@ function PatientDetail(props) {
         setPatient(data);
       }
     }
+    if (token) {
+      fetchPatient();
+    }
 
-    fetchPatient();
   }, [patient_id, token]);
 
   return (
@@ -74,7 +76,7 @@ function PatientDetail(props) {
         </button>
 
         <button type="button" className="btn btn-outline-light">
-          <NavLink className="nav-link" aria-current="page" to="questionnaires">
+          <NavLink className="nav-link" aria-current="page" to={`/patient/${patient.id}/questionnaires/`}>
             Patient Questionnaires
           </NavLink>
         </button>
