@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToken } from "./useToken"; // added this
+
 
 const RegisterForm = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -9,6 +11,9 @@ const RegisterForm = () => {
   const [pid, setPid] = useState("");
   const navigate = useNavigate();
 
+
+  const [, , , signup] = useToken(); // added this
+
   const clearRegisterForm = () => {
     setName("");
     setEmail("");
@@ -16,27 +21,14 @@ const RegisterForm = () => {
     setPid("");
   };
 
-  const handleSubmit = async (submit) => {
-    submit.preventDefault();
-    const authUrl = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
-    const fetchConfig = {
-      method: "post",
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        pid: pid,
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-    const response = await fetch(authUrl, fetchConfig);
-    await response.json();
-    if (response.ok) {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response_success = await signup(name, password, email, pid)
+    if (!response_success) {
+      setSubmitted(true)
+    } else {
       clearRegisterForm();
-      setSubmitted(true);
-      navigate("/");
+      navigate("/")
     }
   };
 

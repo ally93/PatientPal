@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useToken";
 
@@ -10,27 +10,25 @@ function PatientsList(props) {
   const {token} = useAuthContext();
   const navigate = useNavigate();
 
-  const fetchPatients = useCallback(async () => {
-     const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients`;
-
-     const response = await fetch(url, {
-       method: "GET",
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     });
-     if (response.ok) {
-       const data = await response.json();
-       setPatients(data);
-     } else if (response.status === 401) {
-       console.log("Unauthorized redirecting");
-       navigate("/dashboard");
-     }
-  }, [token, navigate]);
-
   useEffect(() => {
-    fetchPatients();
-  }, [fetchPatients]);
+    async function fetchPatients() {
+      const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setPatients(data);
+      }
+    }
+    if (token) {
+      fetchPatients();
+    }
+  }, [token]);
 
   const deletePatient = async (patient_id) => {
     const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patients/${patient_id}`;
@@ -43,15 +41,15 @@ function PatientsList(props) {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       await response.json();
-      fetchPatients();
-    } 
+      const updatedPatients = patients.filter((patient) => patient.id !== patient_id)
+      setPatients(updatedPatients)
+    }
   };
 
   const redirect = (patient_id) => {
     navigate(`/patient/${patient_id}/update`);
   };
 
-  if (token) {
     return (
       <>
         <Navbar />
@@ -107,9 +105,5 @@ function PatientsList(props) {
         <Footer />
       </>
     );
-    } else {
-      navigate("/dashboard"); 
-    }
-
   }
 export default PatientsList;

@@ -14,7 +14,6 @@ function SignOut() {
       });
       navigate("/logout");
     } else {
-      console.log("Not validtoken");
       navigate("/");
     }
   }

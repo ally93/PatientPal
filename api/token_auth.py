@@ -17,14 +17,18 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY)
         username: str = payload.get("sub")
+        print("user name from jwt payload: ", username)
         if username is None:
             raise credentials_exception
 
     except JWTError:
+        print("failed to read token from jwt")
         raise credentials_exception
     user = payload.get("account")
     if user is None:
+        print("account payload has nothing")
         raise credentials_exception
+    print("got user! ", user)
     return user
 
     # except JWTError:
