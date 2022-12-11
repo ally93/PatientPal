@@ -3,12 +3,12 @@
 
 // If they are: they proceed to the page
 // If not: they are redirected to the login page.
-import React from 'react'
+import React from "react";
 import { getToken } from "./useToken";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-    const token = getToken();
+  const token = getToken();
   if (token) {
     return children;
   } else {
@@ -17,4 +17,4 @@ const PrivateRoute = ({ children }) => {
   }
 };
 
-export default PrivateRoute
+export default PrivateRoute;

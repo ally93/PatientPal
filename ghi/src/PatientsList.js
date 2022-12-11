@@ -90,12 +90,12 @@ function PatientsList(props) {
                       onClick={() => deletePatient(patient.id)}
                     >
                       Delete
-                    </button>
+                    </button>{" "}
                   </td>
                   <td>
                     <button
                       type="button"
-                      className="btn btn-danger"
+                      className="btn btn-primary"
                       onClick={() => redirect(patient.id)}
                     >
                       Edit

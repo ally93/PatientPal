@@ -19,6 +19,8 @@ import LoginForm from "./Login";
 import Logout from "./LogOutTest";
 import { AuthProvider, useToken } from "./useToken";
 
+import "bootstrap/dist/css/bootstrap.css";
+
 function GetToken() {
   useToken();
   return null;

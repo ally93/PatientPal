@@ -50,7 +50,7 @@ function handleErrorMessage(error) {
     error = error.join("<br>");
   } else if (typeof error === "object") {
     error = Object.entries(error).reduce(
-      (acc, x) => `${acc}<br>${x[0]}: ${x[1]}`,
+      (acc, x) => `${acc}${x[1]}`,
       ""
     );
   }
@@ -124,27 +124,31 @@ export function useToken() {
   }
 
   async function signup(name, password, email, pid) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        pid: pid,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(email, password);
+    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
+    try {
+      const response = await fetch(url, {
+        method: "post",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          pid: pid,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        await login(email, password);
+      }
+    } catch (e) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts/`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
