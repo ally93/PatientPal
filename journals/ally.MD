@@ -1,25 +1,46 @@
+## Dec 10, 2022
+Today I worked on:
+
+* page navigation with auth
+
+While testing the app, I realized we were being taken into home without logging in and was unable to logout successfully. To fix this, first I broke up the pages into pages that requires auth and pages that doesn't need it, then I discovered a way to wrap the routes needing auth in privateroute. This privateroute checks if you have a session token, and only navigates appropriately if the token exist otherwise reroutes to login page. Session token was returning null inconsistently across the app. After alot of reading on google and stack overflow on how to hold the token, I realized we can use this thing called session storage which helps hold the token for the entire duration of a session. I modified useToken.js to store the session token after login in session storage(check useToken.js at getTokenInternal) and a local variable for faster access. Whenever the app requests the token, we first check the local variable and if its missing, returns the values in session storage. Whenever the user logs out, we delete the token in session storage and local variable (check useToken.js at logout ). Tested out the nav thru the app. The local var was getting its token cleared when I refreshed the page which is why session storage was needed.
+
+- Stored user information (user id, name, etc.) when getting access token in sessionStorage similar to token above.
+- Update patient list to filter patients based on doctor id (user id).
+- Update patient create to default doctor id with user id so when you create patient it's under the user that's logged in. 
+
+## Dec 9, 2022
+Today I worked on:
+
+* CI deployment in gitlab
+
+So turns out the reason for our frontend not loading up as the token was not passed correctly is because my patients api in render did not even have the signing key. This is a great lesson and I am pretty sure I know what to do next time. 
+
+## Dec 8, 2022
+Today I worked on:
+
+* CI deployment in gitlab
+
+
+## Dec 7, 2022
+Today I worked on:
+
+* CI deployment in gitlab
+
+
 ## Dec 6, 2022
 Today I worked on:
 
-* CD deployment in render
+* CI deployment in gitlab
+
 
 
 ## Dec 5, 2022
 Today I worked on:
 
-* CD deployment in render
+* CI deployment in gitlab
 
-
-## Dec 4, 2022
-Today I worked on:
-
-* CD deployment in render
-
-
-## Dec 3, 2022
-Today I worked on:
-
-* CD deployment in render
+I set up my gitlab ci-yaml file as recommended by our notes and class. I renamed our build frontend as build-patients-portal-front-end-job and pages as deploy-front-end. I tried deploying but it was failing on several lint jobs, when I fixed the lint i still was not able to deploy the frontend on gitlab.
 
 
 ## Dec 2, 2022

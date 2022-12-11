@@ -2,13 +2,21 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
+const USER_KEY = "user_id";
+const TOKEN_KEY = "token";
+
 export function getToken() {
-  if(internalToken) {
+  if (internalToken) {
     return internalToken;
   } else {
-    internalToken = sessionStorage.getItem("token");
+    internalToken = sessionStorage.getItem(TOKEN_KEY);
     return internalToken;
   }
+}
+
+export function getUserInfo() {
+  const user_info = sessionStorage.getItem(USER_KEY);
+  return JSON.parse(user_info);
 }
 
 export async function getTokenInternal() {
@@ -20,7 +28,8 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
-      sessionStorage.setItem("token", internalToken);
+      sessionStorage.setItem(TOKEN_KEY, internalToken);
+      sessionStorage.setItem(USER_KEY, JSON.stringify(data.account));
       return internalToken;
     }
   } catch (e) {}
@@ -85,7 +94,8 @@ export function useToken() {
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
-      sessionStorage.removeItem("token", internalToken);
+      sessionStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem(USER_KEY);
       navigate("/login");
     }
   }
