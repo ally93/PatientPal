@@ -89,13 +89,16 @@ export function useToken() {
   }, [setToken, token]);
 
   async function logout() {
-    if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
-      await fetch(url, { method: "delete", credentials: "include" });
-      internalToken = null;
-      setToken(null);
-      sessionStorage.removeItem(TOKEN_KEY);
-      sessionStorage.removeItem(USER_KEY);
+    internalToken = null;
+    setToken(null);
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(USER_KEY);
+    try {
+      if (token) {
+        const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
+        await fetch(url, { method: "delete", credentials: "include" });
+      }
+    } finally {
       navigate("/login");
     }
   }
