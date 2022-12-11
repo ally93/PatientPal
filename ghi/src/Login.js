@@ -3,12 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-
-import familyphoto from "./images/familyphoto.jpeg";
 
 import {
-  MDBBtn,
   MDBContainer,
   MDBCard,
   MDBCardBody,

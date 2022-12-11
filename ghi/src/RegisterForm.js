@@ -8,10 +8,8 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
   MDBRow,
-  MDBCol,
-  MDBCheckbox
+  MDBCol
 }
 from 'mdb-react-ui-kit';
 
@@ -24,13 +22,6 @@ const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [, , , signup] = useToken(); // added this
-
-  const clearRegisterForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPid("");
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
