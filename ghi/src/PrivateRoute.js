@@ -9,7 +9,6 @@ import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
     const token = getToken();
-    console.log("logged in ", token);
   if (token) {
     return children;
   } else {
