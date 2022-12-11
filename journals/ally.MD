@@ -1,4 +1,28 @@
-## Dec 1, 2022
+## Dec 6, 2022
+Today I worked on:
+
+* CD deployment in render
+
+
+## Dec 5, 2022
+Today I worked on:
+
+* CD deployment in render
+
+
+## Dec 4, 2022
+Today I worked on:
+
+* CD deployment in render
+
+
+## Dec 3, 2022
+Today I worked on:
+
+* CD deployment in render
+
+
+## Dec 2, 2022
 Today I worked on:
 
 * CD deployment in render

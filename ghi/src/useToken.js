@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
 export function getToken() {
-  return internalToken;
+  if(internalToken) {
+    return internalToken;
+  } else {
+    internalToken = sessionStorage.getItem("token");
+    return internalToken;
+  }
 }
 
 export async function getTokenInternal() {
@@ -15,6 +20,7 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
+      sessionStorage.setItem("token", internalToken);
       return internalToken;
     }
   } catch (e) {}
@@ -79,6 +85,7 @@ export function useToken() {
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
+      sessionStorage.removeItem("token", internalToken);
       navigate("/login");
     }
   }
@@ -96,7 +103,7 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
-      navigate("/dashboard")
+      navigate("/dashboard");
       return;
     }
     let error = await response.json();
