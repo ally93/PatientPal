@@ -3,21 +3,12 @@ import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
 export function getToken() {
-  return internalToken;
-}
-
-export async function isLoggedIn() {
-  console.log(internalToken);
-  if (internalToken) {
-    return true;
+  if(internalToken) {
+    return internalToken;
   } else {
-    const token_refresh = await getTokenInternal();
-    console.log("refresh token: ", token_refresh);
-    return (
-      internalToken !== undefined && internalToken !== null && internalToken !== false
-    );
+    internalToken = sessionStorage.getItem("token");
+    return internalToken;
   }
-  // return internalToken !== undefined && internalToken !== null;
 }
 
 export async function getTokenInternal() {
@@ -29,6 +20,7 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
+      sessionStorage.setItem("token", internalToken);
       return internalToken;
     }
   } catch (e) {}
@@ -93,6 +85,7 @@ export function useToken() {
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
+      sessionStorage.removeItem("token", internalToken);
       navigate("/login");
     }
   }
@@ -159,5 +152,5 @@ export function useToken() {
     return false;
   }
 
-  return [token, login, logout, signup, update, isLoggedIn];
+  return [token, login, logout, signup, update];
 }
