@@ -16,7 +16,7 @@ import QuestionnaireEdit from "./QuestionnaireEdit";
 // import Nav from "./Nav";
 import LoginForm from "./Login";
 // import SignOut from "./Logout";
-import Logout from "./LogOutTest";
+import Logout from "./LogOut";
 import { AuthProvider, useToken } from "./useToken";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -28,9 +28,9 @@ function GetToken() {
 
 function App() {
   return (
-    // <BrowserRouter basename="/module3-project-gamma/">
-    <BrowserRouter basename="/">
-      {/* <HashRouter > */}
+    <BrowserRouter basename="/module3-project-gamma/">
+      {/* in case to test locally uncomment the line below */}
+    {/* <BrowserRouter basename="/"> */}
       <AuthProvider>
         <GetToken />
         <div className="container">
@@ -56,7 +56,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* <Route path="dashboard" element={<MainPage />} /> */}
 
             <Route
               path="/patients"
@@ -76,7 +75,6 @@ function App() {
               }
             />
 
-            {/* <Route path="patient/:patient_id" element={<PatientDetail />} /> */}
 
             <Route
               path="patient/:patient_id/update/"
@@ -86,11 +84,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* 
-            <Route
-              path="patient/:patient_id/update/"
-              element={<PatientUpdate />}
-            /> */}
 
             <Route
               path="patient/create"
@@ -101,7 +94,6 @@ function App() {
               }
             />
 
-            {/* <Route path="patient/create" element={<PatientForm />} /> */}
 
             <Route
               path="questionnaires"
@@ -112,7 +104,6 @@ function App() {
               }
             />
 
-            {/* <Route path="questionnaires" element={<QuestionnairesList />} /> */}
 
             <Route
               path="patient/:patient_id/questionnaires"
@@ -123,10 +114,6 @@ function App() {
               }
             />
 
-            {/* <Route
-              path="patient/:patient_id/questionnaires"
-              element={<QuestionnairesList />}
-            /> */}
 
             <Route
               path="questionnaire/:questionnaire_id"
@@ -137,10 +124,6 @@ function App() {
               }
             />
 
-            {/* <Route
-              path="questionnaire/:questionnaire_id"
-              element={<QuestionnaireDetail />}
-            /> */}
 
             <Route
               path="patient/:patient_id/questionnaire/create"
@@ -151,10 +134,6 @@ function App() {
               }
             />
 
-            {/* <Route
-              path="patient/:patient_id/questionnaire/create"
-              element={<QuestionnaireForm />}
-            /> */}
 
             <Route
               path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
@@ -164,10 +143,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/* <Route
-              path="patient/:patient_id/questionnaire/:questionnaire_id/edit"
-              element={<QuestionnaireEdit />}
-            /> */}
+
           </Routes>
         </div>
       </AuthProvider>

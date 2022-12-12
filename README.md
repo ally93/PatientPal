@@ -17,11 +17,11 @@ https://heaven-seven.gitlab.io/module3-project-gamma/login
 
 ## Intended Market
 We are targeting healthcare professionals who are looking for an organized and paperless approach to hold patient information.
-Typically, a patient fills out a general questionnaire that is passed between staff. This application provides a clean interface to view the patients infromation while removing the chance of misplacing papers
+Typically, a patient fills out a general questionnaire that is passed between staff. This application provides a clean interface to view the patients information while removing the chance of misplacing papers
 
 ## Functionality
 * Questionnaires
-  * The user can add a questionnaire everytime a patient visits. The questionnaire asks for the patients' current medications, surgeries, concerns, weight, blood pressure, and date.
+  * The user can add a questionnaire every time a patient visits. The questionnaire asks for the patients' current medications, surgeries, concerns, weight, blood pressure, and date.
   * The user is able to add, update, and delete questionnaires and view the details of an individual questionnaire or a list of all questionnaires.
 
 

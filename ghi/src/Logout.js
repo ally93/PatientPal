@@ -1,35 +1,66 @@
+import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "./useToken";
 
-let internalToken = null;
-function SignOut() {
-  const navigate = useNavigate();
-  const { token } = useAuthContext();
-  async function logout() {
-    if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
-      await fetch(url, {
-        method: "delete",
-        credentials: "include",
-      });
-      navigate("/logout");
-    } else {
-      navigate("/");
+import {
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
+
+function Logout() {
+    const [, , logout] = useToken()
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // need to call logout twice to clear local tokens
+            // not sure why
+            logout();
+            logout();
+        } catch (e) {
+            console.log("logout failed ", e);
+        }
+        navigate("/login");
     }
-  }
-  const submitHandler = (e) => {
-    logout();
-    e.preventDefault();
-  };
-  return (
-    <div className="logout-container">
-      <center>
-        <form onSubmit={submitHandler}>
-          <p className="Verification">Verify Logout</p>
-          <button className="logout-btn">Logout</button>
-        </form>
-      </center>
-    </div>
-  );
+
+    return (
+      <MDBContainer className="my-5">
+        <MDBCard>
+          <MDBRow className="g-0">
+            <MDBCol md="6">
+              <MDBCardImage
+                src="https://cdn.pixabay.com/photo/2020/06/07/17/19/child-5271290_960_720.jpg"
+                alt="login form"
+                className="rounded-start w-100"
+              />
+            </MDBCol>
+            <MDBCol md="6">
+              <MDBCardBody className="d-flex flex-column">
+                <h1
+                  className="fw-normal my-4 pb-3"
+                  style={{ letterSpacing: "1px" }}
+                >
+                  Leaving so soon?
+                </h1>
+                <form onSubmit={handleSubmit}>
+                  <button
+                    className="btn btn-dark w-100"
+                    onClick={handleSubmit}
+                    type="submit"
+                  >
+                    Logout
+                  </button>
+                </form>
+              </MDBCardBody>
+            </MDBCol>
+          </MDBRow>
+        </MDBCard>
+      </MDBContainer>
+    );
 }
-export default SignOut;
+
+export default Logout
