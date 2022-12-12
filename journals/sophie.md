@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 ## December 8/9. 2022
 Started and completed readme. I updated our readme with our wireframes, apis, and data models. Researched alot on markdown files. I was able to create links on our readme to keep it more organized and have the initial page clean.
-I also redid all of our wireframes on excalidraw to reflect changes.
+I also redid all of our wireframes on excalidraw to reflect our changes
 
 ## December 5, 2022
 Added a create questionnaire button to the questionnaire list page.
@@ -51,5 +50,3 @@ I was interested in using Mongo but felt that the lectures and learn notes were 
 
 ## November 15, 2022
 Today we wanted to test merge requests by each creating our own journal branch and creating a merge request. There were issues with the pipeline failing. We didnt really go over that in lecture so spent some time trying to figure out what it meant and how to fix it. Not even sure if it was important or not since we always receive vauge answers. Finally got it to work after inputting my card information. Then I had to validate the pipeline.
-=======
->>>>>>> main
