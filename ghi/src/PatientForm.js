@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext, getUserInfo } from "./useToken";
+import { getToken, getUserInfo } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -26,7 +26,7 @@ function PatientForm(props) {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [doctor_id, setDoctor] = useState(userInfo.id);
-  const {token} = useAuthContext();
+  const token = getToken();
   const navigate = useNavigate();
 
   const submitNewPatient = async (event) => {

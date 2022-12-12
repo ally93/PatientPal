@@ -1,6 +1,6 @@
 import {React, useEffect, useState} from "react";
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -10,7 +10,7 @@ function QuestionnaireDetail () {
 
     const [questionnaire, setQuestionnaire] = useState([]);
     const { questionnaire_id } = useParams()
-    const {token} = useAuthContext();
+    const token = getToken();
 
     useEffect ( () => {
         async function fetchQuestionnaire() {

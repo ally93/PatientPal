@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -33,7 +33,7 @@ function QuestionnaireForm() {
   const [blood_pressure, setBloodPressure] = useState("");
   const [date, setDate] = useState("");
   const { patient_id } = useParams();
-  const {token} = useAuthContext();
+  const token = getToken();
 
   const navigate = useNavigate();
 

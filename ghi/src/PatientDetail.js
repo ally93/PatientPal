@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 function PatientDetail(props) {
   const [patient, setPatient] = useState({});
   const { patient_id } = useParams();
-  const {token} = useAuthContext();
+  const token = getToken();
 
   useEffect(() => {
     async function fetchPatient() {
