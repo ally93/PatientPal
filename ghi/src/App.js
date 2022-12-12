@@ -28,8 +28,8 @@ function GetToken() {
 
 function App() {
   return (
-    <BrowserRouter basename="/module3-project-gamma/">
-    {/* <BrowserRouter basename="/"> */}
+    // <BrowserRouter basename="/module3-project-gamma/">
+    <BrowserRouter basename="/">
       {/* <HashRouter > */}
       <AuthProvider>
         <GetToken />
