@@ -99,7 +99,7 @@ export function useToken() {
         await fetch(url, { method: "delete", credentials: "include" });
       }
     } finally {
-      navigate("/login");
+      // navigate("/login");
     }
   }
 

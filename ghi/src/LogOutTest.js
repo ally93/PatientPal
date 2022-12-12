@@ -1,4 +1,5 @@
 import { useToken } from "./useToken";
+import { useNavigate } from "react-router-dom";
 
 import {
   MDBContainer,
@@ -11,10 +12,19 @@ import {
 
 function Logout() {
     const [, , logout] = useToken()
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        logout()
+        e.preventDefault();
+        try {
+            // need to call logout twice to clear local tokens
+            // not sure why
+            logout();
+            logout();
+        } catch (e) {
+            console.log("logout failed ", e);
+        }
+        navigate("/login");
     }
 
     return (
