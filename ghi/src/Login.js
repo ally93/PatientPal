@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useToken } from "./useToken";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import {
   MDBContainer,
@@ -77,8 +78,11 @@ function LoginForm() {
                 <button className="btn btn-dark w-50" onClick={clickForm} type="submit">Login</button>
                 {errorMessage && (<p className="text-danger"> {errorMessage} </p>)}
               </form>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="/register" style={{color: '#393f81'}}>Register here</a></p>
-
+              <br/>
+              <NavLink className="nav-link" aria-current="page" to="/register">
+              Register Here
+              </NavLink>
+              <br/>
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" className="small text-muted me-1">Terms of use.</a>
                 <a href="#!" className="small text-muted">Privacy policy</a>
