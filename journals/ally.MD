@@ -1,7 +1,9 @@
 ## Dec 11, 2022
 
-Today I worked on improving our user interface guided from the link below.
+* Today I worked on improving our user interface guided from the link below.
 https://mdbootstrap.com/docs/react/extended/login-form/#section-login-card-example
+
+Login, register, logout were updated today. I also updated the way the session token is managed in useToken.js . What was happening before was that there was a useEffect in the file to retrieve the token from the back end every time the token object is updated. When I was debugging the logout i noticed that when clearing the token on logout, it automatically fetched the token in the process of logging out. So the user was logged out in back end but the front end still had token that was previously being used. Solution was to not use uesEffect on the token obj and only set the token obj and the session storage object at login and clear both at log out. 
 
 ## Dec 10, 2022
 Today I worked on:
