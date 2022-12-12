@@ -1,9 +1,22 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 let internalToken = null;
 
+const USER_KEY = "user_id";
+const TOKEN_KEY = "token";
+
 export function getToken() {
-  return internalToken;
+  if (internalToken) {
+    return internalToken;
+  } else {
+    internalToken = sessionStorage.getItem(TOKEN_KEY);
+    return internalToken;
+  }
+}
+
+export function getUserInfo() {
+  const user_info = sessionStorage.getItem(USER_KEY);
+  return JSON.parse(user_info);
 }
 
 export async function getTokenInternal() {
@@ -15,6 +28,9 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
+      console.log("setting token ", internalToken);
+      sessionStorage.setItem(TOKEN_KEY, internalToken);
+      sessionStorage.setItem(USER_KEY, JSON.stringify(data.account));
       return internalToken;
     }
   } catch (e) {}
@@ -34,10 +50,7 @@ function handleErrorMessage(error) {
   if (Array.isArray(error)) {
     error = error.join("<br>");
   } else if (typeof error === "object") {
-    error = Object.entries(error).reduce(
-      (acc, x) => `${acc}<br>${x[0]}: ${x[1]}`,
-      ""
-    );
+    error = Object.entries(error).reduce((acc, x) => `${acc}${x[1]}`, "");
   }
   return error;
 }
@@ -63,30 +76,36 @@ export function useToken() {
   const { token, setToken } = useAuthContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchToken() {
-      const token = await getTokenInternal();
-      setToken(token);
-    }
-    if (!token) {
-      fetchToken();
-    }
-  }, [setToken, token]);
+  // useEffect(() => {
+  //   async function fetchToken() {
+  //     const token = await getTokenInternal();
+  //     setToken(token);
+  //   }
+  //   if (!token) {
+  //     fetchToken();
+  //   }
+  // }, [setToken, token]);
 
   async function logout() {
-    if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
-      await fetch(url, { method: "delete", credentials: "include" });
-      internalToken = null;
-      setToken(null);
-      navigate("/");
+    internalToken = null;
+    setToken(null);
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(USER_KEY);
+    console.log("cleared token");
+    try {
+      if (token) {
+        const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
+        await fetch(url, { method: "delete", credentials: "include" });
+      }
+    } finally {
+      // navigate("/login");
     }
   }
 
-  async function login(username, password) {
+  async function login(email, password) {
     const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;
     const form = new FormData();
-    form.append("username", username);
+    form.append("username", email);
     form.append("password", password);
     const response = await fetch(url, {
       method: "post",
@@ -96,35 +115,39 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
+      navigate("/dashboard");
       return;
     }
     let error = await response.json();
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts/`;
-    const response = await fetch(url, {
-      method: "post",
-      body: JSON.stringify({
-        username,
-        password,
-        email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(username, password);
+  async function signup(name, password, email, pid) {
+    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
+    try {
+      const response = await fetch(url, {
+        method: "post",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          pid: pid,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        await login(email, password);
+      }
+    } catch (e) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts/`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
@@ -140,6 +163,7 @@ export function useToken() {
     });
     if (response.ok) {
       await login(username, password);
+      return true;
     }
     return false;
   }

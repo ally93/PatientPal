@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -33,7 +33,7 @@ function PatientUpdate(props) {
   const [address, setAddress] = useState(defaultVal);
   const [gender, setGender] = useState(defaultVal);
   const [doctor_id, setDoctor] = useState(defaultVal);
-  const {token} = useAuthContext();
+  const token = getToken();
 
   const navigate = useNavigate();
   const { patient_id } = useParams();
@@ -59,8 +59,10 @@ function PatientUpdate(props) {
         setDoctor(data.doctor_id);
       }
     }
+    if (token) {
+      fetchPatient();
+    }
 
-    fetchPatient();
   }, [url, token]);
 
   const updatePatient = async (event) => {

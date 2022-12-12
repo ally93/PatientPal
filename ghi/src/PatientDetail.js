@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 function PatientDetail(props) {
   const [patient, setPatient] = useState({});
   const { patient_id } = useParams();
-  const {token} = useAuthContext();
+  const token = getToken();
 
   useEffect(() => {
     async function fetchPatient() {
@@ -25,8 +25,10 @@ function PatientDetail(props) {
         setPatient(data);
       }
     }
+    if (token) {
+      fetchPatient();
+    }
 
-    fetchPatient();
   }, [patient_id, token]);
 
   return (
@@ -67,14 +69,14 @@ function PatientDetail(props) {
             </tr>
           </tbody>
         </table>
-        <button type="button" className="btn btn-outline-light">
+        <button type="button" className="btn btn-dark">
           <NavLink className="nav-link" aria-current="page" to="update">
             Edit Patient
           </NavLink>
         </button>
 
-        <button type="button" className="btn btn-outline-light">
-          <NavLink className="nav-link" aria-current="page" to="questionnaires">
+        <button type="button" className="btn btn-dark">
+          <NavLink className="nav-link" aria-current="page" to={`/patient/${patient.id}/questionnaires/`}>
             Patient Questionnaires
           </NavLink>
         </button>

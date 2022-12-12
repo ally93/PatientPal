@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from "./useToken";
+import { getToken, getUserInfo } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -17,13 +17,16 @@ function BootstrapInput(props){
 }
 
 function PatientForm(props) {
+  const userInfo = getUserInfo();
+  
+
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
-  const [doctor_id, setDoctor] = useState("");
-  const {token} = useAuthContext();
+  const [doctor_id, setDoctor] = useState(userInfo.id);
+  const token = getToken();
   const navigate = useNavigate();
 
   const submitNewPatient = async (event) => {
