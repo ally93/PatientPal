@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext, getUserInfo } from "./useToken";
+import { getToken, getUserInfo } from "./useToken";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function PatientsList(props) {
   const [patients, setPatients] = useState([]);
-  const { token } = useAuthContext();
+  const token = getToken();
   const navigate = useNavigate();
   const userId = getUserInfo().id;
 

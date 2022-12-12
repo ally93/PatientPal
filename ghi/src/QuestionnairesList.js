@@ -1,13 +1,13 @@
 import { React, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function QuestionnairesList() {
     const [questionnaires, setQuestionnaires] = useState([]);
     const { patient_id } = useParams()
-    const {token} = useAuthContext();
+    const token = getToken();
 
     // const fetchQuestionnaires = useCallback(async () => {
     //   const url = `${process.env.REACT_APP_PATIENTS_API_HOST}/api/patient/${patient_id}/questionnaires`;

@@ -28,6 +28,7 @@ export async function getTokenInternal() {
     if (response.ok) {
       const data = await response.json();
       internalToken = data.access_token;
+      console.log("setting token ", internalToken);
       sessionStorage.setItem(TOKEN_KEY, internalToken);
       sessionStorage.setItem(USER_KEY, JSON.stringify(data.account));
       return internalToken;
@@ -49,10 +50,7 @@ function handleErrorMessage(error) {
   if (Array.isArray(error)) {
     error = error.join("<br>");
   } else if (typeof error === "object") {
-    error = Object.entries(error).reduce(
-      (acc, x) => `${acc}${x[1]}`,
-      ""
-    );
+    error = Object.entries(error).reduce((acc, x) => `${acc}${x[1]}`, "");
   }
   return error;
 }
@@ -78,21 +76,22 @@ export function useToken() {
   const { token, setToken } = useAuthContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchToken() {
-      const token = await getTokenInternal();
-      setToken(token);
-    }
-    if (!token) {
-      fetchToken();
-    }
-  }, [setToken, token]);
+  // useEffect(() => {
+  //   async function fetchToken() {
+  //     const token = await getTokenInternal();
+  //     setToken(token);
+  //   }
+  //   if (!token) {
+  //     fetchToken();
+  //   }
+  // }, [setToken, token]);
 
   async function logout() {
     internalToken = null;
     setToken(null);
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(USER_KEY);
+    console.log("cleared token");
     try {
       if (token) {
         const url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/token`;

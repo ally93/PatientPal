@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuthContext } from "./useToken";
+import { getToken } from "./useToken";
 
 function BootstrapInput(props){
   const { id, placeholder, labelText, value, onChange, type } = props;
@@ -20,7 +20,7 @@ function QuestionnaireEdit() {
   const [weight, setWeight] = useState(0);
   const [blood_pressure, setBloodPressure] = useState("");
   const { patient_id,questionnaire_id } = useParams();
-  const {token} = useAuthContext();
+  const token = getToken();
 
   const navigate = useNavigate();
 
