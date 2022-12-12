@@ -9,7 +9,7 @@ services:
     volumes:
         - postgres-data:/var/lib/postgresql/data
     environment:
-        - POSTGRES_MULTIPLE_DATABASES=gamma
+        - POSTGRES_MULTIPLE_DATABASES=gamma, accounts
         - POSTGRES_PASSWORD=test-databases
     ports:
         - 15432:5432
@@ -25,6 +25,21 @@ services:
       DATABASE_URL: postgresql://gamma:password@postgres/gamma
       WAIT_HOSTS: postgres:5432
       PORT: 8000
+      SIGNING_KEY: ASLDKFJASL;FKAS;L
+
+  accounts_api:
+    build:
+        context: ./accounts_api
+        dockerfile: ./Dockerfile.dev
+    ports:
+        - "8100:8100"
+    volumes:
+        - ./accounts_api:/app
+    environment:
+      DATABASE_URL: postgresql://accounts:password@postgres/accounts
+      WAIT_HOSTS: postgres:5432
+      PORT: 8100
+      SIGNING_KEY: ASLDKFJASL;FKAS;L
 
   ghi:
     image: node:lts-bullseye
@@ -39,4 +54,5 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
+      REACT_APP_ACCOUNTS_API_HOST: http://localhost:8100
+      REACT_APP_PATIENTS_API_HOST: http://localhost:8000
