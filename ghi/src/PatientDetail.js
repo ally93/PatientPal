@@ -69,13 +69,13 @@ function PatientDetail(props) {
             </tr>
           </tbody>
         </table>
-        <button type="button" className="btn btn-outline-light">
+        <button type="button" className="btn btn-dark">
           <NavLink className="nav-link" aria-current="page" to="update">
             Edit Patient
           </NavLink>
         </button>
 
-        <button type="button" className="btn btn-outline-light">
+        <button type="button" className="btn btn-dark">
           <NavLink className="nav-link" aria-current="page" to={`/patient/${patient.id}/questionnaires/`}>
             Patient Questionnaires
           </NavLink>

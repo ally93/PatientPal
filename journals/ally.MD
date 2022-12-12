@@ -1,3 +1,8 @@
+## Dec 11, 2022
+
+Today I worked on improving our user interface guided from the link below.
+https://mdbootstrap.com/docs/react/extended/login-form/#section-login-card-example
+
 ## Dec 10, 2022
 Today I worked on:
 

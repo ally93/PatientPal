@@ -7,25 +7,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function MainPage() {
-  // const { token } = useAuthContext();
+  return (
+    <>
+      <Navbar />
+      <h1 className="jumbotron">My Patient Portal</h1>
 
-
-
-    return (
-      <>
-        <Navbar />
-        <h1>My Patient Portal</h1>
-
-        <div>
-          {/* <Link to="register"> register </Link> */}
-          <img src={familyphoto} alt="fam" />
-        </div>
-        <Footer />
-      </>
-    );
-  
-
-
+      <div>
+        {/* <Link to="register"> register </Link> */}
+        <img
+          className="d-block mx-auto img-fluid w-100"
+          src={familyphoto}
+          alt="fam"
+        />
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 export default MainPage;
