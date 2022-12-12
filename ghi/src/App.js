@@ -16,7 +16,7 @@ import QuestionnaireEdit from "./QuestionnaireEdit";
 // import Nav from "./Nav";
 import LoginForm from "./Login";
 // import SignOut from "./Logout";
-import Logout from "./LogOut";
+import Logout from "./Logout";
 import { AuthProvider, useToken } from "./useToken";
 
 import "bootstrap/dist/css/bootstrap.css";
